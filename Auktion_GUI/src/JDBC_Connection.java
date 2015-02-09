@@ -26,6 +26,7 @@ public class JDBC_Connection {
 		if(singleton == null){
 			singleton = new JDBC_Connection();			
 		}
+		System.out.println("Singleton tillagd");
 		return singleton;		
 	}
 

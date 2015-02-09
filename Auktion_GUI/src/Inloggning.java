@@ -51,6 +51,7 @@ public class Inloggning extends JFrame {
 				System.out.println("Loggar in som kund: " + comboBoxLoginID.getSelectedItem().toString());
 			}
 		});
+		
 		GridBagConstraints gbc_btnLoggaInSomKund = new GridBagConstraints();
 		gbc_btnLoggaInSomKund.insets = new Insets(0, 0, 5, 5);
 		gbc_btnLoggaInSomKund.gridx = 1;
@@ -70,7 +71,7 @@ public class Inloggning extends JFrame {
 		gbc_comboBoxLoginID.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxLoginID.gridx = 1;
 		gbc_comboBoxLoginID.gridy = 1;
-		for(String element : JDBC..getAllaKundIDs()){
+		for(String element : dBConnection.getAllaKundIDs()){
 			comboBoxLoginID.addItem(element);
 		}
 		contentPane.add(comboBoxLoginID, gbc_comboBoxLoginID);
