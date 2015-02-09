@@ -10,7 +10,7 @@ public class Auktion_Main {
 					JDBC_Connection dBConnection = new JDBC_Connection();
 //					Kund_GUI frame = new Kund_GUI();
 //					frame.setVisible(true);
-					Inloggning inloggning = new Inloggning();
+					Inloggning inloggning = new Inloggning(dBConnection);
 					inloggning.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

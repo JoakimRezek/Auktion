@@ -19,5 +19,36 @@ public class JDBC_Connection {
 		conn = DriverManager.getConnection(CONNECTIONSTRING, USERNAME, PASSWORD);
 		System.out.println("Connected to DB");
 	}
-}
 
+	public ArrayList<String> getAllaKundIDs() throws SQLException{
+
+		ArrayList<String> arrAllaKundIDs = new ArrayList<>();
+
+		Statement stm = conn.createStatement();
+		ResultSet rs = stm.executeQuery("SELECT PersonNummer FROM Kund");
+
+		while(rs.next()){
+			arrAllaKundIDs.add(rs.getString("Personnummer"));
+		}
+
+		stm.close();
+		rs.close();
+		return arrAllaKundIDs;			
+	}
+	
+	public ArrayList<String> getAllaLeverantörIDs() throws SQLException{
+
+		ArrayList<String> arrAllaLeverantörIDs = new ArrayList<>();
+
+		Statement stm = conn.createStatement();
+		ResultSet rs = stm.executeQuery("SELECT Organisationsnummer FROM Leverantör");
+
+		while(rs.next()){
+			arrAllaLeverantörIDs.add(rs.getString("Organisationsnummer"));
+		}
+
+		stm.close();
+		rs.close();
+		return arrAllaLeverantörIDs;			
+	}	
+}
