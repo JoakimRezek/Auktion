@@ -104,8 +104,8 @@ end ¤¤
 delimiter ;
 
 create view PågåendeAuktioner
-as select AuktionsID, Produktnamn, StartDatum, Slutdatum, Utgångspris, max(Pris) as Maxbud, Personnummer, Acceptpris, 
-	      Företagsnamn, Provision, Kontaktperson, Leverantör.Email as Email, Leverantör.Telefonnummer as Telefonnummer
+as select AuktionsID, Produktnamn, StartDatum, Slutdatum, Utgångspris, max(Pris) as Maxbud, Acceptpris, 
+	      Företagsnamn, Provision, Kontaktperson, Leverantör.Email as Email, Leverantör.Telefonnummer as Telefonnummer, Personnummer as Kund
 from Auktion
 inner join Leverantör on Auktion.leverantör = Leverantör.Organisationsnummer
 inner join Bud on Auktion.AuktionsID = Bud.Auktion
