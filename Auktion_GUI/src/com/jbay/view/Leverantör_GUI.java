@@ -1,3 +1,4 @@
+package com.jbay.view;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.sql.SQLException;
@@ -5,11 +6,15 @@ import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.GridLayout;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+
+import com.jbay.controller.JDBC_Connection;
 
 
 public class Leverantör_GUI extends JFrame {
