@@ -69,3 +69,31 @@ CREATE TABLE  Bud(
   CONSTRAINT Bud_Auktion_fk FOREIGN KEY(Auktion) REFERENCES Auktion(AuktionsID) ON DELETE CASCADE,
   CONSTRAINT Bud_Kund_fk FOREIGN KEY(Kund) REFERENCES Kund(PersonNummer) ON DELETE CASCADE);
 
+
+create table avslutadeAuktioner(
+AuktionsID INT NOT NULL,
+Startdatum DATETIME NULL,
+Utgångspris DOUBLE NULL,
+Acceptpris DOUBLE NULL,
+Slutdatum DATETIME NULL,
+Produktnamn VARCHAR(45) NULL,
+Produktkategori VARCHAR(45) NULL,
+Leverantör VARCHAR(15) NOT NULL,
+  
+PRIMARY KEY (AuktionsID),
+  
+CONSTRAINT avsultadeAuktioner_Leverantör_fk FOREIGN KEY(Leverantör) REFERENCES Leverantör(Organisationsnummer) ON DELETE CASCADE
+);
+
+delimiter ¤¤
+create trigger auktionsSlut after insert on bud
+	for each row begin
+    if new.Pris >= (select Acceptpris from auktion where AuktionsID = new.Auktion) then
+		insert into avslutadeAuktioner(
+        auktionsID, startdatum, utgångspris, acceptpris, slutdatum, produktnamn, produktkategori, leverantör
+        )
+        select * from auktion where new.auktion = auktionsID;
+        delete from auktion where new.auktion = auktionsID;
+	end if;
+end ¤¤
+delimiter ;
