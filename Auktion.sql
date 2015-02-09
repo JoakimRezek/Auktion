@@ -15,7 +15,7 @@ CREATE TABLE Leverantör(
   PRIMARY KEY (Organisationsnummer));
 
 CREATE TABLE Kund(
-  PersonNummer INT NOT NULL,
+  PersonNummer varchar(14) NOT NULL,
   Förnamn VARCHAR(20) NULL,
   Efternamn VARCHAR(30) NULL,
   Adress VARCHAR(45) NULL,
@@ -61,7 +61,7 @@ CREATE TABLE AuktionsKategori(
 
 CREATE TABLE  Bud(
   Auktion INT NOT NULL,
-  Kund INT NOT NULL,
+  Kund varchar(14) NOT NULL,
   Pris DOUBLE NULL,
   
   PRIMARY KEY (Auktion, Kund, Pris),
@@ -88,7 +88,6 @@ CONSTRAINT avsultadeAuktioner_Leverantör_fk FOREIGN KEY(Leverantör) REFERENCES
 delimiter ¤¤
 create trigger auktionsSlut after insert on bud
 	for each row begin
-	start transaction;
 		if new.Pris >= (select Acceptpris from auktion where AuktionsID = new.Auktion) then
 			insert into avslutadeAuktioner(
 			auktionsID, startdatum, utgångspris, acceptpris, slutdatum, produktnamn, produktkategori, leverantör
@@ -96,7 +95,6 @@ create trigger auktionsSlut after insert on bud
 			select * from auktion where new.auktion = auktionsID;
 			delete from auktion where new.auktion = auktionsID;
 		end if;
-    commit;
 end ¤¤
 delimiter ;
 
