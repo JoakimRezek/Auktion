@@ -88,13 +88,15 @@ CONSTRAINT avsultadeAuktioner_Leverantör_fk FOREIGN KEY(Leverantör) REFERENCES
 delimiter ¤¤
 create trigger auktionsSlut after insert on bud
 	for each row begin
-    if new.Pris >= (select Acceptpris from auktion where AuktionsID = new.Auktion) then
-		insert into avslutadeAuktioner(
-        auktionsID, startdatum, utgångspris, acceptpris, slutdatum, produktnamn, produktkategori, leverantör
-        )
-        select * from auktion where new.auktion = auktionsID;
-        delete from auktion where new.auktion = auktionsID;
-	end if;
+	start transaction;
+		if new.Pris >= (select Acceptpris from auktion where AuktionsID = new.Auktion) then
+			insert into avslutadeAuktioner(
+			auktionsID, startdatum, utgångspris, acceptpris, slutdatum, produktnamn, produktkategori, leverantör
+			)
+			select * from auktion where new.auktion = auktionsID;
+			delete from auktion where new.auktion = auktionsID;
+		end if;
+    commit;
 end ¤¤
 delimiter ;
 
