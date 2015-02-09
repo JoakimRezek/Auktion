@@ -94,6 +94,7 @@ create trigger auktionsSlut after insert on bud
 			auktionsID, startdatum, utgångspris, acceptpris, slutdatum, produktnamn, produktkategori, leverantör
 			)
 			select * from auktion where new.auktion = auktionsID;
+            update avslutadeAuktioner set slutpris = new.Pris where AuktionsID = new.Auktion;
 			delete from auktion where new.auktion = auktionsID;
 		end if;
 end ¤¤
