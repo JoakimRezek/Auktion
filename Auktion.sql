@@ -97,3 +97,10 @@ create trigger auktionsSlut after insert on bud
 	end if;
 end ¤¤
 delimiter ;
+
+create view PågåendeAuktioner
+as select AuktionsID, Produktnamn, StartDatum, Slutdatum, Utgångspris, max(Pris) as Maxbud, Acceptpris, 
+	      Företagsnamn, Provision, Kontaktperson, Email, Telefonnummer
+from Auktion
+inner join Leverantör on Auktion.leverantör = Leverantör.Organisationsnummer
+inner join Bud on Auktion.AuktionsID = Bud.Auktion;
