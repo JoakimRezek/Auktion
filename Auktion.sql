@@ -64,7 +64,7 @@ CREATE TABLE  Bud(
   Kund INT NOT NULL,
   Pris DOUBLE NULL,
   
-  PRIMARY KEY (Auktion, Kund),
+  PRIMARY KEY (Auktion, Kund, Pris),
   
   CONSTRAINT Bud_Auktion_fk FOREIGN KEY(Auktion) REFERENCES Auktion(AuktionsID) ON DELETE CASCADE,
   CONSTRAINT Bud_Kund_fk FOREIGN KEY(Kund) REFERENCES Kund(PersonNummer) ON DELETE CASCADE);
