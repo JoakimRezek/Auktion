@@ -19,7 +19,7 @@ CREATE TABLE Kund(
   Förnamn VARCHAR(20) NULL,
   Efternamn VARCHAR(30) NULL,
   Adress VARCHAR(45) NULL,
-  Postnummer INT NULL,
+  Postnummer VARCHAR(5) NULL,
   Ort VARCHAR(25) NULL,
   Telefonnummer VARCHAR(15) NULL,
   Email VARCHAR(45) NULL,
@@ -88,13 +88,15 @@ CONSTRAINT avsultadeAuktioner_Leverantör_fk FOREIGN KEY(Leverantör) REFERENCES
 delimiter ¤¤
 create trigger auktionsSlut after insert on bud
 	for each row begin
-    if new.Pris >= (select Acceptpris from auktion where AuktionsID = new.Auktion) then
-		insert into avslutadeAuktioner(
-        auktionsID, startdatum, utgångspris, acceptpris, slutdatum, produktnamn, produktkategori, leverantör
-        )
-        select * from auktion where new.auktion = auktionsID;
-        delete from auktion where new.auktion = auktionsID;
-	end if;
+	start transaction;
+		if new.Pris >= (select Acceptpris from auktion where AuktionsID = new.Auktion) then
+			insert into avslutadeAuktioner(
+			auktionsID, startdatum, utgångspris, acceptpris, slutdatum, produktnamn, produktkategori, leverantör
+			)
+			select * from auktion where new.auktion = auktionsID;
+			delete from auktion where new.auktion = auktionsID;
+		end if;
+    commit;
 end ¤¤
 delimiter ;
 
