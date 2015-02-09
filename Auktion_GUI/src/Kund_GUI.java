@@ -6,7 +6,7 @@ import java.awt.GridBagLayout;
 
 public class Kund_GUI extends JFrame {
 	
-	public Kund_GUI() {
+	public Kund_GUI(String PersonNummer) {
 		setTitle("Kund_VY");
 		setVisible(true);
 		setBounds(100, 100, 800, 600);
