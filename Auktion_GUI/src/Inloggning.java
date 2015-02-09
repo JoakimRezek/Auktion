@@ -25,10 +25,11 @@ public class Inloggning extends JFrame {
 	private JComboBox<String> comboBoxLeverantörID;
 	
 	private JDBC_Connection dBConnection;
+
 	
-	public Inloggning(JDBC_Connection dBConnection) throws SQLException {
+	public Inloggning() throws SQLException {
 		
-		this.dBConnection = dBConnection;
+		dBConnection = JDBC_Connection.getSingleton(); 
 		
 		setTitle("Logga In");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,7 +70,7 @@ public class Inloggning extends JFrame {
 		gbc_comboBoxLoginID.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxLoginID.gridx = 1;
 		gbc_comboBoxLoginID.gridy = 1;
-		for(String element : dBConnection.getAllaKundIDs()){
+		for(String element : JDBC..getAllaKundIDs()){
 			comboBoxLoginID.addItem(element);
 		}
 		contentPane.add(comboBoxLoginID, gbc_comboBoxLoginID);

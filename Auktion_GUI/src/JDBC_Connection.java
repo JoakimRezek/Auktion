@@ -12,12 +12,21 @@ public class JDBC_Connection {
 	private static final String USERNAME = "root";
 	private static final String PASSWORD = "";
 	private static final String CONNECTIONSTRING = "jdbc:mysql://localhost/auktion";
+	
+	private static JDBC_Connection singleton;
 
 	private Connection conn;
 
-	public JDBC_Connection() throws SQLException {
+	private JDBC_Connection() throws SQLException {
 		conn = DriverManager.getConnection(CONNECTIONSTRING, USERNAME, PASSWORD);
 		System.out.println("Connected to DB");
+	}
+	
+	public static JDBC_Connection getSingleton() throws SQLException{
+		if(singleton == null){
+			singleton = new JDBC_Connection();			
+		}
+		return singleton;		
 	}
 
 	public ArrayList<String> getAllaKundIDs() throws SQLException{
