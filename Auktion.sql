@@ -80,10 +80,13 @@ Slutdatum DATETIME NULL,
 Produktnamn VARCHAR(45) NULL,
 Produktkategori VARCHAR(45) NULL,
 Leverantör VARCHAR(15) NOT NULL,
+AcceptDatum DATETIME NULL,
+Kund varchar(14) NULL,
   
 PRIMARY KEY (AuktionsID),
   
-CONSTRAINT avsultadeAuktioner_Leverantör_fk FOREIGN KEY(Leverantör) REFERENCES Leverantör(Organisationsnummer) ON DELETE CASCADE
+CONSTRAINT avsultadeAuktioner_Leverantör_fk FOREIGN KEY(Leverantör) REFERENCES Leverantör(Organisationsnummer) ON DELETE CASCADE,
+CONSTRAINT avsultadeAuktioner_Kund_fk FOREIGN KEY(Kund) REFERENCES Kund(PersonNummer) ON DELETE CASCADE
 );
 
 delimiter ¤¤
@@ -94,7 +97,7 @@ create trigger auktionsSlut after insert on bud
 			auktionsID, startdatum, utgångspris, acceptpris, slutdatum, produktnamn, produktkategori, leverantör
 			)
 			select * from auktion where new.auktion = auktionsID;
-            update avslutadeAuktioner set slutpris = new.Pris where AuktionsID = new.Auktion;
+            update avslutadeAuktioner set slutpris = new.Pris, Kund = new.Kund, AcceptDatum = CURTIME() where AuktionsID = new.Auktion;
 			delete from auktion where new.auktion = auktionsID;
 		end if;
 end ¤¤
