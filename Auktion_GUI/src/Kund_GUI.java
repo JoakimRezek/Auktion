@@ -8,6 +8,7 @@ public class Kund_GUI extends JFrame {
 	
 	public Kund_GUI() {
 		setTitle("Kund_VY");
+		setVisible(true);
 		setBounds(100, 100, 800, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();

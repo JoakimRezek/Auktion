@@ -47,7 +47,8 @@ public class Inloggning extends JFrame {
 		JButton btnLoggaInSomKund = new JButton("Kund Login");
 		btnLoggaInSomKund.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new Kund_GUI(dBConnection);
+				new Kund_GUI();
+				setVisible(false);
 				System.out.println("Loggar in som kund: " + comboBoxLoginID.getSelectedItem().toString());
 			}
 		});
@@ -64,6 +65,13 @@ public class Inloggning extends JFrame {
 		gbc_btnLoggaInSomLeverantör.gridx = 7;
 		gbc_btnLoggaInSomLeverantör.gridy = 0;
 		contentPane.add(btnLoggaInSomLeverantör, gbc_btnLoggaInSomLeverantör);
+		btnLoggaInSomLeverantör.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+//				new Kund_GUI();
+				setVisible(false);
+				System.out.println("Loggar in som Leverantör: " + comboBoxLeverantörID.getSelectedItem().toString());
+			}
+		});
 		
 		comboBoxLoginID = new JComboBox<String>();
 		GridBagConstraints gbc_comboBoxLoginID = new GridBagConstraints();
