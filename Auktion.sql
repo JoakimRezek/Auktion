@@ -104,3 +104,10 @@ as select AuktionsID, Produktnamn, StartDatum, Slutdatum, Utgångspris, max(Pris
 from Auktion
 inner join Leverantör on Auktion.leverantör = Leverantör.Organisationsnummer
 inner join Bud on Auktion.AuktionsID = Bud.Auktion;
+
+create view Budhistorik
+as select Bud.Auktion, Produktnamn,  Förnamn, Efternamn, Pris
+from bud
+inner join Kund on Bud.Kund = Kund.Personnummer
+inner join Auktion on Bud.Auktion = Auktion.AuktionsID
+order by pris desc;
