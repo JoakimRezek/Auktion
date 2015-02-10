@@ -26,14 +26,14 @@ import javax.swing.JButton;
 import com.jbay.controller.JDBC_Connection;
 
 
-public class AddLeverantör extends JFrame {
+public class AddLeverantor extends JFrame {
 
 	private JPanel contentPane;
 	
 	
-	private static AddLeverantör frame;
+	private static AddLeverantor frame;
 	private JTextField orgNrField;
-	private JTextField företagField;
+	private JTextField foretagField;
 	private JTextField provisionField;
 	private JTextField kntPersonField;
 	private JTextField emailField;
@@ -47,7 +47,7 @@ public class AddLeverantör extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddLeverantör frame = new AddLeverantör();
+					AddLeverantor frame = new AddLeverantor();
 					frame.setVisible(true);
 					frame.pack();
 				} catch (Exception e) {
@@ -57,9 +57,9 @@ public class AddLeverantör extends JFrame {
 		});
 	}
 	
-	public static AddLeverantör getsingleton(){
+	public static AddLeverantor getsingleton(){
 		if (frame == null) 
-			frame = new AddLeverantör();
+			frame = new AddLeverantor();
 		
 		
 		return frame;
@@ -69,7 +69,7 @@ public class AddLeverantör extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AddLeverantör() {
+	public AddLeverantor() {
 		setTitle("Registrera ny LeverantÃ¶r");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -100,22 +100,22 @@ public class AddLeverantör extends JFrame {
 		contentPane.add(orgNrField, gbc_orgNrField);
 		orgNrField.setColumns(10);
 		
-		JLabel lblföretag = new JLabel("FÃ¶retagsnamn:");
-		GridBagConstraints gbc_lblFöretag = new GridBagConstraints();
-		gbc_lblFöretag.insets = new Insets(10, 10, 10, 10);
-		gbc_lblFöretag.gridx = 0;
-		gbc_lblFöretag.gridy = 1;
-		contentPane.add(lblföretag, gbc_lblFöretag);
+		JLabel lblforetag = new JLabel("FÃ¶retagsnamn:");
+		GridBagConstraints gbc_lblForetag = new GridBagConstraints();
+		gbc_lblForetag.insets = new Insets(10, 10, 10, 10);
+		gbc_lblForetag.gridx = 0;
+		gbc_lblForetag.gridy = 1;
+		contentPane.add(lblforetag, gbc_lblForetag);
 		
-		företagField = new JTextField();
-		GridBagConstraints gbc_företagField = new GridBagConstraints();
-		gbc_företagField.gridwidth = 2;
-		gbc_företagField.insets = new Insets(10, 10, 10, 10);
-		gbc_företagField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_företagField.gridx = 1;
-		gbc_företagField.gridy = 1;
-		contentPane.add(företagField, gbc_företagField);
-		företagField.setColumns(10);
+		foretagField = new JTextField();
+		GridBagConstraints gbc_foretagField = new GridBagConstraints();
+		gbc_foretagField.gridwidth = 2;
+		gbc_foretagField.insets = new Insets(10, 10, 10, 10);
+		gbc_foretagField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_foretagField.gridx = 1;
+		gbc_foretagField.gridy = 1;
+		contentPane.add(foretagField, gbc_foretagField);
+		foretagField.setColumns(10);
 		
 		JLabel lblProvision = new JLabel("Provision:");
 		GridBagConstraints gbc_lblProvision = new GridBagConstraints();
@@ -190,14 +190,14 @@ public class AddLeverantör extends JFrame {
 		btnRegistrera.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String orgNummer = orgNrField.getText();
-				String företag = företagField.getText();
+				String foretag = foretagField.getText();
 				int provision = Integer.parseInt(provisionField.getText());
 				String kntPerson = kntPersonField.getText();
 				String email = emailField.getText();
 				String telefon = telefonField.getText();
 				
 				try {
-					JDBC_Connection.getSingleton().läggTillNyLeverantör(orgNummer, företag, provision, kntPerson, email, telefon);
+					JDBC_Connection.getSingleton().laggTillNyLeverantor(orgNummer, foretag, provision, kntPerson, email, telefon);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}

@@ -33,7 +33,7 @@ public class AddKund extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField personNummerField;
-	private JTextField förNamnField;
+	private JTextField forNamnField;
 	private JTextField efterNamnField;
 	private JLabel lblNewLabel_1;
 	private JTextField adressField;
@@ -110,22 +110,22 @@ public class AddKund extends JFrame {
 		contentPane.add(personNummerField, gbc_personNummerField);
 		personNummerField.setColumns(10);
 		
-		JLabel lblEfternamn = new JLabel("Förnamn:");
+		JLabel lblEfternamn = new JLabel("Fornamn:");
 		GridBagConstraints gbc_lblEfternamn = new GridBagConstraints();
 		gbc_lblEfternamn.insets = new Insets(10, 10, 10, 10);
 		gbc_lblEfternamn.gridx = 0;
 		gbc_lblEfternamn.gridy = 1;
 		contentPane.add(lblEfternamn, gbc_lblEfternamn);
 		
-		förNamnField = new JTextField();
-		GridBagConstraints gbc_förNamnField = new GridBagConstraints();
-		gbc_förNamnField.gridwidth = 2;
-		gbc_förNamnField.insets = new Insets(10, 10, 10, 10);
-		gbc_förNamnField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_förNamnField.gridx = 2;
-		gbc_förNamnField.gridy = 1;
-		contentPane.add(förNamnField, gbc_förNamnField);
-		förNamnField.setColumns(10);
+		forNamnField = new JTextField();
+		GridBagConstraints gbc_forNamnField = new GridBagConstraints();
+		gbc_forNamnField.gridwidth = 2;
+		gbc_forNamnField.insets = new Insets(10, 10, 10, 10);
+		gbc_forNamnField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_forNamnField.gridx = 2;
+		gbc_forNamnField.gridy = 1;
+		contentPane.add(forNamnField, gbc_forNamnField);
+		forNamnField.setColumns(10);
 		
 		JLabel lblEfterNamn = new JLabel("Efternamn:");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -236,7 +236,7 @@ public class AddKund extends JFrame {
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String personNummer = personNummerField.getText();
-				String förNamn = förNamnField.getText();
+				String forNamn = forNamnField.getText();
 				String efterNamn = efterNamnField.getText();
 				String adress = adressField.getText();
 				String postNummer = postNummerField.getText();
@@ -245,7 +245,7 @@ public class AddKund extends JFrame {
 				String email = emailField.getText();
 				
 				try {
-					JDBC_Connection.getSingleton().läggTillNyKund(personNummer, förNamn, efterNamn, adress, postNummer, ort, telefonNummer, email);
+					JDBC_Connection.getSingleton().laggTillNyKund(personNummer, forNamn, efterNamn, adress, postNummer, ort, telefonNummer, email);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
