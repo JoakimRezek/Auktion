@@ -67,19 +67,19 @@ public class JDBC_Connection {
 	}	
 
 	public ArrayList<String> getAllaKategorier() throws SQLException{
-		ArrayList<String> arrAllaKategorier = new ArrayList<String>();
+		ArrayList<String> arrAllaKategorierNamn = new ArrayList<String>();
 
 
 		Statement stm = conn.createStatement();
 		ResultSet rs = stm.executeQuery("SELECT KategoriID FROM Kategori");
 
 		while(rs.next()){
-			arrAllaKategorier.add(rs.getString("KategoriID"));
+			arrAllaKategorierNamn.add(rs.getString("KategoriNamn"));
 		}
 
 		stm.close();
 		rs.close();
-		return arrAllaKategorier;		
+		return arrAllaKategorierNamn;		
 	}
 
 	public ArrayList<Auktion> getAllaPågåendeAuktioner() throws SQLException{
