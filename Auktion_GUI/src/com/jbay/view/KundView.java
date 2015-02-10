@@ -25,6 +25,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.SwingConstants;
 
+import com.jbay.controller.JDBC_Connection;
+
 
 public class KundView extends JFrame {
 
@@ -46,8 +48,6 @@ public class KundView extends JFrame {
 	private JButton btnAvbryt;
 	
 	private static KundView frame;
-	
-	private JDBC_Connection controller = new JDBC_Connection();
 	
 	/**
 	 * Launch the application.
@@ -242,8 +242,9 @@ public class KundView extends JFrame {
 				String ort = ortField.getText();
 				String telefonNummer = telefonNummerField.getText();
 				String email = emailField.getText();
-
-				controller.läggTillNyLeverantör(orgNummer, företag, provision, kntPerson, email, telefon);
+				
+				JDBC_Connection.getSingleton().läggTillNyKund(personNummer, förNamn, efterNamn, adress, postNummer, ort, telefonNummer, email);
+				
 			}
 		});
 		GridBagConstraints gbc_btnRegister = new GridBagConstraints();

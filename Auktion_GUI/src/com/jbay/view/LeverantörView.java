@@ -22,6 +22,8 @@ import java.awt.event.ActionListener;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
+import com.jbay.controller.JDBC_Connection;
+
 
 public class LeverantörView extends JFrame {
 
@@ -35,9 +37,7 @@ public class LeverantörView extends JFrame {
 	private JTextField kntPersonField;
 	private JTextField emailField;
 	private JTextField telefonField;
-	
-	
-	private JDBC_Connection controller = new JDBC_Connection();
+
 
 	/**
 	 * Launch the application.
@@ -194,8 +194,8 @@ public class LeverantörView extends JFrame {
 				String kntPerson = kntPersonField.getText();
 				String email = emailField.getText();
 				String telefon = telefonField.getText();
-
-				controller.läggTillNyLeverantör(orgNummer, företag, provision, kntPerson, email, telefon);
+				
+				JDBC_Connection.getSingleton().läggTillNyLeverantör(orgNummer, företag, provision, kntPerson, email, telefon);
 				
 			}
 		});
