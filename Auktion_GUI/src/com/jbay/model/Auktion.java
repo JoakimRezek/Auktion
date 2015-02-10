@@ -16,8 +16,17 @@ public class Auktion {
 	private String kontaktPerson;
 	private String eMail;
 	private String telefon;
-	private String Kund;
+	private String kund;
+	private String kategori;
 	
+	public String getKategori() {
+		return kategori;
+	}
+
+	public void setKategori(String kategori) {
+		this.kategori = kategori;
+	}
+
 	@Override
 	public String toString() {
 		return auktionsID + ". " + produktNamn;
@@ -26,7 +35,7 @@ public class Auktion {
 	public Auktion(int auktionsID, String produktNamn, Date startDatum,
 			Date slutDatum, double utgångsPris, double maxBud,
 			double acceptPris, String företag, int provision,
-			String kontaktPerson, String eMail, String telefon, String kund) {
+			String kontaktPerson, String eMail, String telefon, String kund, String kategori) {
 		super();
 		this.auktionsID = auktionsID;
 		this.produktNamn = produktNamn;
@@ -40,7 +49,8 @@ public class Auktion {
 		this.kontaktPerson = kontaktPerson;
 		this.eMail = eMail;
 		this.telefon = telefon;
-		Kund = kund;
+		this.kund = kund;
+		this.kategori = kategori;
 	}
 
 	public int getAuktionsID() {
@@ -117,10 +127,10 @@ public class Auktion {
 		this.telefon = telefon;
 	}
 	public String getKund() {
-		return Kund;
+		return kund;
 	}
 	public void setKund(String kund) {
-		Kund = kund;
+		this.kund = kund;
 	}
 	
 	
