@@ -76,7 +76,7 @@ public class Inloggning extends JFrame {
 		JButton btnLoggaInSomKund = new JButton("Kund Login");
 		btnLoggaInSomKund.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new Kund_GUI(comboBoxLoginID.getSelectedItem().toString());
+				Kund_GUI.getsingleton(comboBoxLoginID.getSelectedItem().toString());
 				setVisible(false);
 				System.out.println("Loggar in som kund: " + comboBoxLoginID.getSelectedItem().toString());
 			}
