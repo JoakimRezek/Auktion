@@ -113,7 +113,7 @@ public class Inloggning extends JFrame {
 		btnLoggaInSomLeverantör.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					Leverantör_GUI.getSingleton(comboBoxLeverantörID.getSelectedItem().toString()).setVisible(true);
+					Leverantor_GUI.getSingleton(comboBoxLeverantörID.getSelectedItem().toString()).setVisible(true);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}

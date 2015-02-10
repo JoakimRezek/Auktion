@@ -26,12 +26,12 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 
 
-public class Leverantör_GUI extends JFrame {
+public class Leverantor_GUI extends JFrame {
 
-	private static Leverantör_GUI singleton;
+	private static Leverantor_GUI singleton;
 	
-	public static Leverantör_GUI getSingleton(String leverantör) throws SQLException{
-		if(singleton == null) singleton = new Leverantör_GUI(leverantör);
+	public static Leverantor_GUI getSingleton(String leverantör) throws SQLException{
+		if(singleton == null) singleton = new Leverantor_GUI(leverantör);
 		return singleton;
 	}
 	
@@ -46,7 +46,7 @@ public class Leverantör_GUI extends JFrame {
 	private JTextField produktField;
 	private JTable table;
 	
-	private Leverantör_GUI(String leverantör) throws SQLException {
+	private Leverantor_GUI(String leverantör) throws SQLException {
 		this.leverantor = leverantör;
 		db = JDBC_Connection.getSingleton();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
