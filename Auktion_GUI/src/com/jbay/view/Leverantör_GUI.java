@@ -120,7 +120,8 @@ public class Leverantör_GUI extends JFrame {
 		
 		JPanel panel = new JPanel();
 		mainPane.add(panel, BorderLayout.CENTER);
-		ArrayList<Auktion> auktionList = db.getAllaPågåendeAuktioner();
+		System.out.println(leverantör);
+		ArrayList<Auktion> auktionList = db.getAllaPagaendeAuktionerSomLeverantorIDBudatPa(leverantör);
 		Object[][] tableData = new Object[auktionList.size()][9];
 		String[] columnNames = {"Auktion", "Produktnamn", "Högsta bud", "Startdatum", "Slutdatum", "Utgångspris", "Maxbud", "Acceptpris", "Företag"};
 		for(int i = 0; i < auktionList.size(); i++){
