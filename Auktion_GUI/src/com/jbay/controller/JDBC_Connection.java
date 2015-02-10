@@ -207,12 +207,12 @@ public class JDBC_Connection {
 		
 	}
 	
-	public void laggTillNyttBud(String auktionID, String personNummer, double bud, JLabel label) throws SQLException{
+	public void laggTillNyttBud(int auktionID, String personNummer, double bud, JLabel label) throws SQLException{
 		
 		conn.setAutoCommit(false);
 		PreparedStatement stm = conn.prepareStatement("INSERT INTO auktion.bud (Auktion, Kund, Pris) VALUES (?, ?, ?)",
 				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-		stm.setString(1, auktionID);
+		stm.setInt(1, auktionID);
 		stm.setString(2, personNummer);
 		stm.setDouble(3, bud);
 		
@@ -222,6 +222,6 @@ public class JDBC_Connection {
 		
 		stm.close();
 		
-		label.setText("Ditt bud har blivit godtagen");
+		label.setText("Ditt bud har blivit godtaget.");
 	}
 }

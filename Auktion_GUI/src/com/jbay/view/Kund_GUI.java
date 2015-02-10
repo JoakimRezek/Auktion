@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import com.jbay.controller.JDBC_Connection;
 import com.jbay.model.Auktion;
 import com.mysql.jdbc.JDBC4CallableStatement;
+
 import javax.swing.JLabel;
 
 
@@ -145,16 +146,33 @@ public class Kund_GUI extends JFrame {
 		textField = new JTextField();
 		panel_2.add(textField);
 		textField.setColumns(10);
+		
+		JLabel vidUppdatering = new JLabel(" ");
+		panel_2.add(vidUppdatering);
+
 
 		JButton btnLggBud = new JButton("L\u00E4gg bud");
 		btnLggBud.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e){ 
+			public void actionPerformed(ActionEvent e){
+				if(Double.parseDouble(textField.getText()) > auktionList.get(table.getSelectedColumn()).getMaxBud()){			
+					try {
+						JDBC_Connection.getSingleton().laggTillNyttBud(auktionList.get(table.getSelectedColumn()).getAuktionsID(), personNummer, Double.parseDouble(textField.getText()), vidUppdatering);
+					} catch (NumberFormatException e1) {
+						vidUppdatering.setText("Felaktig inmatning");
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+				else{
+					vidUppdatering.setText("Ditt bud måste vara högre än " + auktionList.get(table.getSelectedColumn()).getMaxBud());
+				}
 			}
 		});
 		panel_2.add(btnLggBud);
+		
 
-		JLabel vidUppdatering = new JLabel(" ");
-		panel_2.add(vidUppdatering);
+
+
 
 
 
