@@ -69,7 +69,7 @@ public class Kund_GUI extends JFrame {
 		minaBudgivningar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
 				try {
-					auktionList = JDBC_Connection.getSingleton().getAllaPågåendeAuktionerSomKundIDBudatPå(personNummer);
+					auktionList = JDBC_Connection.getSingleton().getAllaPagaendeAuktionerSomKundIDBudatPa(personNummer);
 					data = new Object[auktionList.size()][10];
 					
 					for (int i = 0; i < auktionList.size(); i++) {
@@ -100,7 +100,7 @@ public class Kund_GUI extends JFrame {
 		allaAuktioner.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					auktionList = JDBC_Connection.getSingleton().getAllaPågåendeAuktioner();
+					auktionList = JDBC_Connection.getSingleton().getAllaPagaendeAuktioner();
 					data = new Object[auktionList.size()][9];
 					
 					for (int i = 0; i < auktionList.size(); i++) {
