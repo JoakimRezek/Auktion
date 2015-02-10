@@ -1,37 +1,31 @@
 package com.jbay.view;
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.sql.SQLException;
-
-import javax.swing.SwingConstants;
-import javax.swing.JComboBox;
 
 import com.jbay.controller.JDBC_Connection;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
-
+@SuppressWarnings("serial")
 public class Inloggning extends JFrame {
 
 	private JPanel contentPane;
 	private JComboBox<String> comboBoxLoginID;
-	private JComboBox<String> comboBoxLeverantorID;
+	private JComboBox<String> comboBoxLeverant\u00F6rID;
 	private static Inloggning inloggning;
 	
 	private JDBC_Connection dBConnection;
 	private JButton btnNyKund;
-	private JButton btnNyLeverantr;
+	private JButton btnNyLeverant\u00F6rr;
 
 	public static Inloggning getInloggning(){
 		if (inloggning == null) {
@@ -42,10 +36,6 @@ public class Inloggning extends JFrame {
 			}
 		}
 		return inloggning;
-	}
-	
-	public static void main(String[] args){
-		Inloggning.getInloggning();
 	}
 	
 	private Inloggning() throws SQLException {
@@ -77,18 +67,23 @@ public class Inloggning extends JFrame {
 		}
 		contentPane.add(comboBoxLoginID, gbc_comboBoxLoginID);
 		
-		comboBoxLeverantorID = new JComboBox<String>();
+		comboBoxLeverant\u00F6rID = new JComboBox<String>();
 		GridBagConstraints gbc_comboBoxLeverant\u00F6rID = new GridBagConstraints();
 		gbc_comboBoxLeverant\u00F6rID.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBoxLeverant\u00F6rID.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxLeverant\u00F6rID.gridx = 7;
 		gbc_comboBoxLeverant\u00F6rID.gridy = 0;		
-		contentPane.add(comboBoxLeverantorID, gbc_comboBoxLeverant\u00F6rID);		
+		contentPane.add(comboBoxLeverant\u00F6rID, gbc_comboBoxLeverant\u00F6rID);		
 		for(String element : dBConnection.getAllaLeverantorIDs()){
-			comboBoxLeverantorID.addItem(element);
+			comboBoxLeverant\u00F6rID.addItem(element);
 		}
 		
-		JButton btnLoggaInSomKund = new JButton("Kund Login");
+		JButton btnLoggaInSomKund = new JButton("Kund Login");		
+		GridBagConstraints gbc_btnLoggaInSomKund = new GridBagConstraints();
+		gbc_btnLoggaInSomKund.insets = new Insets(0, 0, 5, 5);
+		gbc_btnLoggaInSomKund.gridx = 1;
+		gbc_btnLoggaInSomKund.gridy = 1;
+		contentPane.add(btnLoggaInSomKund, gbc_btnLoggaInSomKund);
 		btnLoggaInSomKund.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Kund_GUI.getsingleton(comboBoxLoginID.getSelectedItem().toString()).setVisible(true);
@@ -96,12 +91,6 @@ public class Inloggning extends JFrame {
 				System.out.println("Loggar in som kund: " + comboBoxLoginID.getSelectedItem().toString());
 			}
 		});
-		
-		GridBagConstraints gbc_btnLoggaInSomKund = new GridBagConstraints();
-		gbc_btnLoggaInSomKund.insets = new Insets(0, 0, 5, 5);
-		gbc_btnLoggaInSomKund.gridx = 1;
-		gbc_btnLoggaInSomKund.gridy = 1;
-		contentPane.add(btnLoggaInSomKund, gbc_btnLoggaInSomKund);
 		
 		JButton btnLoggaInSomLeverant\u00F6r = new JButton("Leverant\u00F6r Login");
 		GridBagConstraints gbc_btnLoggaInSomLeverant\u00F6r = new GridBagConstraints();
@@ -112,12 +101,12 @@ public class Inloggning extends JFrame {
 		btnLoggaInSomLeverant\u00F6r.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					Leverantor_GUI.getSingleton(comboBoxLeverantorID.getSelectedItem().toString()).setVisible(true);
+					Leverantor_GUI.getSingleton(comboBoxLeverant\u00F6rID.getSelectedItem().toString()).setVisible(true);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 				dispose();
-				System.out.println("Loggar in som Leverant\u00F6r: " + comboBoxLeverantorID.getSelectedItem().toString());
+				System.out.println("Loggar in som Leverant\u00F6r: " + comboBoxLeverant\u00F6rID.getSelectedItem().toString());
 			}
 		});
 		
@@ -126,13 +115,26 @@ public class Inloggning extends JFrame {
 		gbc_btnNyKund.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNyKund.gridx = 1;
 		gbc_btnNyKund.gridy = 4;
+		btnNyKund.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				AddLeverantor.getsingleton().setVisible(true);
+				dispose();
+			}
+		});
 		contentPane.add(btnNyKund, gbc_btnNyKund);
 		
-		btnNyLeverantr = new JButton("Ny Leverant\u00F6r");
+		btnNyLeverant\u00F6rr = new JButton("Ny Leverant\u00F6r");
 		GridBagConstraints gbc_btnNyLeverantr = new GridBagConstraints();
 		gbc_btnNyLeverantr.gridx = 7;
 		gbc_btnNyLeverantr.gridy = 4;
-		contentPane.add(btnNyLeverantr, gbc_btnNyLeverantr);
+		btnNyLeverantörr.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AddKund.getsingleton().setVisible(true);
+				dispose();
+			}
+		});
+		contentPane.add(btnNyLeverant\u00F6rr, gbc_btnNyLeverantr);
+		
 		pack();		
 	}
 }
