@@ -39,15 +39,15 @@ public class Leverantör_GUI extends JFrame {
 	private JPanel mainPane;
 	private JDBC_Connection db;
 	private JTextField startdatumField;
-	private String Leverantör;
+	private String leverantor;
 	private JTextField slutdatumField;
-	private JTextField utgångsprisField;
+	private JTextField utgangsprisField;
 	private JTextField acceptprisField;
 	private JTextField produktField;
 	private JTable table;
 	
 	private Leverantör_GUI(String leverantör) throws SQLException {
-		this.Leverantör = leverantör;
+		this.leverantor = leverantör;
 		db = JDBC_Connection.getSingleton();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 504, 723);
@@ -84,9 +84,9 @@ public class Leverantör_GUI extends JFrame {
 		JLabel lblStartpris = new JLabel("Utg\u00E5ngspris:");
 		nyAuktionPane.add(lblStartpris);
 		
-		utgångsprisField = new JTextField();
-		nyAuktionPane.add(utgångsprisField);
-		utgångsprisField.setColumns(10);
+		utgangsprisField = new JTextField();
+		nyAuktionPane.add(utgangsprisField);
+		utgangsprisField.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Acceptpris:");
 		nyAuktionPane.add(lblNewLabel);
