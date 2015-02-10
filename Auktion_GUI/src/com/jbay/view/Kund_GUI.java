@@ -1,34 +1,26 @@
 package com.jbay.view;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import java.awt.GridBagLayout;
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.SwingConstants;
-import java.awt.Component;
-import javax.swing.JLabel;
-import java.awt.GridLayout;
-import java.awt.CardLayout;
-import java.awt.GridBagConstraints;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import net.miginfocom.swing.MigLayout;
 import java.awt.FlowLayout;
-import javax.swing.JTextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+
+import com.jbay.model.Auktion;
 
 
 public class Kund_GUI extends JFrame {
 	private JTextField textField;
 	private JTable table;
 	private static Kund_GUI singleton;
+	private List<Auktion> auktionList;
+	private Object[][] data = {};
 	
 	public static Kund_GUI getsingleton(String personNummer){
 		if (singleton == null) {
@@ -52,11 +44,27 @@ public class Kund_GUI extends JFrame {
 		panel.add(panel_1, BorderLayout.NORTH);
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnMinaPgendeBudgivningar = new JButton("Mina p\u00E5g\u00E5ende budgivningar");
-		panel_1.add(btnMinaPgendeBudgivningar);
+		JButton minaBudgivningar = new JButton("Mina p\u00E5g\u00E5ende budgivningar");
+		minaBudgivningar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		panel_1.add(minaBudgivningar);
 		
-		JButton btnAllaAuktioner = new JButton("Alla auktioner");
-		panel_1.add(btnAllaAuktioner);
+		JButton allaAuktioner = new JButton("Alla auktioner");
+		allaAuktioner.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		panel_1.add(allaAuktioner);
+		
+		JButton btnMeny = new JButton("Meny");
+		btnMeny.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		panel_1.add(btnMeny);
 		
 		JPanel panel_2 = new JPanel();
 		panel.add(panel_2, BorderLayout.SOUTH);
