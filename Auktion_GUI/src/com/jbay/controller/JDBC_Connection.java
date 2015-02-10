@@ -173,7 +173,7 @@ public class JDBC_Connection {
 	public void laggTillNyKund( String prsNummer, String fornamn, String efternamn, String adress, 
 			String postnummer, String ort, String tlfnummer, String email) throws SQLException{
 
-		PreparedStatement stm = conn.prepareStatement("INSERT INTO Kund (PersonNummer, F�rnamn, Efternamn, Adress, Postnummer, Ort, Telefonnummer, Email) "
+		PreparedStatement stm = conn.prepareStatement("INSERT INTO Kund (PersonNummer, F\u00F6rnamn, Efternamn, Adress, Postnummer, Ort, Telefonnummer, Email) "
 				+ "values (?, ?, ?, ?, ?, ?, ?, ?)");
 		stm.setString(1, prsNummer);
 		stm.setString(2, fornamn);

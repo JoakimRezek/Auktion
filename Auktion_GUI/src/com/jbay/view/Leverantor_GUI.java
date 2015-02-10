@@ -144,6 +144,7 @@ public class Leverantor_GUI extends JFrame {
 		btnTillbaka.addActionListener(e ->{
 			Inloggning.getInloggning().setVisible(true);
 			dispose();
+			singleton = null;
 		});
 		mainPane.add(btnTillbaka, BorderLayout.SOUTH);
 		
