@@ -22,6 +22,7 @@ import com.mysql.jdbc.JDBC4CallableStatement;
 public class Kund_GUI extends JFrame {
 	private JTextField textField;
 	private JTable table;
+	private String personNummer;
 	private static Kund_GUI singleton;
 	private List<Auktion> auktionList;
 	private String[] columnNames = {"Auktion", "Produktnamn", "Högsta bud", "Startdatum", "Slutdatum", "Utgångspris", "Maxbud", "Acceptpris", "Företag"};
@@ -35,6 +36,8 @@ public class Kund_GUI extends JFrame {
 	}
 	
 	private Kund_GUI(String personNummer) {
+		this.personNummer = personNummer;
+		
 		setTitle("Kund_VY");
 		setVisible(true);
 		setBounds(100, 100, 800, 600);
@@ -57,8 +60,29 @@ public class Kund_GUI extends JFrame {
 		
 		JButton minaBudgivningar = new JButton("Mina p\u00E5g\u00E5ende budgivningar");
 		minaBudgivningar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
+			public void actionPerformed(ActionEvent e) {	
+				try {
+					auktionList = JDBC_Connection.getSingleton().getAllaPågåendeAuktionerSomKundIDBudatPå(personNummer);
+					data = new Object[auktionList.size()][9];
+					
+					for (int i = 0; i < auktionList.size(); i++) {
+						data[i][0] = auktionList.get(i).getAuktionsID();
+						data[i][1] = auktionList.get(i).getProduktNamn();
+						data[i][2] = auktionList.get(i).getKund();
+						data[i][3] = auktionList.get(i).getStartDatum();
+						data[i][4] = auktionList.get(i).getSlutDatum();
+						data[i][5] = auktionList.get(i).getUtgångsPris();
+						data[i][6] = auktionList.get(i).getMaxBud();
+						data[i][7] = auktionList.get(i).getAcceptPris();
+						data[i][8] = auktionList.get(i).getFöretag();
+						}
+										
+						table.setModel(new DefaultTableModel(data, columnNames));								
+					
+					
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 				
 			}
 		});

@@ -25,12 +25,12 @@ import javax.swing.JButton;
 import com.jbay.controller.JDBC_Connection;
 
 
-public class LeverantörView extends JFrame {
+public class addLeverantör extends JFrame {
 
 	private JPanel contentPane;
 	
 	
-	private static LeverantörView frame;
+	private static addLeverantör frame;
 	private JTextField orgNrField;
 	private JTextField företagField;
 	private JTextField provisionField;
@@ -46,7 +46,7 @@ public class LeverantörView extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LeverantörView frame = new LeverantörView();
+					addLeverantör frame = new addLeverantör();
 					frame.setVisible(true);
 					frame.pack();
 				} catch (Exception e) {
@@ -56,9 +56,9 @@ public class LeverantörView extends JFrame {
 		});
 	}
 	
-	public static LeverantörView getsingleton(){
+	public static addLeverantör getsingleton(){
 		if (frame == null) 
-			frame = new LeverantörView();
+			frame = new addLeverantör();
 		
 		
 		return frame;
@@ -68,7 +68,7 @@ public class LeverantörView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public LeverantörView() {
+	public addLeverantör() {
 		setTitle("Registrera ny Leverantör");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

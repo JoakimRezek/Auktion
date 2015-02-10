@@ -28,7 +28,7 @@ import javax.swing.SwingConstants;
 import com.jbay.controller.JDBC_Connection;
 
 
-public class KundView extends JFrame {
+public class addKund extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField personNummerField;
@@ -47,7 +47,7 @@ public class KundView extends JFrame {
 	private JButton btnRegister;
 	private JButton btnAvbryt;
 	
-	private static KundView frame;
+	private static addKund frame;
 	
 	/**
 	 * Launch the application.
@@ -56,7 +56,7 @@ public class KundView extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					KundView frame = new KundView();
+					addKund frame = new addKund();
 					frame.setVisible(true);
 					frame.pack();
 				} catch (Exception e) {
@@ -66,9 +66,9 @@ public class KundView extends JFrame {
 		});
 	}
 	
-	public static KundView getsingleton(){
+	public static addKund getsingleton(){
 		if (frame == null) 
-			frame = new KundView();
+			frame = new addKund();
 		
 		
 		return frame;
@@ -78,7 +78,7 @@ public class KundView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public KundView() {
+	public addKund() {
 		setTitle("Registrera ny Kund");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
