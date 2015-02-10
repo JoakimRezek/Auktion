@@ -114,7 +114,7 @@ public class JDBC_Connection {
 	public ArrayList<Auktion> getAllaPågåendeAuktionerSomKundIDBudatPå(String kundID) throws SQLException{
 		ArrayList<Auktion> arrAllaPågåendeAuktionerSomKundIDBudatPå = new ArrayList<Auktion>();
 
-		PreparedStatement stm = conn.prepareStatement("SELECT * FROM pågåendeauktioner WHERE kund = '?'");
+		PreparedStatement stm = conn.prepareStatement("SELECT * FROM pågåendeauktioner WHERE kund = ?");
 		stm.setString(1, kundID);
 		ResultSet rs = stm.executeQuery();
 		
