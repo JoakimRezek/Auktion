@@ -47,6 +47,8 @@ public class Kund_GUI extends JFrame {
 		JButton minaBudgivningar = new JButton("Mina p\u00E5g\u00E5ende budgivningar");
 		minaBudgivningar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				String[] columnNames = {"Auktions", "Produktnamn", ""};
 			}
 		});
 		panel_1.add(minaBudgivningar);
