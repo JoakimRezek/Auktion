@@ -12,7 +12,7 @@ public class Auktion_Main {
 				try {
 //					Kund_GUI frame = new Kund_GUI();
 //					frame.setVisible(true);
-					Inloggning inloggning = new Inloggning();
+					Inloggning inloggning = Inloggning.getInloggning();
 					inloggning.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

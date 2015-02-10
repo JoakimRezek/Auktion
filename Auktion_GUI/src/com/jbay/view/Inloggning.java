@@ -27,13 +27,28 @@ public class Inloggning extends JFrame {
 	private JPanel contentPane;
 	private JComboBox<String> comboBoxLoginID;
 	private JComboBox<String> comboBoxLeverantörID;
+	private static Inloggning inloggning;
 	
 	private JDBC_Connection dBConnection;
 	private JButton btnNyKund;
 	private JButton btnNyLeverantr;
 
+	public static Inloggning getInloggning(){
+		if (inloggning == null) {
+			try {
+				inloggning = new Inloggning();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return inloggning;
+	}
 	
-	public Inloggning() throws SQLException {
+	public static void main(String[] args){
+		Inloggning.getInloggning();
+	}
+	
+	private Inloggning() throws SQLException {
 		
 		dBConnection = JDBC_Connection.getSingleton(); 
 		
