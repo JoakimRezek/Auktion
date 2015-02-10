@@ -1,5 +1,6 @@
 package com.jbay.view;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -24,6 +25,7 @@ import java.awt.Font;
 import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 
 public class Leverantor_GUI extends JFrame {
@@ -48,9 +50,10 @@ public class Leverantor_GUI extends JFrame {
 	
 	private Leverantor_GUI(String leverantor) throws SQLException {
 		this.leverantor = leverantor;
+		this.setMinimumSize(new Dimension(600,400));
 		db = JDBC_Connection.getSingleton();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 504, 723);
+		setBounds(100, 100, 600, 600);
 		mainPane = new JPanel();
 		mainPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(mainPane);
@@ -123,27 +126,43 @@ public class Leverantor_GUI extends JFrame {
 		System.out.println(leverantor);
 		ArrayList<Auktion> auktionList = db.getAllaPagaendeAuktionerSomLeverantorIDBudatPa(leverantor);
 		Object[][] tableData = new Object[auktionList.size()][9];
-		String[] columnNames = {"Auktion", "Produktnamn", "H\u00F6gsta bud", "Startdatum", "Slutdatum", "Utg\u00E5ngspris", "Maxbud", "Acceptpris", "F\u00F6retag"};
+		String[] columnNames = {"Auktion", "Produktnamn", "H\u00F6gsta bud", "Startdatum", "Slutdatum", "Utg\u00E5ngspris", "Acceptpris", "F\u00F6retag","Kategori"};
 		for(int i = 0; i < auktionList.size(); i++){
 			tableData[i][0] = auktionList.get(i).getAuktionsID();
 			tableData[i][1] = auktionList.get(i).getProduktNamn();
-			tableData[i][2] = auktionList.get(i).getKund();
+			tableData[i][2] = auktionList.get(i).getMaxBud();
 			tableData[i][3] = auktionList.get(i).getStartDatum();
 			tableData[i][4] = auktionList.get(i).getSlutDatum();
 			tableData[i][5] = auktionList.get(i).getUtgangsPris();
-			tableData[i][6] = auktionList.get(i).getMaxBud();
-			tableData[i][7] = auktionList.get(i).getAcceptPris();
-			tableData[i][8] = auktionList.get(i).getForetag();
+			tableData[i][6] = auktionList.get(i).getAcceptPris();
+			tableData[i][7] = auktionList.get(i).getForetag();
+			tableData[i][8] = auktionList.get(i).getKategori();
 		}
 		
 		table = new JTable(tableData,columnNames);
+		table.getColumnModel().getColumn(0).setMinWidth(20);
+		table.getColumnModel().getColumn(1).setMinWidth(80);
+		table.getColumnModel().getColumn(2).setMinWidth(50);
+		table.getColumnModel().getColumn(3).setMinWidth(70);
+		table.getColumnModel().getColumn(4).setMinWidth(70);
+		table.getColumnModel().getColumn(5).setMinWidth(50);
+		table.getColumnModel().getColumn(6).setMinWidth(50);
+		table.getColumnModel().getColumn(7).setMinWidth(60);
+		table.getColumnModel().getColumn(8).setMinWidth(60);
+		panel.setLayout(new BorderLayout(0, 0));
 		JScrollPane scrollPane = new JScrollPane(table);
 		panel.add(scrollPane);
+		
+		JLabel auktionsLbl = new JLabel("Dina Auktioner");
+		auktionsLbl.setFont(new Font("Tahoma", Font.BOLD, 15));
+		auktionsLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(auktionsLbl, BorderLayout.NORTH);
 		
 		JButton btnTillbaka = new JButton("Tillbaka");
 		btnTillbaka.addActionListener(e ->{
 			Inloggning.getInloggning().setVisible(true);
 			dispose();
+			singleton = null;
 		});
 		mainPane.add(btnTillbaka, BorderLayout.SOUTH);
 		

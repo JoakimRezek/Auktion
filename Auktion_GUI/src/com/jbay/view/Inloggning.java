@@ -26,7 +26,7 @@ public class Inloggning extends JFrame {
 
 	private JPanel contentPane;
 	private JComboBox<String> comboBoxLoginID;
-	private JComboBox<String> comboBoxLeverant\u00F6rID;
+	private JComboBox<String> comboBoxLeverantorID;
 	private static Inloggning inloggning;
 	
 	private JDBC_Connection dBConnection;
@@ -77,15 +77,15 @@ public class Inloggning extends JFrame {
 		}
 		contentPane.add(comboBoxLoginID, gbc_comboBoxLoginID);
 		
-		comboBoxLeverant\u00F6rID = new JComboBox<String>();
+		comboBoxLeverantorID = new JComboBox<String>();
 		GridBagConstraints gbc_comboBoxLeverant\u00F6rID = new GridBagConstraints();
 		gbc_comboBoxLeverant\u00F6rID.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBoxLeverant\u00F6rID.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxLeverant\u00F6rID.gridx = 7;
 		gbc_comboBoxLeverant\u00F6rID.gridy = 0;		
-		contentPane.add(comboBoxLeverant\u00F6rID, gbc_comboBoxLeverant\u00F6rID);		
+		contentPane.add(comboBoxLeverantorID, gbc_comboBoxLeverant\u00F6rID);		
 		for(String element : dBConnection.getAllaLeverantorIDs()){
-			comboBoxLeverant\u00F6rID.addItem(element);
+			comboBoxLeverantorID.addItem(element);
 		}
 		
 		JButton btnLoggaInSomKund = new JButton("Kund Login");
@@ -112,12 +112,12 @@ public class Inloggning extends JFrame {
 		btnLoggaInSomLeverant\u00F6r.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					Leverantor_GUI.getSingleton(comboBoxLeverant\u00F6rID.getSelectedItem().toString()).setVisible(true);
+					Leverantor_GUI.getSingleton(comboBoxLeverantorID.getSelectedItem().toString()).setVisible(true);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 				dispose();
-				System.out.println("Loggar in som Leverant�r: " + comboBoxLeverant\u00F6rID.getSelectedItem().toString());
+				System.out.println("Loggar in som Leverant\u00F6r: " + comboBoxLeverantorID.getSelectedItem().toString());
 			}
 		});
 		
