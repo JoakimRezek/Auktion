@@ -84,7 +84,7 @@ public class Inloggning extends JFrame {
 		gbc_comboBoxLeverantörID.gridx = 7;
 		gbc_comboBoxLeverantörID.gridy = 0;		
 		contentPane.add(comboBoxLeverantörID, gbc_comboBoxLeverantörID);		
-		for(String element : dBConnection.getAllaLeverantörIDs()){
+		for(String element : dBConnection.getAllaLeverantorIDs()){
 			comboBoxLeverantörID.addItem(element);
 		}
 		
