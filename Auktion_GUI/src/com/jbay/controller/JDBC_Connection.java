@@ -71,7 +71,7 @@ public class JDBC_Connection {
 
 
 		Statement stm = conn.createStatement();
-		ResultSet rs = stm.executeQuery("SELECT KategoriID FROM Kategori");
+		ResultSet rs = stm.executeQuery("SELECT KategoriNamn FROM Kategori");
 
 		while(rs.next()){
 			arrAllaKategorierNamn.add(rs.getString("KategoriNamn"));
@@ -155,10 +155,7 @@ public class JDBC_Connection {
 		
 		stm.close();
 	}
+
+	public void läggTillNyttBud
+	
 }
-
-
-
-
-
-//2. En lista som returnerar samtliga pågående auktioner som en Person har budat på(Sparade som Auktions objekt från klassen i model package)
