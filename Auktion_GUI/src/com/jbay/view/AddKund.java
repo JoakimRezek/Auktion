@@ -22,17 +22,18 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 
 import javax.swing.SwingConstants;
 
 import com.jbay.controller.JDBC_Connection;
 
 
-public class addKund extends JFrame {
+public class AddKund extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField personNummerField;
-	private JTextField fÃ¶rNamnField;
+	private JTextField förNamnField;
 	private JTextField efterNamnField;
 	private JLabel lblNewLabel_1;
 	private JTextField adressField;
@@ -47,7 +48,7 @@ public class addKund extends JFrame {
 	private JButton btnRegister;
 	private JButton btnAvbryt;
 	
-	private static addKund frame;
+	private static AddKund frame;
 	
 	/**
 	 * Launch the application.
@@ -56,7 +57,7 @@ public class addKund extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					addKund frame = new addKund();
+					AddKund frame = new AddKund();
 					frame.setVisible(true);
 					frame.pack();
 				} catch (Exception e) {
@@ -66,9 +67,9 @@ public class addKund extends JFrame {
 		});
 	}
 	
-	public static addKund getsingleton(){
+	public static AddKund getsingleton(){
 		if (frame == null) 
-			frame = new addKund();
+			frame = new AddKund();
 		
 		
 		return frame;
@@ -78,7 +79,7 @@ public class addKund extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public addKund() {
+	public AddKund() {
 		setTitle("Registrera ny Kund");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -109,22 +110,22 @@ public class addKund extends JFrame {
 		contentPane.add(personNummerField, gbc_personNummerField);
 		personNummerField.setColumns(10);
 		
-		JLabel lblEfternamn = new JLabel("FÃ¶rnamn:");
+		JLabel lblEfternamn = new JLabel("Förnamn:");
 		GridBagConstraints gbc_lblEfternamn = new GridBagConstraints();
 		gbc_lblEfternamn.insets = new Insets(10, 10, 10, 10);
 		gbc_lblEfternamn.gridx = 0;
 		gbc_lblEfternamn.gridy = 1;
 		contentPane.add(lblEfternamn, gbc_lblEfternamn);
 		
-		fÃ¶rNamnField = new JTextField();
-		GridBagConstraints gbc_fÃ¶rNamnField = new GridBagConstraints();
-		gbc_fÃ¶rNamnField.gridwidth = 2;
-		gbc_fÃ¶rNamnField.insets = new Insets(10, 10, 10, 10);
-		gbc_fÃ¶rNamnField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_fÃ¶rNamnField.gridx = 2;
-		gbc_fÃ¶rNamnField.gridy = 1;
-		contentPane.add(fÃ¶rNamnField, gbc_fÃ¶rNamnField);
-		fÃ¶rNamnField.setColumns(10);
+		förNamnField = new JTextField();
+		GridBagConstraints gbc_förNamnField = new GridBagConstraints();
+		gbc_förNamnField.gridwidth = 2;
+		gbc_förNamnField.insets = new Insets(10, 10, 10, 10);
+		gbc_förNamnField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_förNamnField.gridx = 2;
+		gbc_förNamnField.gridy = 1;
+		contentPane.add(förNamnField, gbc_förNamnField);
+		förNamnField.setColumns(10);
 		
 		JLabel lblEfterNamn = new JLabel("Efternamn:");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -235,7 +236,7 @@ public class addKund extends JFrame {
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String personNummer = personNummerField.getText();
-				String fÃ¶rNamn = fÃ¶rNamnField.getText();
+				String förNamn = förNamnField.getText();
 				String efterNamn = efterNamnField.getText();
 				String adress = adressField.getText();
 				String postNummer = postNummerField.getText();
@@ -243,7 +244,11 @@ public class addKund extends JFrame {
 				String telefonNummer = telefonNummerField.getText();
 				String email = emailField.getText();
 				
-				JDBC_Connection.getSingleton().lÃ¤ggTillNyKund(personNummer, fÃ¶rNamn, efterNamn, adress, postNummer, ort, telefonNummer, email);
+				try {
+					JDBC_Connection.getSingleton().läggTillNyKund(personNummer, förNamn, efterNamn, adress, postNummer, ort, telefonNummer, email);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 				
 			}
 		});

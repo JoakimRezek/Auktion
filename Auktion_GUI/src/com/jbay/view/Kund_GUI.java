@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import com.jbay.controller.JDBC_Connection;
 import com.jbay.model.Auktion;
 import com.mysql.jdbc.JDBC4CallableStatement;
+import javax.swing.JLabel;
 
 
 public class Kund_GUI extends JFrame {
@@ -140,6 +141,9 @@ public class Kund_GUI extends JFrame {
 			}
 		});
 		panel_2.add(btnLggBud);
+		
+		JLabel vidUppdatering = new JLabel(" ");
+		panel_2.add(vidUppdatering);
 		
 		
 
