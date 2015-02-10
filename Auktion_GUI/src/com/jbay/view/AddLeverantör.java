@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
@@ -195,7 +196,11 @@ public class AddLeverantör extends JFrame {
 				String email = emailField.getText();
 				String telefon = telefonField.getText();
 				
-				JDBC_Connection.getSingleton().läggTillNyLeverantör(orgNummer, företag, provision, kntPerson, email, telefon);
+				try {
+					JDBC_Connection.getSingleton().läggTillNyLeverantör(orgNummer, företag, provision, kntPerson, email, telefon);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 				
 			}
 		});

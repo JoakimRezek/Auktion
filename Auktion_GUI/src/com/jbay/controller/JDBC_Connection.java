@@ -157,7 +157,25 @@ public class JDBC_Connection {
 		
 		stm.close();
 	}
+	
 
+	public void läggTillNyLeverantör(String orgNummer, String företagsNamn, int provision, String kontaktPerson, String email, String telefonNummer) throws SQLException{
+		
+		PreparedStatement stm = conn.prepareStatement("INSERT INTO Leverantör (Organisationsnummer, Företagsnamn, Provision, Kontaktperson, Email, Telefonnummer)"
+				+ "values (?, ?, ?, ?, ?, ?)");
+		stm.setString(1, orgNummer);
+		stm.setString(2, företagsNamn);
+		stm.setInt(3, provision);
+		stm.setString(4, kontaktPerson);
+		stm.setString(5, email);
+		stm.setString(6, telefonNummer);
+		
+		stm.executeUpdate();
+		
+		stm.close();
+		
+	}
+	
 	public void läggTillNyttBud(String auktionID, String personNummer, double bud, JLabel label) throws SQLException{
 		
 		conn.setAutoCommit(false);

@@ -26,7 +26,7 @@ public class Kund_GUI extends JFrame {
 	private String personNummer;
 	private static Kund_GUI singleton;
 	private List<Auktion> auktionList;
-	private String[] columnNames = {"Auktion", "Produktnamn", "Högsta bud", "Startdatum", "Slutdatum", "Utgångspris", "Maxbud", "Acceptpris", "Företag"};
+	private String[] columnNames = {"Auktion", "Produktnamn", "Kategori", "Högsta bud", "Startdatum", "Slutdatum", "Utgångspris", "Maxbud", "Acceptpris", "Företag"};
 	private Object[][] data = {};
 	
 	public static Kund_GUI getsingleton(String personNummer){
@@ -64,18 +64,19 @@ public class Kund_GUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {	
 				try {
 					auktionList = JDBC_Connection.getSingleton().getAllaPågåendeAuktionerSomKundIDBudatPå(personNummer);
-					data = new Object[auktionList.size()][9];
+					data = new Object[auktionList.size()][10];
 					
 					for (int i = 0; i < auktionList.size(); i++) {
 						data[i][0] = auktionList.get(i).getAuktionsID();
 						data[i][1] = auktionList.get(i).getProduktNamn();
-						data[i][2] = auktionList.get(i).getKund();
-						data[i][3] = auktionList.get(i).getStartDatum();
-						data[i][4] = auktionList.get(i).getSlutDatum();
-						data[i][5] = auktionList.get(i).getUtgångsPris();
-						data[i][6] = auktionList.get(i).getMaxBud();
-						data[i][7] = auktionList.get(i).getAcceptPris();
-						data[i][8] = auktionList.get(i).getFöretag();
+						data[i][2] = auktionList.get(i).getKategori();
+						data[i][3] = auktionList.get(i).getKund();
+						data[i][4] = auktionList.get(i).getStartDatum();
+						data[i][5] = auktionList.get(i).getSlutDatum();
+						data[i][6] = auktionList.get(i).getUtgångsPris();
+						data[i][7] = auktionList.get(i).getMaxBud();
+						data[i][8] = auktionList.get(i).getAcceptPris();
+						data[i][9] = auktionList.get(i).getFöretag();
 						}
 										
 						table.setModel(new DefaultTableModel(data, columnNames));								
@@ -137,7 +138,7 @@ public class Kund_GUI extends JFrame {
 		
 		JButton btnLggBud = new JButton("L\u00E4gg bud");
 		btnLggBud.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e){ 
 			}
 		});
 		panel_2.add(btnLggBud);
