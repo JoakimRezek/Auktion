@@ -137,7 +137,7 @@ public class Kund_GUI extends JFrame {
 		
 		JButton btnLggBud = new JButton("L\u00E4gg bud");
 		btnLggBud.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e){ 
 			}
 		});
 		panel_2.add(btnLggBud);
