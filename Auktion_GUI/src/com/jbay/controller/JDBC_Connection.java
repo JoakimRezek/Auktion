@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 
 import com.jbay.model.Auktion;
-import com.mysql.fabric.xmlrpc.base.Array;
 
 
 public class JDBC_Connection {
