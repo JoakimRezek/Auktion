@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+
 import com.jbay.model.Auktion;
 import com.mysql.fabric.xmlrpc.base.Array;
 
@@ -156,22 +158,21 @@ public class JDBC_Connection {
 		stm.close();
 	}
 
-	public void läggTillNyttBud(String personNummer, double bud) throws SQLException{
-//		Jättebra. Den sista metoden jag behöver nu är en metod för att buda på en auktion, som tar två parametrar, String personNummer, double bud
-//		conn.autocommit(false);
-//
-//
-//sen conn.commit()  när allat är klart
-//[11:53:52] Alexander Sundström: i din metod
+	public void läggTillNyttBud(String auktionID, String personNummer, double bud, JLabel label) throws SQLException{
 		
 		conn.setAutoCommit(false);
-		PreparedStatement stm = conn.prepareStatement("START TRANSACTION INSERT INTO `auktion`.`bud` (`Auktion`, `Kund`, `Pris`) VALUES ('3', '911224-2985', '452') COMMIT",
+		PreparedStatement stm = conn.prepareStatement("INSERT INTO auktion.bud (Auktion, Kund, Pris) VALUES (?, ?, ?)",
 				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		stm.setString(1, auktionID);
+		stm.setString(2, personNummer);
+		stm.setDouble(3, bud);
 		
-		stm.executeUpdate();		
+			
+		stm.executeUpdate();
 		conn.commit();
 		
 		stm.close();
-		System.out.println("Commitat till DB:n");
+		
+		label.setText("Ditt bud har blivit godtagen");
 	}
 }
