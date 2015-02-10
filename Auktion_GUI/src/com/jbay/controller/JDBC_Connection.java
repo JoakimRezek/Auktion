@@ -108,7 +108,55 @@ public class JDBC_Connection {
 		stm.close();
 		return arrAllaPågåendeAuktioner;
 	}
+
+	public ArrayList<Auktion> getAllaPågåendeAuktionerSomKundIDBudatPå(String kundID) throws SQLException{
+		ArrayList<Auktion> arrAllaPågåendeAuktionerSomKundIDBudatPå = new ArrayList<Auktion>();
+
+		PreparedStatement stm = conn.prepareStatement("SELECT * FROM pågåendeauktioner WHERE kund = '?'");
+		stm.setString(1, kundID);
+		ResultSet rs = stm.executeQuery();
+		
+		while(rs.next()){
+			arrAllaPågåendeAuktionerSomKundIDBudatPå.add(new Auktion(rs.getInt("auktionsID"),
+					rs.getString("produktNamn"),
+					rs.getDate("startDatum"),
+					rs.getDate("slutDatum"),
+					rs.getInt("utgångsPris"),
+					rs.getInt("maxBud"),
+					rs.getInt("acceptPris"),
+					rs.getString("företagsnamn"),
+					rs.getInt("provision"),
+					rs.getString("kontaktperson"),
+					rs.getString("email"),
+					rs.getString("telefonnummer"),
+					rs.getString("kund")));
+		}
+		
+		rs.close();
+		stm.close();
+		return arrAllaPågåendeAuktionerSomKundIDBudatPå;
+	}
+
+	public void läggTillNyKund( String prsNummer, String förnamn, String efternamn, String adress, 
+			String postnummer, String ort, String tlfnummer, String email) throws SQLException{
+
+		PreparedStatement stm = conn.prepareStatement("INSERT INTO Kund (PersonNummer, Förnamn, Efternamn, Adress, Postnummer, Ort, Telefonnummer, Email) "
+				+ "values (?, ?, ?, ?, ?, ?, ?, ?)");
+		stm.setString(1, prsNummer);
+		stm.setString(2, förnamn);
+		stm.setString(3, efternamn);
+		stm.setString(4, adress);
+		stm.setString(5, postnummer);
+		stm.setString(6, ort);
+		stm.setString(7, tlfnummer);
+		stm.setString(8, email);
+		
+		stm.executeUpdate();
+		
+		stm.close();
+	}
 }
+
 
 
 
