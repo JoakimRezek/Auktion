@@ -61,7 +61,8 @@ public class Kund_GUI extends JFrame {
 		JButton btnMeny = new JButton("Meny");
 		btnMeny.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				setVisible(false);
+				Inloggning.getInloggning().setVisible(true);
 			}
 		});
 		panel_1.add(btnMeny);
