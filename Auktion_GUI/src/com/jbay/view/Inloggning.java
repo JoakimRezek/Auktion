@@ -111,12 +111,12 @@ public class Inloggning extends JFrame {
 		contentPane.add(btnLoggaInSomLeverantör, gbc_btnLoggaInSomLeverantör);
 		btnLoggaInSomLeverantör.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-//				try {
-//					new Leverantör_GUI(comboBoxLeverantörID.getSelectedItem().toString());
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-				setVisible(false);
+				try {
+					Leverantör_GUI.getSingleton(comboBoxLeverantörID.getSelectedItem().toString()).setVisible(true);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				dispose();
 				System.out.println("Loggar in som Leverantör: " + comboBoxLeverantörID.getSelectedItem().toString());
 			}
 		});

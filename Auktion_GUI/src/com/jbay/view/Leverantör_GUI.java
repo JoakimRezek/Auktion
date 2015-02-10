@@ -15,85 +15,100 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 
 import com.jbay.controller.JDBC_Connection;
+import java.awt.Font;
 
 
 public class Leverantör_GUI extends JFrame {
 
-	private JPanel contentPane;
-	private JDBC_Connection db;
-	private JTextField textField;
-	private String Leverantör;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private static Leverantör_GUI singleton;
 	
-	public Leverantör_GUI(String Leverantör) throws SQLException {
-		this.Leverantör = Leverantör;
+	public static Leverantör_GUI getSingleton(String leverantör) throws SQLException{
+		if(singleton == null) singleton = new Leverantör_GUI(leverantör);
+		return singleton;
+	}
+	
+	
+	private JPanel mainPane;
+	private JDBC_Connection db;
+	private JTextField startdatumField;
+	private String Leverantör;
+	private JTextField slutdatumField;
+	private JTextField utgångsprisField;
+	private JTextField acceptprisField;
+	private JTextField produktField;
+	
+	private Leverantör_GUI(String leverantör) throws SQLException {
+		this.Leverantör = leverantör;
 		db = JDBC_Connection.getSingleton();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
+		mainPane = new JPanel();
+		mainPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(mainPane);
+		mainPane.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.NORTH);
-		panel.setLayout(new GridLayout(0, 2, 0, 0));
+		JPanel nyAuktionPane = new JPanel();
+		mainPane.add(nyAuktionPane, BorderLayout.NORTH);
+		nyAuktionPane.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JLabel lblNyOrder = new JLabel("Ny Auktion");
-		panel.add(lblNyOrder);
+		lblNyOrder.setFont(new Font("Tahoma", Font.BOLD, 13));
+		nyAuktionPane.add(lblNyOrder);
 		
-		JPanel panel_1 = new JPanel();
-		panel.add(panel_1);
+		JPanel tomPane1 = new JPanel();
+		nyAuktionPane.add(tomPane1);
 		
 		JLabel lblSlutdatum = new JLabel("Startdatum:");
-		panel.add(lblSlutdatum);
+		nyAuktionPane.add(lblSlutdatum);
 		
-		textField = new JTextField();
-		panel.add(textField);
-		textField.setColumns(10);
+		startdatumField = new JTextField();
+		nyAuktionPane.add(startdatumField);
+		startdatumField.setColumns(10);
 		
 		JLabel lblStuff = new JLabel("Slutdatum:");
-		panel.add(lblStuff);
+		nyAuktionPane.add(lblStuff);
 		
-		textField_1 = new JTextField();
-		panel.add(textField_1);
-		textField_1.setColumns(10);
+		slutdatumField = new JTextField();
+		nyAuktionPane.add(slutdatumField);
+		slutdatumField.setColumns(10);
 		
 		JLabel lblStartpris = new JLabel("Utg\u00E5ngspris:");
-		panel.add(lblStartpris);
+		nyAuktionPane.add(lblStartpris);
 		
-		textField_2 = new JTextField();
-		panel.add(textField_2);
-		textField_2.setColumns(10);
+		utgångsprisField = new JTextField();
+		nyAuktionPane.add(utgångsprisField);
+		utgångsprisField.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Acceptpris:");
-		panel.add(lblNewLabel);
+		nyAuktionPane.add(lblNewLabel);
 		
-		textField_3 = new JTextField();
-		panel.add(textField_3);
-		textField_3.setColumns(10);
+		acceptprisField = new JTextField();
+		nyAuktionPane.add(acceptprisField);
+		acceptprisField.setColumns(10);
 		
 		JLabel lblProduktnamn = new JLabel("Produktnamn:");
-		panel.add(lblProduktnamn);
+		nyAuktionPane.add(lblProduktnamn);
 		
-		textField_4 = new JTextField();
-		panel.add(textField_4);
-		textField_4.setColumns(10);
+		produktField = new JTextField();
+		nyAuktionPane.add(produktField);
+		produktField.setColumns(10);
 		
 		JLabel lblProduktkategori = new JLabel("Produktkategori:");
-		panel.add(lblProduktkategori);
+		nyAuktionPane.add(lblProduktkategori);
 		
-		JComboBox comboBox = new JComboBox();
-		panel.add(comboBox);
+		JComboBox<String> kategoriBox = new JComboBox<String>();
+		for(String s : db.getAllaKategorier()) kategoriBox.addItem(s);
+		nyAuktionPane.add(kategoriBox);
 		
-		JPanel panel_2 = new JPanel();
-		panel.add(panel_2);
+		JPanel tomPane2 = new JPanel();
+		nyAuktionPane.add(tomPane2);
 		
 		JButton btnSkapaAuktion = new JButton("Skapa Auktion");
-		panel.add(btnSkapaAuktion);
+		btnSkapaAuktion.addActionListener(e -> {
+			System.out.println("pushed");
+		});
+		nyAuktionPane.add(btnSkapaAuktion);
+		
 	}
 
 }
