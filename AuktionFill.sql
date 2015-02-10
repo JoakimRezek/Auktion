@@ -27,18 +27,12 @@ insert into Kategori (Kategorinamn) values ('Motor');
 insert into Kategori (Kategorinamn) values ('Verktyg');
 insert into Kategori (Kategorinamn) values ('Resor');
 
-insert into Auktion (Startdatum, Utgångspris, Acceptpris, Slutdatum, Produktnamn, Produktkategori, Leverantör) values ('2015-02-19', 900.00, 1600.00, '2015-06-14', 'Cheap Monkey', 'Kläder/Byxor', '927467-0293');
-insert into Auktion (Startdatum, Utgångspris, Acceptpris, Slutdatum, Produktnamn, Produktkategori, Leverantör) values ('2015-04-11', 100.00, 25000.00, '2015-11-24', 'YeahSkor', 'Kläder', '875889-3645');
-insert into Auktion (Startdatum, Utgångspris, Acceptpris, Slutdatum, Produktnamn, Produktkategori, Leverantör) values ('2015-01-10', 400.00, 700.00, '2015-02-10', 'Coca Cola Statue', 'Dryck', '857849-2934');
-insert into Auktion (Startdatum, Utgångspris, Acceptpris, Slutdatum, Produktnamn, Produktkategori, Leverantör) values ('2015-07-23', 1900.00, 2100.00, '2015-12-24', 'Trasig Skjorta', 'Kläder', '394839-1938');
-insert into Auktion (Startdatum, Utgångspris, Acceptpris, Slutdatum, Produktnamn, Produktkategori, Leverantör) values ('2015-02-28', 900000.00, 1600000.00, '2016-06-30', 'KärleksBåten Charmine', 'Motor', '836748-2874');
-
-insert into AuktionsKategori (Auktion, Kategori) values (1, 1);
-insert into AuktionsKategori (Auktion, Kategori) values (1, 2);
-insert into AuktionsKategori (Auktion, Kategori) values (2, 2);
-insert into AuktionsKategori (Auktion, Kategori) values (3, 3);
-insert into AuktionsKategori (Auktion, Kategori) values (4, 2);
-insert into AuktionsKategori (Auktion, Kategori) values (5, 5);
+insert into Auktion (Startdatum, Utgångspris, Acceptpris, Slutdatum, Produktnamn, Produktkategori, Leverantör) values ('2015-02-01', 900.00, 1600.00, '2015-06-14', 'Cheap Monkey', 1, '927467-0293');
+insert into Auktion (Startdatum, Utgångspris, Acceptpris, Slutdatum, Produktnamn, Produktkategori, Leverantör) values ('2015-04-11', 100.00, 25000.00, '2015-11-24', 'YeahSkor', 2, '875889-3645');
+insert into Auktion (Startdatum, Utgångspris, Acceptpris, Slutdatum, Produktnamn, Produktkategori, Leverantör) values ('2015-01-10', 400.00, 700.00, '2015-02-10', 'Coca Cola Statue', 3, '857849-2934');
+insert into Auktion (Startdatum, Utgångspris, Acceptpris, Slutdatum, Produktnamn, Produktkategori, Leverantör) values ('2015-07-23', 1900.00, 2100.00, '2015-12-24', 'Trasig Skjorta', 2, '394839-1938');
+insert into Auktion (Startdatum, Utgångspris, Acceptpris, Slutdatum, Produktnamn, Produktkategori, Leverantör) values ('2015-02-28', 900000.00, 1600000.00, '2016-06-30', 'KärleksBåten Charmine', 5, '836748-2874');
+insert into Auktion (Startdatum, Utgångspris, Acceptpris, Slutdatum, Produktnamn, Produktkategori, Leverantör) values ('2015-02-01', 100.00, 1600.00, '2015-06-14', 'TEST Stuff', 1, '927467-0293');
 
 insert into Bud (Auktion, Kund, Pris) values (1, '960726-3645', 900.00);
 insert into Bud (Auktion, Kund, Pris) values (1, '911224-2985', 920.50);

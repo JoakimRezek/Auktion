@@ -26,6 +26,11 @@ CREATE TABLE Kund(
   
   PRIMARY KEY (PersonNummer));
 
+CREATE TABLE Kategori(
+  KategoriID INT NOT NULL AUTO_INCREMENT,
+  Kategorinamn VARCHAR(45) NULL,
+  
+  PRIMARY KEY (KategoriID));
 
 CREATE TABLE Auktion(
   AuktionsID INT NOT NULL AUTO_INCREMENT,
@@ -34,29 +39,14 @@ CREATE TABLE Auktion(
   Acceptpris DOUBLE NULL,
   Slutdatum DATETIME NULL,
   Produktnamn VARCHAR(45) NULL,
-  Produktkategori VARCHAR(45) NULL,
+  Produktkategori INT NULL,
   Leverantör VARCHAR(15) NOT NULL,
   
   PRIMARY KEY (AuktionsID),
   
-  CONSTRAINT Auktion_Leverantör_fk FOREIGN KEY(Leverantör) REFERENCES Leverantör(Organisationsnummer) ON DELETE CASCADE);
-
-
-CREATE TABLE Kategori(
-  KategoriID INT NOT NULL AUTO_INCREMENT,
-  Kategorinamn VARCHAR(45) NULL,
-  
-  PRIMARY KEY (KategoriID));
-
-
-CREATE TABLE AuktionsKategori(
-  Auktion INT NOT NULL,
-  Kategori INT NOT NULL,
-  
-  PRIMARY KEY (Auktion, Kategori),
-  
-  CONSTRAINT AuktionsKategori_Auktion_fk FOREIGN KEY(Auktion) REFERENCES Auktion(AuktionsID) ON DELETE CASCADE,
-  CONSTRAINT AuktionsKategori_Kategori_fk FOREIGN KEY(Kategori) REFERENCES Kategori(KategoriID) ON DELETE CASCADE);
+  CONSTRAINT Auktion_Leverantör_fk FOREIGN KEY(Leverantör) REFERENCES Leverantör(Organisationsnummer) ON DELETE CASCADE,
+  CONSTRAINT Auktion_Katerogi_fk FOREIGN KEY(Produktkategori) REFERENCES Kategori(KategoriID) ON DELETE SET NULL
+  );
 
 
 CREATE TABLE  Bud(
@@ -104,12 +94,14 @@ end ¤¤
 delimiter ;
 
 create view PågåendeAuktioner
-as select AuktionsID, Produktnamn, StartDatum, Slutdatum, Utgångspris, max(Pris) as Maxbud, Acceptpris, 
-	      Företagsnamn, Provision, Kontaktperson, Leverantör.Email as Email, Leverantör.Telefonnummer as Telefonnummer, Personnummer as Kund
+as select AuktionsID, Produktnamn, kategorinamn, StartDatum, Slutdatum, Utgångspris, max(Pris) as Maxbud, Acceptpris, 
+	      Företagsnamn, Provision, Kontaktperson, Leverantör.Email as Email, Leverantör.Telefonnummer as Telefonnummer, Personnummer as Kund,
+          Leverantör.Organisationsnummer
 from Auktion
 inner join Leverantör on Auktion.leverantör = Leverantör.Organisationsnummer
 left join Bud on Auktion.AuktionsID = Bud.Auktion
 left join Kund on Bud.Kund = Kund.PersonNummer
+left join Kategori on Auktion.produktkategori = Kategori.kategoriid
 group by AuktionsId;
 
 create view Budhistorik
