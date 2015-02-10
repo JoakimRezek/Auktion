@@ -24,11 +24,12 @@ import javax.swing.JLabel;
 public class Kund_GUI extends JFrame {
 	private JTextField textField;
 	private JTable table;
+	JLabel vidUppdatering;
 	private String personNummer;
 	JLabel lblInloggadSom;
 	private static Kund_GUI singleton;
 	private List<Auktion> auktionList;
-	private String[] columnNames = {"Auktion", "Produktnamn", "Kategori", "Högsta bud", "Startdatum", "Slutdatum", "Utgångspris", "Maxbud", "Acceptpris", "Företag"};
+	private String[] columnNames = {"Auktion", "Produktnamn", "Kategori", "Startdatum", "Slutdatum", "Utgångspris", "Budgivare", "Maxbud", "Acceptpris", "Företag"};
 	private Object[][] data = {};
 
 	public static Kund_GUI getsingleton(String personNummer){
@@ -60,27 +61,26 @@ public class Kund_GUI extends JFrame {
 		table = new JTable(data, columnNames);
 		scrollPane.setViewportView(table);
 
-		JButton minaBudgivningar = new JButton("Mina p\u00E5g\u00E5ende budgivningar");
+		JButton minaBudgivningar = new JButton("Budgivningar jag leder");
 		minaBudgivningar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
 				try {
 					auktionList = JDBC_Connection.getSingleton().getAllaPagaendeAuktionerSomKundIDBudatPa(Kund_GUI.this.personNummer);
-					System.out.println(Kund_GUI.this.personNummer);
 					data = new Object[auktionList.size()][10];
 
 					for (int i = 0; i < auktionList.size(); i++) {
 						data[i][0] = auktionList.get(i).getAuktionsID();
 						data[i][1] = auktionList.get(i).getProduktNamn();
 						data[i][2] = auktionList.get(i).getKategori();
-						data[i][3] = auktionList.get(i).getKund();
-						data[i][4] = auktionList.get(i).getStartDatum();
-						data[i][5] = auktionList.get(i).getSlutDatum();
-						data[i][6] = auktionList.get(i).getUtgangsPris();
+						data[i][3] = auktionList.get(i).getStartDatum();
+						data[i][4] = auktionList.get(i).getSlutDatum();
+						data[i][5] = auktionList.get(i).getUtgangsPris();
+						data[i][6] = auktionList.get(i).getKund();
 						data[i][7] = auktionList.get(i).getMaxBud();
 						data[i][8] = auktionList.get(i).getAcceptPris();
 						data[i][9] = auktionList.get(i).getForetag();
 					}
-
+					vidUppdatering.setText("");
 					table.setModel(new DefaultTableModel(data, columnNames));								
 
 
@@ -103,15 +103,15 @@ public class Kund_GUI extends JFrame {
 						data[i][0] = auktionList.get(i).getAuktionsID();
 						data[i][1] = auktionList.get(i).getProduktNamn();
 						data[i][2] = auktionList.get(i).getKategori();
-						data[i][3] = auktionList.get(i).getKund();
-						data[i][4] = auktionList.get(i).getStartDatum();
-						data[i][5] = auktionList.get(i).getSlutDatum();
-						data[i][6] = auktionList.get(i).getUtgangsPris();
+						data[i][3] = auktionList.get(i).getStartDatum();
+						data[i][4] = auktionList.get(i).getSlutDatum();
+						data[i][5] = auktionList.get(i).getUtgangsPris();
+						data[i][6] = auktionList.get(i).getKund();
 						data[i][7] = auktionList.get(i).getMaxBud();
 						data[i][8] = auktionList.get(i).getAcceptPris();
 						data[i][9] = auktionList.get(i).getForetag();
 					}
-
+					vidUppdatering.setText("");
 					table.setModel(new DefaultTableModel(data, columnNames));									
 
 
@@ -144,16 +144,34 @@ public class Kund_GUI extends JFrame {
 		panel_2.add(textField);
 		textField.setColumns(10);
 
-		JLabel vidUppdatering = new JLabel("");
+		vidUppdatering = new JLabel("");
 
 		JButton btnLggBud = new JButton("L\u00E4gg bud");
 		btnLggBud.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				System.out.println(Kund_GUI.this.personNummer);
 				if(!textField.getText().isEmpty()){
 					if(Double.parseDouble(textField.getText()) > auktionList.get(table.getSelectedRow()).getMaxBud() && table.getSelectedRow() >= 0){			
 						try {
 							JDBC_Connection.getSingleton().laggTillNyttBud(auktionList.get(table.getSelectedRow()).getAuktionsID(),Kund_GUI.this.personNummer ,Double.parseDouble(textField.getText()), vidUppdatering);
+							auktionList = JDBC_Connection.getSingleton().getAllaPagaendeAuktionerSomKundIDBudatPa(Kund_GUI.this.personNummer);
+							data = new Object[auktionList.size()][10];
+
+							for (int i = 0; i < auktionList.size(); i++) {
+								data[i][0] = auktionList.get(i).getAuktionsID();
+								data[i][1] = auktionList.get(i).getProduktNamn();
+								data[i][2] = auktionList.get(i).getKategori();
+								data[i][3] = auktionList.get(i).getStartDatum();
+								data[i][4] = auktionList.get(i).getSlutDatum();
+								data[i][5] = auktionList.get(i).getUtgangsPris();
+								data[i][6] = auktionList.get(i).getKund();
+								data[i][7] = auktionList.get(i).getMaxBud();
+								data[i][8] = auktionList.get(i).getAcceptPris();
+								data[i][9] = auktionList.get(i).getForetag();
+							}
+
+							table.setModel(new DefaultTableModel(data, columnNames));	
+							textField.setText("");
+
 						} catch (NumberFormatException e1) {
 							vidUppdatering.setText("Felaktig inmatning");
 						} catch (SQLException e1) {
