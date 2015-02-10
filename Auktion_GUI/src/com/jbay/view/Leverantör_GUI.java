@@ -130,10 +130,10 @@ public class Leverantör_GUI extends JFrame {
 			tableData[i][2] = auktionList.get(i).getKund();
 			tableData[i][3] = auktionList.get(i).getStartDatum();
 			tableData[i][4] = auktionList.get(i).getSlutDatum();
-			tableData[i][5] = auktionList.get(i).getUtgångsPris();
+			tableData[i][5] = auktionList.get(i).getUtgangsPris();
 			tableData[i][6] = auktionList.get(i).getMaxBud();
 			tableData[i][7] = auktionList.get(i).getAcceptPris();
-			tableData[i][8] = auktionList.get(i).getFöretag();
+			tableData[i][8] = auktionList.get(i).getForetag();
 		}
 		
 		table = new JTable(tableData,columnNames);

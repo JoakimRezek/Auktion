@@ -8,10 +8,10 @@ public class Auktion {
 	private String produktNamn;
 	private Date startDatum;
 	private Date slutDatum;
-	private double utgångsPris;
+	private double utgangsPris;
 	private double maxBud;
 	private double acceptPris;
-	private String företag;
+	private String foretag;
 	private int provision;
 	private String kontaktPerson;
 	private String eMail;
@@ -33,18 +33,18 @@ public class Auktion {
 	}
 
 	public Auktion(int auktionsID, String produktNamn, Date startDatum,
-			Date slutDatum, double utgångsPris, double maxBud,
-			double acceptPris, String företag, int provision,
+			Date slutDatum, double utgangsPris, double maxBud,
+			double acceptPris, String foretag, int provision,
 			String kontaktPerson, String eMail, String telefon, String kund, String kategori) {
 		super();
 		this.auktionsID = auktionsID;
 		this.produktNamn = produktNamn;
 		this.startDatum = startDatum;
 		this.slutDatum = slutDatum;
-		this.utgångsPris = utgångsPris;
+		this.utgangsPris = utgangsPris;
 		this.maxBud = maxBud;
 		this.acceptPris = acceptPris;
-		this.företag = företag;
+		this.foretag = foretag;
 		this.provision = provision;
 		this.kontaktPerson = kontaktPerson;
 		this.eMail = eMail;
@@ -78,11 +78,11 @@ public class Auktion {
 	public void setSlutDatum(Date slutDatum) {
 		this.slutDatum = slutDatum;
 	}
-	public double getUtgångsPris() {
-		return utgångsPris;
+	public double getUtgangsPris() {
+		return utgangsPris;
 	}
-	public void setUtgångsPris(double utgångsPris) {
-		this.utgångsPris = utgångsPris;
+	public void setUtgangsPris(double utgangsPris) {
+		this.utgangsPris = utgangsPris;
 	}
 	public double getMaxBud() {
 		return maxBud;
@@ -96,11 +96,11 @@ public class Auktion {
 	public void setAcceptPris(double acceptPris) {
 		this.acceptPris = acceptPris;
 	}
-	public String getFöretag() {
-		return företag;
+	public String getForetag() {
+		return foretag;
 	}
-	public void setFöretag(String företag) {
-		this.företag = företag;
+	public void setForetag(String foretag) {
+		this.foretag = foretag;
 	}
 	public int getProvision() {
 		return provision;
