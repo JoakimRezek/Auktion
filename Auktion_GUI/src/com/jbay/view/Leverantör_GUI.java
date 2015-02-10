@@ -1,7 +1,9 @@
 package com.jbay.view;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,7 +17,13 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 
 import com.jbay.controller.JDBC_Connection;
+import com.jbay.model.Auktion;
+
 import java.awt.Font;
+
+import javax.swing.JList;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
 
 
 public class Leverantör_GUI extends JFrame {
@@ -36,12 +44,13 @@ public class Leverantör_GUI extends JFrame {
 	private JTextField utgångsprisField;
 	private JTextField acceptprisField;
 	private JTextField produktField;
+	private JTable table;
 	
 	private Leverantör_GUI(String leverantör) throws SQLException {
 		this.Leverantör = leverantör;
 		db = JDBC_Connection.getSingleton();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 504, 723);
 		mainPane = new JPanel();
 		mainPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(mainPane);
@@ -108,6 +117,36 @@ public class Leverantör_GUI extends JFrame {
 			System.out.println("pushed");
 		});
 		nyAuktionPane.add(btnSkapaAuktion);
+		
+		JPanel panel = new JPanel();
+		mainPane.add(panel, BorderLayout.CENTER);
+		ArrayList<Auktion> auktionList = db.getAllaPågåendeAuktioner();
+		Object[][] tableData = new Object[auktionList.size()][9];
+		String[] columnNames = {"Auktion", "Produktnamn", "Högsta bud", "Startdatum", "Slutdatum", "Utgångspris", "Maxbud", "Acceptpris", "Företag"};
+		for(int i = 0; i < auktionList.size(); i++){
+			tableData[i][0] = auktionList.get(i).getAuktionsID();
+			tableData[i][1] = auktionList.get(i).getProduktNamn();
+			tableData[i][2] = auktionList.get(i).getKund();
+			tableData[i][3] = auktionList.get(i).getStartDatum();
+			tableData[i][4] = auktionList.get(i).getSlutDatum();
+			tableData[i][5] = auktionList.get(i).getUtgångsPris();
+			tableData[i][6] = auktionList.get(i).getMaxBud();
+			tableData[i][7] = auktionList.get(i).getAcceptPris();
+			tableData[i][8] = auktionList.get(i).getFöretag();
+		}
+		
+		table = new JTable(tableData,columnNames);
+		JScrollPane scrollPane = new JScrollPane(table);
+		panel.add(scrollPane);
+		
+		JButton btnTillbaka = new JButton("Tillbaka");
+		btnTillbaka.addActionListener(e ->{
+			Inloggning.getInloggning().setVisible(true);
+			dispose();
+		});
+		mainPane.add(btnTillbaka, BorderLayout.SOUTH);
+		
+		
 		
 	}
 
