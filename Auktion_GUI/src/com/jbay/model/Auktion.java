@@ -1,3 +1,4 @@
+package com.jbay.model;
 import java.sql.Date;
 
 
