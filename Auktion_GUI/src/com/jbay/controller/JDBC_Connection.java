@@ -156,6 +156,22 @@ public class JDBC_Connection {
 		stm.close();
 	}
 
-	public void läggTillNyttBud
-	
+	public void läggTillNyttBud(String personNummer, double bud) throws SQLException{
+//		Jättebra. Den sista metoden jag behöver nu är en metod för att buda på en auktion, som tar två parametrar, String personNummer, double bud
+//		conn.autocommit(false);
+//
+//
+//sen conn.commit()  när allat är klart
+//[11:53:52] Alexander Sundström: i din metod
+		
+		conn.setAutoCommit(false);
+		PreparedStatement stm = conn.prepareStatement("START TRANSACTION INSERT INTO `auktion`.`bud` (`Auktion`, `Kund`, `Pris`) VALUES ('3', '911224-2985', '452') COMMIT",
+				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		
+		stm.executeUpdate();		
+		conn.commit();
+		
+		stm.close();
+		System.out.println("Commitat till DB:n");
+	}
 }
