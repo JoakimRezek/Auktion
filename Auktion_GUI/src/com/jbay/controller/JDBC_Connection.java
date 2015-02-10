@@ -103,7 +103,8 @@ public class JDBC_Connection {
 					rs.getString("kontaktperson"),
 					rs.getString("email"),
 					rs.getString("telefonnummer"),
-					rs.getString("kund")));
+					rs.getString("kund"), 
+					rs.getString("kategori")));
 		}
 
 		rs.close();
@@ -131,7 +132,8 @@ public class JDBC_Connection {
 					rs.getString("kontaktperson"),
 					rs.getString("email"),
 					rs.getString("telefonnummer"),
-					rs.getString("kund")));
+					rs.getString("kund"), 
+					rs.getString("kategori")));
 		}
 		
 		rs.close();
