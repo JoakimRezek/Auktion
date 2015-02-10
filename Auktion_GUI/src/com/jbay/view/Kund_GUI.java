@@ -130,8 +130,10 @@ public class Kund_GUI extends JFrame {
 		JButton btnMeny = new JButton("Meny");
 		btnMeny.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
+				
 				Inloggning.getInloggning().setVisible(true);
+				singleton = null;
+				dispose();
 			}
 		});
 		panel_1.add(btnMeny);
@@ -154,6 +156,7 @@ public class Kund_GUI extends JFrame {
 		JButton btnLggBud = new JButton("L\u00E4gg bud");
 		btnLggBud.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
+				System.out.println(table.getSelectedColumn());
 				if(Double.parseDouble(textField.getText()) > auktionList.get(table.getSelectedColumn()).getMaxBud()){			
 					try {
 						JDBC_Connection.getSingleton().laggTillNyttBud(auktionList.get(table.getSelectedColumn()).getAuktionsID(), personNummer, Double.parseDouble(textField.getText()), vidUppdatering);

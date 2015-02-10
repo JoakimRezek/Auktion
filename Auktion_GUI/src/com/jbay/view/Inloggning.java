@@ -92,7 +92,6 @@ public class Inloggning extends JFrame {
 		btnLoggaInSomKund.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Kund_GUI.getsingleton(comboBoxLoginID.getSelectedItem().toString()).setVisible(true);
-				Kund_GUI.getsingleton(comboBoxLoginID.getSelectedItem().toString()).setPersonnummer(comboBoxLoginID.getSelectedItem().toString());
 				setVisible(false);
 				System.out.println("Loggar in som kund: " + comboBoxLoginID.getSelectedItem().toString());
 			}
