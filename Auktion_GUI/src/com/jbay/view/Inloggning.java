@@ -26,7 +26,7 @@ public class Inloggning extends JFrame {
 
 	private JPanel contentPane;
 	private JComboBox<String> comboBoxLoginID;
-	private JComboBox<String> comboBoxLeverantörID;
+	private JComboBox<String> comboBoxLeverant\u00F6rID;
 	private static Inloggning inloggning;
 	
 	private JDBC_Connection dBConnection;
@@ -77,15 +77,15 @@ public class Inloggning extends JFrame {
 		}
 		contentPane.add(comboBoxLoginID, gbc_comboBoxLoginID);
 		
-		comboBoxLeverantörID = new JComboBox<String>();
-		GridBagConstraints gbc_comboBoxLeverantörID = new GridBagConstraints();
-		gbc_comboBoxLeverantörID.insets = new Insets(0, 0, 5, 0);
-		gbc_comboBoxLeverantörID.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBoxLeverantörID.gridx = 7;
-		gbc_comboBoxLeverantörID.gridy = 0;		
-		contentPane.add(comboBoxLeverantörID, gbc_comboBoxLeverantörID);		
+		comboBoxLeverant\u00F6rID = new JComboBox<String>();
+		GridBagConstraints gbc_comboBoxLeverant\u00F6rID = new GridBagConstraints();
+		gbc_comboBoxLeverant\u00F6rID.insets = new Insets(0, 0, 5, 0);
+		gbc_comboBoxLeverant\u00F6rID.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxLeverant\u00F6rID.gridx = 7;
+		gbc_comboBoxLeverant\u00F6rID.gridy = 0;		
+		contentPane.add(comboBoxLeverant\u00F6rID, gbc_comboBoxLeverant\u00F6rID);		
 		for(String element : dBConnection.getAllaLeverantorIDs()){
-			comboBoxLeverantörID.addItem(element);
+			comboBoxLeverant\u00F6rID.addItem(element);
 		}
 		
 		JButton btnLoggaInSomKund = new JButton("Kund Login");
@@ -104,21 +104,21 @@ public class Inloggning extends JFrame {
 		gbc_btnLoggaInSomKund.gridy = 1;
 		contentPane.add(btnLoggaInSomKund, gbc_btnLoggaInSomKund);
 		
-		JButton btnLoggaInSomLeverantör = new JButton("Leverant\u00F6r Login");
-		GridBagConstraints gbc_btnLoggaInSomLeverantör = new GridBagConstraints();
-		gbc_btnLoggaInSomLeverantör.insets = new Insets(0, 0, 5, 0);
-		gbc_btnLoggaInSomLeverantör.gridx = 7;
-		gbc_btnLoggaInSomLeverantör.gridy = 1;
-		contentPane.add(btnLoggaInSomLeverantör, gbc_btnLoggaInSomLeverantör);
-		btnLoggaInSomLeverantör.addActionListener(new ActionListener() {
+		JButton btnLoggaInSomLeverant\u00F6r = new JButton("Leverant\u00F6r Login");
+		GridBagConstraints gbc_btnLoggaInSomLeverant\u00F6r = new GridBagConstraints();
+		gbc_btnLoggaInSomLeverant\u00F6r.insets = new Insets(0, 0, 5, 0);
+		gbc_btnLoggaInSomLeverant\u00F6r.gridx = 7;
+		gbc_btnLoggaInSomLeverant\u00F6r.gridy = 1;
+		contentPane.add(btnLoggaInSomLeverant\u00F6r, gbc_btnLoggaInSomLeverant\u00F6r);
+		btnLoggaInSomLeverant\u00F6r.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					Leverantor_GUI.getSingleton(comboBoxLeverantörID.getSelectedItem().toString()).setVisible(true);
+					Leverantor_GUI.getSingleton(comboBoxLeverant\u00F6rID.getSelectedItem().toString()).setVisible(true);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 				dispose();
-				System.out.println("Loggar in som Leverantör: " + comboBoxLeverantörID.getSelectedItem().toString());
+				System.out.println("Loggar in som Leverantï¿½r: " + comboBoxLeverant\u00F6rID.getSelectedItem().toString());
 			}
 		});
 		
