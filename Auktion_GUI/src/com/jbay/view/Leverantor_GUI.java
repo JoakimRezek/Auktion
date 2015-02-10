@@ -30,8 +30,8 @@ public class Leverantor_GUI extends JFrame {
 
 	private static Leverantor_GUI singleton;
 	
-	public static Leverantor_GUI getSingleton(String leverantör) throws SQLException{
-		if(singleton == null) singleton = new Leverantor_GUI(leverantör);
+	public static Leverantor_GUI getSingleton(String leverantor) throws SQLException{
+		if(singleton == null) singleton = new Leverantor_GUI(leverantor);
 		return singleton;
 	}
 	
@@ -46,8 +46,8 @@ public class Leverantor_GUI extends JFrame {
 	private JTextField produktField;
 	private JTable table;
 	
-	private Leverantor_GUI(String leverantör) throws SQLException {
-		this.leverantor = leverantör;
+	private Leverantor_GUI(String leverantor) throws SQLException {
+		this.leverantor = leverantor;
 		db = JDBC_Connection.getSingleton();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 504, 723);
@@ -120,10 +120,10 @@ public class Leverantor_GUI extends JFrame {
 		
 		JPanel panel = new JPanel();
 		mainPane.add(panel, BorderLayout.CENTER);
-		System.out.println(leverantör);
-		ArrayList<Auktion> auktionList = db.getAllaPagaendeAuktionerSomLeverantorIDBudatPa(leverantör);
+		System.out.println(leverantor);
+		ArrayList<Auktion> auktionList = db.getAllaPagaendeAuktionerSomLeverantorIDBudatPa(leverantor);
 		Object[][] tableData = new Object[auktionList.size()][9];
-		String[] columnNames = {"Auktion", "Produktnamn", "Högsta bud", "Startdatum", "Slutdatum", "Utgångspris", "Maxbud", "Acceptpris", "Företag"};
+		String[] columnNames = {"Auktion", "Produktnamn", "H\u00F6gsta bud", "Startdatum", "Slutdatum", "Utg\u00E5ngspris", "Maxbud", "Acceptpris", "F\u00F6retag"};
 		for(int i = 0; i < auktionList.size(); i++){
 			tableData[i][0] = auktionList.get(i).getAuktionsID();
 			tableData[i][1] = auktionList.get(i).getProduktNamn();

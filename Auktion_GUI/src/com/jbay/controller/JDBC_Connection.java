@@ -141,7 +141,7 @@ public class JDBC_Connection {
 	}
 
 	public ArrayList<Auktion> getAllaPagaendeAuktionerSomLeverantorIDBudatPa(String leverantorID) throws SQLException{
-		ArrayList<Auktion> arrAllaPagaendeAuktionerSomLeverantorIDBudatPa = new ArrayList<Auktion>();
+		ArrayList<Auktion> arrAllaPagaendeAuktionerSomTillhorLeverantorID = new ArrayList<Auktion>();
 
 
 		PreparedStatement stm = conn.prepareStatement("SELECT * FROM p\u00E5g\u00E5endeauktioner WHERE organisationsnummer = ?");
@@ -149,7 +149,7 @@ public class JDBC_Connection {
 		ResultSet rs = stm.executeQuery();
 		
 		while(rs.next()){
-			arrAllaPagaendeAuktionerSomLeverantorIDBudatPa.add(new Auktion(rs.getInt("auktionsID"),
+			arrAllaPagaendeAuktionerSomTillhorLeverantorID.add(new Auktion(rs.getInt("auktionsID"),
 					rs.getString("produktNamn"),
 					rs.getDate("startDatum"),
 					rs.getDate("slutDatum"),
@@ -167,7 +167,7 @@ public class JDBC_Connection {
 		
 		rs.close();
 		stm.close();
-		return arrAllaPagaendeAuktionerSomLeverantorIDBudatPa;
+		return arrAllaPagaendeAuktionerSomTillhorLeverantorID;
 	}
 	
 	public void laggTillNyKund( String prsNummer, String fornamn, String efternamn, String adress, 
