@@ -86,7 +86,7 @@ public class JDBC_Connection {
 		ArrayList<Auktion> arrAllaPågåendeAuktioner = new ArrayList<Auktion>();
 
 		Statement stm = conn.createStatement();
-		ResultSet rs = stm.executeQuery("SELECT * FROM pågåendeauktioner WHERE NOW() = pågåendeauktioner.startdatum < pågåendeauktioner.slutdatum");
+		ResultSet rs = stm.executeQuery("SELECT * FROM pågåendeauktioner WHERE (NOW() BETWEEN StartDatum AND SlutDatum)");
 
 		while(rs.next()){
 			arrAllaPågåendeAuktioner.add(new Auktion(rs.getInt("auktionsID"),
@@ -112,6 +112,5 @@ public class JDBC_Connection {
 
 
 
-//1. En lista som returnerar samtliga pågående auktioner (Sparade som Auktions objekt från klassen i model package)
-//
+
 //2. En lista som returnerar samtliga pågående auktioner som en Person har budat på(Sparade som Auktions objekt från klassen i model package)
