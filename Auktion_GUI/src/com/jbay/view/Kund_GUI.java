@@ -24,10 +24,16 @@ public class Kund_GUI extends JFrame {
 	private JTextField textField;
 	private JTable table;
 	private String personNummer;
+	JLabel lblInloggadSom;
 	private static Kund_GUI singleton;
 	private List<Auktion> auktionList;
 	private String[] columnNames = {"Auktion", "Produktnamn", "Kategori", "Högsta bud", "Startdatum", "Slutdatum", "Utgångspris", "Maxbud", "Acceptpris", "Företag"};
 	private Object[][] data = {};
+	
+	public void setPersonnummer(String personNummer){
+		this.personNummer = personNummer;
+		lblInloggadSom.setText(personNummer);
+	}
 	
 	public static Kund_GUI getsingleton(String personNummer){
 		if (singleton == null) {
@@ -107,8 +113,7 @@ public class Kund_GUI extends JFrame {
 						data[i][6] = auktionList.get(i).getMaxBud();
 						data[i][7] = auktionList.get(i).getAcceptPris();
 						data[i][8] = auktionList.get(i).getFöretag();
-						}
-										
+						}			
 						table.setModel(new DefaultTableModel(data, columnNames));								
 					
 					
@@ -131,6 +136,9 @@ public class Kund_GUI extends JFrame {
 		JPanel panel_2 = new JPanel();
 		panel.add(panel_2, BorderLayout.SOUTH);
 		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		lblInloggadSom = new JLabel("Inloggad som: " + this.personNummer);
+		panel_2.add(lblInloggadSom);
 		
 		textField = new JTextField();
 		panel_2.add(textField);
