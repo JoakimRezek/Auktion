@@ -31,11 +31,6 @@ public class Kund_GUI extends JFrame {
 	private String[] columnNames = {"Auktion", "Produktnamn", "Kategori", "Högsta bud", "Startdatum", "Slutdatum", "Utgångspris", "Maxbud", "Acceptpris", "Företag"};
 	private Object[][] data = {};
 
-	public void setPersonnummer(String personNummer){
-		this.personNummer = personNummer;
-		lblInloggadSom.setText(personNummer);
-	}
-
 	public static Kund_GUI getsingleton(String personNummer){
 		if (singleton == null) {
 			singleton = new Kund_GUI(personNummer);
@@ -45,7 +40,6 @@ public class Kund_GUI extends JFrame {
 
 	private Kund_GUI(String personNummer) {
 		this.personNummer = personNummer;
-
 		setTitle("Kund_VY");
 		setVisible(true);
 		setBounds(100, 100, 800, 600);
@@ -70,7 +64,8 @@ public class Kund_GUI extends JFrame {
 		minaBudgivningar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
 				try {
-					auktionList = JDBC_Connection.getSingleton().getAllaPagaendeAuktionerSomKundIDBudatPa(personNummer);
+					auktionList = JDBC_Connection.getSingleton().getAllaPagaendeAuktionerSomKundIDBudatPa(Kund_GUI.this.personNummer);
+					System.out.println(Kund_GUI.this.personNummer);
 					data = new Object[auktionList.size()][10];
 
 					for (int i = 0; i < auktionList.size(); i++) {
@@ -130,7 +125,7 @@ public class Kund_GUI extends JFrame {
 		JButton btnMeny = new JButton("Meny");
 		btnMeny.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				Inloggning.getInloggning().setVisible(true);
 				singleton = null;
 				dispose();
@@ -148,31 +143,32 @@ public class Kund_GUI extends JFrame {
 		textField = new JTextField();
 		panel_2.add(textField);
 		textField.setColumns(10);
-		
-		JLabel vidUppdatering = new JLabel(" ");
-		panel_2.add(vidUppdatering);
 
+		JLabel vidUppdatering = new JLabel("");
 
 		JButton btnLggBud = new JButton("L\u00E4gg bud");
 		btnLggBud.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				System.out.println(table.getSelectedColumn());
-				if(Double.parseDouble(textField.getText()) > auktionList.get(table.getSelectedColumn()).getMaxBud()){			
-					try {
-						JDBC_Connection.getSingleton().laggTillNyttBud(auktionList.get(table.getSelectedColumn()).getAuktionsID(), personNummer, Double.parseDouble(textField.getText()), vidUppdatering);
-					} catch (NumberFormatException e1) {
-						vidUppdatering.setText("Felaktig inmatning");
-					} catch (SQLException e1) {
-						e1.printStackTrace();
+				System.out.println(Kund_GUI.this.personNummer);
+				if(!textField.getText().isEmpty()){
+					if(Double.parseDouble(textField.getText()) > auktionList.get(table.getSelectedRow()).getMaxBud() && table.getSelectedRow() >= 0){			
+						try {
+							JDBC_Connection.getSingleton().laggTillNyttBud(auktionList.get(table.getSelectedRow()).getAuktionsID(),Kund_GUI.this.personNummer ,Double.parseDouble(textField.getText()), vidUppdatering);
+						} catch (NumberFormatException e1) {
+							vidUppdatering.setText("Felaktig inmatning");
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}
 					}
-				}
-				else{
-					vidUppdatering.setText("Ditt bud måste vara högre än " + auktionList.get(table.getSelectedColumn()).getMaxBud());
+					else{
+						vidUppdatering.setText("Ditt bud måste vara högre än " + auktionList.get(table.getSelectedRow()).getMaxBud());
+					}
 				}
 			}
 		});
 		panel_2.add(btnLggBud);
-		
+		panel_2.add(vidUppdatering);
+
 
 
 
