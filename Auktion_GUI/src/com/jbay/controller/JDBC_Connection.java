@@ -123,10 +123,10 @@ public class JDBC_Connection {
 					rs.getString("produktNamn"),
 					rs.getDate("startDatum"),
 					rs.getDate("slutDatum"),
-					rs.getInt("utgångsPris"),
+					rs.getInt("utg\u00E5ngsPris"),
 					rs.getInt("maxBud"),
 					rs.getInt("acceptPris"),
-					rs.getString("företagsnamn"),
+					rs.getString("f\u00F6retagsnamn"),
 					rs.getInt("provision"),
 					rs.getString("kontaktperson"),
 					rs.getString("email"),
@@ -140,6 +140,35 @@ public class JDBC_Connection {
 		return arrAllaPågåendeAuktionerSomKundIDBudatPå;
 	}
 
+	public ArrayList<Auktion> getAllaPagaendeAuktionerSomLeverantorIDBudatPa(String leverantorID) throws SQLException{
+		ArrayList<Auktion> arrAllaPagaendeAuktionerSomLeverantorIDBudatPa = new ArrayList<Auktion>();
+
+		PreparedStatement stm = conn.prepareStatement("SELECT * FROM p\u00E5g\u00E5endeauktioner WHERE organisationsnummer = '?'");
+		stm.setString(1, leverantorID);
+		ResultSet rs = stm.executeQuery();
+		
+		while(rs.next()){
+			arrAllaPagaendeAuktionerSomLeverantorIDBudatPa.add(new Auktion(rs.getInt("auktionsID"),
+					rs.getString("produktNamn"),
+					rs.getDate("startDatum"),
+					rs.getDate("slutDatum"),
+					rs.getInt("utg\u00E5ngsPris"),
+					rs.getInt("maxBud"),
+					rs.getInt("acceptPris"),
+					rs.getString("f\u00F6retagsnamn"),
+					rs.getInt("provision"),
+					rs.getString("kontaktperson"),
+					rs.getString("email"),
+					rs.getString("telefonnummer"),
+					rs.getString("kund"), 
+					rs.getString("kategori")));
+		}
+		
+		rs.close();
+		stm.close();
+		return arrAllaPagaendeAuktionerSomLeverantorIDBudatPa;
+	}
+	
 	public void läggTillNyKund( String prsNummer, String förnamn, String efternamn, String adress, 
 			String postnummer, String ort, String tlfnummer, String email) throws SQLException{
 
