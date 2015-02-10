@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.AbstractTableModel;
 
 import java.awt.GridLayout;
 
@@ -47,6 +48,7 @@ public class Leverantor_GUI extends JFrame {
 	private JTextField acceptprisField;
 	private JTextField produktField;
 	private JTable table;
+	private JTable table_1;
 	
 	private Leverantor_GUI(String leverantor) throws SQLException {
 		this.leverantor = leverantor;
@@ -121,8 +123,8 @@ public class Leverantor_GUI extends JFrame {
 		});
 		nyAuktionPane.add(btnSkapaAuktion);
 		
-		JPanel panel = new JPanel();
-		mainPane.add(panel, BorderLayout.CENTER);
+		JPanel tablePane = new JPanel();
+		mainPane.add(tablePane, BorderLayout.CENTER);
 		System.out.println(leverantor);
 		ArrayList<Auktion> auktionList = db.getAllaPagaendeAuktionerSomLeverantorIDBudatPa(leverantor);
 		Object[][] tableData = new Object[auktionList.size()][9];
@@ -139,7 +141,13 @@ public class Leverantor_GUI extends JFrame {
 			tableData[i][8] = auktionList.get(i).getKategori();
 		}
 		
-		table = new JTable(tableData,columnNames);
+		table = new JTable(tableData,columnNames){
+	        private static final long serialVersionUID = 1L;
+
+	        public boolean isCellEditable(int row, int column) {                
+	                return false;               
+	        };
+	    };
 		table.getColumnModel().getColumn(0).setMinWidth(20);
 		table.getColumnModel().getColumn(1).setMinWidth(80);
 		table.getColumnModel().getColumn(2).setMinWidth(50);
@@ -149,14 +157,14 @@ public class Leverantor_GUI extends JFrame {
 		table.getColumnModel().getColumn(6).setMinWidth(50);
 		table.getColumnModel().getColumn(7).setMinWidth(60);
 		table.getColumnModel().getColumn(8).setMinWidth(60);
-		panel.setLayout(new BorderLayout(0, 0));
+		tablePane.setLayout(new BorderLayout(0, 0));
 		JScrollPane scrollPane = new JScrollPane(table);
-		panel.add(scrollPane);
+		tablePane.add(scrollPane);
 		
 		JLabel auktionsLbl = new JLabel("Dina Auktioner");
 		auktionsLbl.setFont(new Font("Tahoma", Font.BOLD, 15));
 		auktionsLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(auktionsLbl, BorderLayout.NORTH);
+		tablePane.add(auktionsLbl, BorderLayout.NORTH);
 		
 		JButton btnTillbaka = new JButton("Tillbaka");
 		btnTillbaka.addActionListener(e ->{
@@ -166,8 +174,18 @@ public class Leverantor_GUI extends JFrame {
 		});
 		mainPane.add(btnTillbaka, BorderLayout.SOUTH);
 		
+		JPanel panel = new JPanel();
+		mainPane.add(panel, BorderLayout.EAST);
+		
+		table_1 = new JTable();
+		JScrollPane scrollPane_1 = new JScrollPane(table_1);
+		panel.add(scrollPane_1);
+		
+		
+		
 		
 		
 	}
 
+	
 }

@@ -224,4 +224,20 @@ public class JDBC_Connection {
 		
 		label.setText("Ditt bud har blivit godtaget.");
 	}
+	
+//	public ArrayList<String> getBudFranAuktion() throws SQLException{
+//
+//		ArrayList<String> arrBudFranAuktion = new ArrayList<>();
+//
+//		Statement stm = conn.createStatement();
+//		ResultSet rs = stm.executeQuery("SELECT * FROM Budhistorik");
+//
+//		while(rs.next()){
+//			arrAllaLeverantorIDs.add(rs.getString("Organisationsnummer"));
+//		}
+//
+//		stm.close();
+//		rs.close();
+//		return arrAllaLeverantorIDs;			
+//	}	
 }
