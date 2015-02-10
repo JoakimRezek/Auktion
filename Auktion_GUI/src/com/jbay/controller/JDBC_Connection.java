@@ -51,20 +51,20 @@ public class JDBC_Connection {
 		return arrAllaKundIDs;			
 	}
 
-	public ArrayList<String> getAllaLeverant�rIDs() throws SQLException{
+	public ArrayList<String> getAllaLeverantorIDs() throws SQLException{
 
-		ArrayList<String> arrAllaLeverant�rIDs = new ArrayList<>();
+		ArrayList<String> arrAllaLeverantorIDs = new ArrayList<>();
 
 		Statement stm = conn.createStatement();
-		ResultSet rs = stm.executeQuery("SELECT Organisationsnummer FROM Leverant�r");
+		ResultSet rs = stm.executeQuery("SELECT Organisationsnummer FROM Leverant\u00F6r");
 
 		while(rs.next()){
-			arrAllaLeverant�rIDs.add(rs.getString("Organisationsnummer"));
+			arrAllaLeverantorIDs.add(rs.getString("Organisationsnummer"));
 		}
 
 		stm.close();
 		rs.close();
-		return arrAllaLeverant�rIDs;			
+		return arrAllaLeverantorIDs;			
 	}	
 
 	public ArrayList<String> getAllaKategorier() throws SQLException{
@@ -83,21 +83,21 @@ public class JDBC_Connection {
 		return arrAllaKategorierNamn;		
 	}
 
-	public ArrayList<Auktion> getAllaP�g�endeAuktioner() throws SQLException{
-		ArrayList<Auktion> arrAllaP�g�endeAuktioner = new ArrayList<Auktion>();
+	public ArrayList<Auktion> getAllaPagaendeAuktioner() throws SQLException{
+		ArrayList<Auktion> arrAllaPagaendeAuktioner = new ArrayList<Auktion>();
 
 		Statement stm = conn.createStatement();
-		ResultSet rs = stm.executeQuery("SELECT * FROM p�g�endeauktioner WHERE (NOW() BETWEEN StartDatum AND SlutDatum)");
+		ResultSet rs = stm.executeQuery("SELECT * FROM p\u00E5g\u00E5endeauktioner WHERE (NOW() BETWEEN StartDatum AND SlutDatum)");
 
 		while(rs.next()){
-			arrAllaP�g�endeAuktioner.add(new Auktion(rs.getInt("auktionsID"),
+			arrAllaPagaendeAuktioner.add(new Auktion(rs.getInt("auktionsID"),
 					rs.getString("produktNamn"),
 					rs.getDate("startDatum"),
 					rs.getDate("slutDatum"),
-					rs.getInt("utg�ngsPris"),
+					rs.getInt("utg\u00E5ngsPris"),
 					rs.getInt("maxBud"),
 					rs.getInt("acceptPris"),
-					rs.getString("f�retagsnamn"),
+					rs.getString("f\u00F6retagsnamn"),
 					rs.getInt("provision"),
 					rs.getString("kontaktperson"),
 					rs.getString("email"),
@@ -108,18 +108,18 @@ public class JDBC_Connection {
 
 		rs.close();
 		stm.close();
-		return arrAllaP�g�endeAuktioner;
+		return arrAllaPagaendeAuktioner;
 	}
 
-	public ArrayList<Auktion> getAllaP�g�endeAuktionerSomKundIDBudatP�(String kundID) throws SQLException{
-		ArrayList<Auktion> arrAllaP�g�endeAuktionerSomKundIDBudatP� = new ArrayList<Auktion>();
+	public ArrayList<Auktion> getAllaPagaendeAuktionerSomKundIDBudatPa(String kundID) throws SQLException{
+		ArrayList<Auktion> arrAllaPagaendeAuktionerSomKundIDBudatPa = new ArrayList<Auktion>();
 
-		PreparedStatement stm = conn.prepareStatement("SELECT * FROM p�g�endeauktioner WHERE kund =?");
+		PreparedStatement stm = conn.prepareStatement("SELECT * FROM p\u00E5g\u00E5endeauktioner WHERE kund =?");
 		stm.setString(1, kundID);
 		ResultSet rs = stm.executeQuery();
 		
 		while(rs.next()){
-			arrAllaP�g�endeAuktionerSomKundIDBudatP�.add(new Auktion(rs.getInt("auktionsID"),
+			arrAllaPagaendeAuktionerSomKundIDBudatPa.add(new Auktion(rs.getInt("auktionsID"),
 					rs.getString("produktNamn"),
 					rs.getDate("startDatum"),
 					rs.getDate("slutDatum"),
@@ -137,17 +137,14 @@ public class JDBC_Connection {
 		
 		rs.close();
 		stm.close();
-		return arrAllaP�g�endeAuktionerSomKundIDBudatP�;
+		return arrAllaPagaendeAuktionerSomKundIDBudatPa;
 	}
 
 	public ArrayList<Auktion> getAllaPagaendeAuktionerSomLeverantorIDBudatPa(String leverantorID) throws SQLException{
 		ArrayList<Auktion> arrAllaPagaendeAuktionerSomLeverantorIDBudatPa = new ArrayList<Auktion>();
 
-<<<<<<< HEAD
+
 		PreparedStatement stm = conn.prepareStatement("SELECT * FROM p\u00E5g\u00E5endeauktioner WHERE organisationsnummer = ?");
-=======
-		PreparedStatement stm = conn.prepareStatement("SELECT * FROM p\u00E5g\u00E5endeauktioner WHERE organisationsnummer =?");
->>>>>>> 262c1b2a8ead33b1751584f4b365cd5d179c4695
 		stm.setString(1, leverantorID);
 		ResultSet rs = stm.executeQuery();
 		
@@ -173,13 +170,13 @@ public class JDBC_Connection {
 		return arrAllaPagaendeAuktionerSomLeverantorIDBudatPa;
 	}
 	
-	public void l�ggTillNyKund( String prsNummer, String f�rnamn, String efternamn, String adress, 
+	public void laggTillNyKund( String prsNummer, String fornamn, String efternamn, String adress, 
 			String postnummer, String ort, String tlfnummer, String email) throws SQLException{
 
 		PreparedStatement stm = conn.prepareStatement("INSERT INTO Kund (PersonNummer, F�rnamn, Efternamn, Adress, Postnummer, Ort, Telefonnummer, Email) "
 				+ "values (?, ?, ?, ?, ?, ?, ?, ?)");
 		stm.setString(1, prsNummer);
-		stm.setString(2, f�rnamn);
+		stm.setString(2, fornamn);
 		stm.setString(3, efternamn);
 		stm.setString(4, adress);
 		stm.setString(5, postnummer);
@@ -193,12 +190,12 @@ public class JDBC_Connection {
 	}
 	
 
-	public void l�ggTillNyLeverant�r(String orgNummer, String f�retagsNamn, int provision, String kontaktPerson, String email, String telefonNummer) throws SQLException{
+	public void laggTillNyLeverantor(String orgNummer, String foretagsNamn, int provision, String kontaktPerson, String email, String telefonNummer) throws SQLException{
 		
-		PreparedStatement stm = conn.prepareStatement("INSERT INTO Leverant�r (Organisationsnummer, F�retagsnamn, Provision, Kontaktperson, Email, Telefonnummer)"
+		PreparedStatement stm = conn.prepareStatement("INSERT INTO Leverant\u00F6r (Organisationsnummer, F\u00F6retagsnamn, Provision, Kontaktperson, Email, Telefonnummer)"
 				+ "values (?, ?, ?, ?, ?, ?)");
 		stm.setString(1, orgNummer);
-		stm.setString(2, f�retagsNamn);
+		stm.setString(2, foretagsNamn);
 		stm.setInt(3, provision);
 		stm.setString(4, kontaktPerson);
 		stm.setString(5, email);
@@ -210,7 +207,7 @@ public class JDBC_Connection {
 		
 	}
 	
-	public void l�ggTillNyttBud(String auktionID, String personNummer, double bud, JLabel label) throws SQLException{
+	public void laggTillNyttBud(String auktionID, String personNummer, double bud, JLabel label) throws SQLException{
 		
 		conn.setAutoCommit(false);
 		PreparedStatement stm = conn.prepareStatement("INSERT INTO auktion.bud (Auktion, Kund, Pris) VALUES (?, ?, ?)",
