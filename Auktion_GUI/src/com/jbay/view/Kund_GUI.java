@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -11,8 +12,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
+import com.jbay.controller.JDBC_Connection;
 import com.jbay.model.Auktion;
+import com.mysql.jdbc.JDBC4CallableStatement;
 
 
 public class Kund_GUI extends JFrame {
@@ -20,6 +24,7 @@ public class Kund_GUI extends JFrame {
 	private JTable table;
 	private static Kund_GUI singleton;
 	private List<Auktion> auktionList;
+	private String[] columnNames = {"Auktion", "Produktnamn", "Högsta bud", "Startdatum", "Slutdatum", "Utgångspris", "Maxbud", "Acceptpris", "Företag"};
 	private Object[][] data = {};
 	
 	public static Kund_GUI getsingleton(String personNummer){
@@ -44,11 +49,17 @@ public class Kund_GUI extends JFrame {
 		panel.add(panel_1, BorderLayout.NORTH);
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
+		JScrollPane scrollPane = new JScrollPane();
+		panel.add(scrollPane, BorderLayout.CENTER);
+		
+		table = new JTable(data, columnNames);
+		scrollPane.setViewportView(table);
+		
 		JButton minaBudgivningar = new JButton("Mina p\u00E5g\u00E5ende budgivningar");
 		minaBudgivningar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String[] columnNames = {"Auktions", "Produktnamn", ""};
+				
 			}
 		});
 		panel_1.add(minaBudgivningar);
@@ -56,6 +67,28 @@ public class Kund_GUI extends JFrame {
 		JButton allaAuktioner = new JButton("Alla auktioner");
 		allaAuktioner.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					auktionList = JDBC_Connection.getSingleton().getAllaPågåendeAuktioner();
+					data = new Object[auktionList.size()][9];
+					
+					for (int i = 0; i < auktionList.size(); i++) {
+						data[i][0] = auktionList.get(i).getAuktionsID();
+						data[i][1] = auktionList.get(i).getProduktNamn();
+						data[i][2] = auktionList.get(i).getKund();
+						data[i][3] = auktionList.get(i).getStartDatum();
+						data[i][4] = auktionList.get(i).getSlutDatum();
+						data[i][5] = auktionList.get(i).getUtgångsPris();
+						data[i][6] = auktionList.get(i).getMaxBud();
+						data[i][7] = auktionList.get(i).getAcceptPris();
+						data[i][8] = auktionList.get(i).getFöretag();
+						}
+										
+						table.setModel(new DefaultTableModel(data, columnNames));								
+					
+					
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		panel_1.add(allaAuktioner);
@@ -84,11 +117,7 @@ public class Kund_GUI extends JFrame {
 		});
 		panel_2.add(btnLggBud);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		panel.add(scrollPane, BorderLayout.CENTER);
 		
-		table = new JTable();
-		scrollPane.setViewportView(table);
 
 	}
 
