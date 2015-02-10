@@ -93,19 +93,23 @@ create trigger auktionsSlut after insert on bud
 end ¤¤
 delimiter ;
 
+create view hogstaBud as select b1.pris, b1.kund, b1.auktion from bud as b1
+left join bud as b2 on b1.auktion = b2.auktion and b1.pris < b2.pris
+where b2.pris is null;
+
 create view PågåendeAuktioner
-as select AuktionsID, Produktnamn, kategorinamn as kategori, StartDatum, Slutdatum, Utgångspris, max(Pris) as Maxbud, Acceptpris, 
-	      Företagsnamn, Provision, Kontaktperson, Leverantör.Email as Email, Leverantör.Telefonnummer as Telefonnummer, Personnummer as Kund,
-          Leverantör.Organisationsnummer
+as select AuktionsID, Produktnamn, kategorinamn as kategori, StartDatum, Slutdatum, Utgångspris, hogstabud.Pris as Maxbud, Acceptpris, 
+	      Företagsnamn, Provision, Kontaktperson, Leverantör.Email as Email, Leverantör.Telefonnummer as Telefonnummer, 
+          hogstabud.Kund, Leverantör.Organisationsnummer
 from Auktion
 inner join Leverantör on Auktion.leverantör = Leverantör.Organisationsnummer
-left join Bud on Auktion.AuktionsID = Bud.Auktion
-left join Kund on Bud.Kund = Kund.PersonNummer
+left join hogstabud on hogstabud.auktion = auktion.auktionsid
+left join Kund on hogstaBud.Kund = Kund.PersonNummer
 left join Kategori on Auktion.produktkategori = Kategori.kategoriid
 group by AuktionsId;
 
 create view Budhistorik
-as select Bud.Auktion, Produktnamn,  Förnamn, Efternamn, Pris
+as select Bud.Auktion, Produktnamn,  Förnamn, Efternamn, Pris, bud.kund
 from bud
 inner join Kund on Bud.Kund = Kund.Personnummer
 inner join Auktion on Bud.Auktion = Auktion.AuktionsID
