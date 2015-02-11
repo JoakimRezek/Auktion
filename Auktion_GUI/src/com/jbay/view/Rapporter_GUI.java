@@ -110,7 +110,24 @@ public class Rapporter_GUI extends JFrame {
 		btnKund.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					kundList = JDBC_Connection.getSingleton().getAllaKunderSomHarVunnit();
+					String[] columnNames = {"Personnummer", "Förnamn", "Efternamn", "Adress", "Postnummer", "Ort", "Telefon", "Email", "Total"};
+					kundList = JDBC_Connection.getSingleton().getAllaKunderSomHarVunnit();				
+					data = new Object[kundList.size()][9];
+					
+					for (int i = 0; i < kundList.size(); i++) {
+						data[i][0] = kundList.get(i).getPersonNummer();
+						data[i][1] = kundList.get(i).getForNamn();
+						data[i][2] = kundList.get(i).getEfterNamn();
+						data[i][3] = kundList.get(i).getAdress();
+						data[i][4] = kundList.get(i).getPostNummer();
+						data[i][5] = kundList.get(i).getOrt();
+						data[i][6] = kundList.get(i).getTelefon();
+						data[i][7] = kundList.get(i).getEmail();					
+						data[i][8] = kundList.get(i).getTotal();
+					}
+					
+					table.setModel(new DefaultTableModel(data, columnNames));
+					
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
