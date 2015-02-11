@@ -122,9 +122,15 @@ public class Leverantor_GUI extends JFrame {
 		JPanel tomPane2 = new JPanel();
 		nyAuktionPane.add(tomPane2);
 		
+		
 		JButton btnSkapaAuktion = new JButton("Skapa Auktion");
 		btnSkapaAuktion.addActionListener(e -> {
-			System.out.println("pushed");
+			try {
+				db.skapaAuktion(startdatumField.getText(), Double.parseDouble(utgangsprisField.getText()), Double.parseDouble(acceptprisField.getText()), 
+						slutdatumField.getText(), produktField.getText(), kategoriBox.getSelectedItem().toString(), leverantor);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		});
 		nyAuktionPane.add(btnSkapaAuktion);
 		
