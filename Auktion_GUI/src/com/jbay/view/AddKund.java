@@ -79,7 +79,7 @@ public class AddKund extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AddKund() {
+	public AddKund(){
 		setTitle("Registrera ny Kund");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -262,7 +262,7 @@ public class AddKund extends JFrame {
 		btnAvbryt = new JButton("Avbryt");
 		btnAvbryt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				dispose();
 			}
 		});
 		GridBagConstraints gbc_btnAvbryt = new GridBagConstraints();

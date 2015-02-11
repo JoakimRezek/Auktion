@@ -214,7 +214,7 @@ public class AddLeverantor extends JFrame {
 		GridBagConstraints gbc_btnAvbryt = new GridBagConstraints();
 		btnAvbryt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				dispose();
 			}
 		});
 		gbc_btnAvbryt.insets = new Insets(10, 10, 10, 10);
