@@ -18,9 +18,11 @@ import javax.swing.JTable;
 
 import com.jbay.controller.JDBC_Connection;
 import com.jbay.model.Auktion;
+import com.jbay.model.Kund;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 import java.util.List;
 
 public class Rapporter_GUI extends JFrame {
@@ -33,6 +35,7 @@ public class Rapporter_GUI extends JFrame {
 	private String[] columnNames = {""};
 	private Object[][] data = {};
 	private List<Auktion> auktionList;
+	private List<Kund> kundList;
 
 	public static Rapporter_GUI getsingleton(){
 		if (singleton == null) {
@@ -106,7 +109,11 @@ public class Rapporter_GUI extends JFrame {
 		JButton btnKund = new JButton("Kundbest\u00E4llningar");
 		btnKund.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				try {
+					kundList = JDBC_Connection.getSingleton().getAllaKunderSomHarVunnit();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 				
 			}
 		});

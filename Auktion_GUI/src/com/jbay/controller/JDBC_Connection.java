@@ -250,7 +250,7 @@ public class JDBC_Connection {
 		return arrBudFranAuktion;
 	}
 	
-	public ArrayList<Kund> getAllaKunderSomHarVunnit(String kundID) throws SQLException{
+	public ArrayList<Kund> getAllaKunderSomHarVunnit() throws SQLException{
 		ArrayList<Kund> kundListaMedTotaltOrdervarde = new ArrayList<Kund>();
 
 		PreparedStatement stm = conn.prepareStatement("SELECT PersonNummer, F\u00F6rnamn, Efternamn, Adress, Postnummer, Ort, Telefonnummer, Email, sum(hogstaBud.pris) as Total FROM Kund "
@@ -258,7 +258,7 @@ public class JDBC_Connection {
 													+ "inner join Auktion on Auktion.AuktionsId = hogstaBud.auktion "
 													+ "where Auktion.AvslutadAuktion = 1 "
 													+ "group by PersonNummer;");
-		stm.setString(1, kundID);
+		
 		ResultSet rs = stm.executeQuery();
 		
 		while(rs.next()){
