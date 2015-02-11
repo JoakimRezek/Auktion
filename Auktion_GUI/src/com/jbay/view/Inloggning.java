@@ -71,7 +71,8 @@ public class Inloggning extends JFrame {
 		btnRapporter = new JButton("Rapporter");
 		btnRapporter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				Rapporter_GUI.getsingleton().setVisible(true);
+				setVisible(false);
 			}
 		});
 		GridBagConstraints gbc_btnRapporter = new GridBagConstraints();
