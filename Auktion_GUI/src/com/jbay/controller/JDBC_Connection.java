@@ -89,7 +89,7 @@ public class JDBC_Connection {
 		ArrayList<Auktion> arrAllaPagaendeAuktioner = new ArrayList<Auktion>();
 
 		Statement stm = conn.createStatement();
-		ResultSet rs = stm.executeQuery("SELECT * FROM p\u00E5g\u00E5endeauktioner WHERE (NOW() BETWEEN StartDatum AND SlutDatum)");
+		ResultSet rs = stm.executeQuery("SELECT * FROM p\u00E5g\u00E5endeauktioner WHERE (NOW() BETWEEN StartDatum AND SlutDatum ) and avslutad = '0'");
 
 		while(rs.next()){
 			arrAllaPagaendeAuktioner.add(new Auktion(rs.getInt("auktionsID"),
