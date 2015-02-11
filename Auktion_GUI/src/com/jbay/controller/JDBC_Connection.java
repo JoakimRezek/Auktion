@@ -313,8 +313,8 @@ public void skapaAuktion(String startdatum, double utgangspris, double acceptpri
 		stm.setDouble(3, acceptpris);
 		stm.setString(4, slutdatum);
 		stm.setString(5, produktnamn);
-		stm.setInt(5, this.getKategoriID(kategori));
-		stm.setString(6, leverantor);
+		stm.setInt(6, this.getKategoriID(kategori));
+		stm.setString(7, leverantor);
 		
 			
 		stm.executeUpdate();
@@ -324,7 +324,7 @@ public void skapaAuktion(String startdatum, double utgangspris, double acceptpri
 	}
 	
 	public int getKategoriID(String kategori) throws SQLException{
-		PreparedStatement stm = conn.prepareStatement("SELECT katergoriid FROM Kategori WHERE kategorinamn = ?");
+		PreparedStatement stm = conn.prepareStatement("SELECT KategoriID FROM Kategori WHERE kategorinamn = ?");
 		stm.setString(1, kategori);
 		ResultSet rs = stm.executeQuery();
 		
