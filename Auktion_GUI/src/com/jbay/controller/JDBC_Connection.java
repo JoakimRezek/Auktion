@@ -349,8 +349,8 @@ public void skapaAuktion(String startdatum, double utgangspris, double acceptpri
 				+ "where Avslutad = 1;");
 		
 		while(rs.next()){
-			totalProvisionPerManad.add(new Manad(rs.getString("manad"),
-					rs.getDouble("provision")));
+			totalProvisionPerManad.add(new Manad(rs.getString("M\u00E5nad"),
+					rs.getDouble("Provision")));
 		}
 		
 		rs.close();
