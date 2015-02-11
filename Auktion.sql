@@ -40,6 +40,7 @@ CREATE TABLE Auktion(
   Slutdatum DATETIME NULL,
   Produktnamn VARCHAR(45) NULL,
   Produktkategori INT NULL,
+  AvslutadAuktion BOOL NOT NULL DEFAULT FALSE,
   Leverantör VARCHAR(15) NOT NULL,
   
   PRIMARY KEY (AuktionsID),
@@ -59,25 +60,6 @@ CREATE TABLE  Bud(
   CONSTRAINT Bud_Auktion_fk FOREIGN KEY(Auktion) REFERENCES Auktion(AuktionsID) ON DELETE CASCADE,
   CONSTRAINT Bud_Kund_fk FOREIGN KEY(Kund) REFERENCES Kund(PersonNummer) ON DELETE CASCADE);
 
-
-create table avslutadeAuktioner(
-AuktionsID INT NOT NULL,
-Startdatum DATETIME NULL,
-Utgångspris DOUBLE NULL,
-Acceptpris DOUBLE NULL,
-Slutpris DOUBLE NULL,
-Slutdatum DATETIME NULL,
-Produktnamn VARCHAR(45) NULL,
-Produktkategori VARCHAR(45) NULL,
-Leverantör VARCHAR(15) NOT NULL,
-AcceptDatum DATETIME NULL,
-Kund varchar(14) NULL,
-  
-PRIMARY KEY (AuktionsID),
-  
-CONSTRAINT avsultadeAuktioner_Leverantör_fk FOREIGN KEY(Leverantör) REFERENCES Leverantör(Organisationsnummer) ON DELETE CASCADE,
-CONSTRAINT avsultadeAuktioner_Kund_fk FOREIGN KEY(Kund) REFERENCES Kund(PersonNummer) ON DELETE CASCADE
-);
 
 delimiter ¤¤
 create trigger auktionsSlut after insert on bud
