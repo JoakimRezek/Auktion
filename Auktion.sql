@@ -84,7 +84,7 @@ inner join Auktion on Bud.Auktion = Auktion.AuktionsID
 order by pris desc;
 
 create view kundbud as select auktionsid, produktnamn, kategorinamn, startdatum, 
-slutdatum, utgångspris, CONCAT(förnamn, ' ', efternamn) as person, pris, acceptpris, leverantör
+slutdatum, utgångspris, CONCAT(förnamn, ' ', efternamn) as person, bud.kund, pris, acceptpris, leverantör
 from auktion
 left join kategori on auktion.produktkategori = kategori.kategoriid
 join bud on auktion = auktionsid
