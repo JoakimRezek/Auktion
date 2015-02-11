@@ -57,10 +57,10 @@ public class Leverantor_GUI extends JFrame {
 	
 	private Leverantor_GUI(String leverantor) throws SQLException {
 		this.leverantor = leverantor;
-		this.setMinimumSize(new Dimension(600,400));
+		this.setResizable(false);
 		db = JDBC_Connection.getSingleton();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 682, 600);
+		setBounds(100, 100, 670, 600);
 		mainPane = new JPanel();
 		mainPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(mainPane);

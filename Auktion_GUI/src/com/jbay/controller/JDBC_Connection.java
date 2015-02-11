@@ -278,7 +278,7 @@ public class JDBC_Connection {
 		return kundListaMedTotaltOrdervarde;
 	}
 	
-	public void k\u00F6pAuktionNu(int auktionsID, String KundID, JLabel label) throws SQLException{
+	public void kopAuktionNu(int auktionsID, String KundID, JLabel label) throws SQLException{
 		conn.setAutoCommit(false);
 		
 		PreparedStatement stm = conn.prepareStatement("UPDATE auktion SET avslutadAuktion = 1 WHERE AuktionsID = ?", 
@@ -299,5 +299,39 @@ public class JDBC_Connection {
 
 		conn.commit();
 		stm.close();
+	}
+	
+public void skapaAuktion(String startdatum, double utgangspris, double acceptpris, String slutdatum, String produktnamn, String kategori, String leverantor) throws SQLException{
+		
+		conn.setAutoCommit(false);
+		PreparedStatement stm = conn.prepareStatement("INSERT INTO Auktion "
+				+ "(Startdatum, Utg\u00E5ngspris, Acceptpris, Slutdatum, Produktnamn, Produktkategori, Leverant\u00F6r) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?)",
+				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		stm.setString(1, startdatum);
+		stm.setDouble(2, utgangspris);
+		stm.setDouble(3, acceptpris);
+		stm.setString(4, slutdatum);
+		stm.setString(5, produktnamn);
+		stm.setInt(5, this.getKategoriID(kategori));
+		stm.setString(6, leverantor);
+		
+			
+		stm.executeUpdate();
+		conn.commit();
+		
+		stm.close();
+	}
+	
+	public int getKategoriID(String kategori) throws SQLException{
+		PreparedStatement stm = conn.prepareStatement("SELECT katergoriid FROM Kategori WHERE kategorinamn = ?");
+		stm.setString(1, kategori);
+		ResultSet rs = stm.executeQuery();
+		
+		rs.next();
+		int retur = rs.getInt("KategoriID");
+		rs.close();
+		stm.close();
+		return retur;
 	}
 }
