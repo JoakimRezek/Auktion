@@ -250,18 +250,6 @@ public class JDBC_Connection {
 		return arrBudFranAuktion;
 	}
 	
-	public void k�pAuktionNu(int auktionsID) throws SQLException{
-		
-		PreparedStatement stm = conn.prepareStatement("UPDATE auktion SET avslutad = 1 WHERE AuktionsID = ?");
-		stm.setInt(1, auktionsID);
-		
-		stm.executeUpdate();
-		System.out.println("Du har k�pt auktion: " + auktionsID);
-		
-		stm.close();
-	}
-	
-	
 	public ArrayList<Kund> getAllaKunderSomHarVunnit(String kundID) throws SQLException{
 		ArrayList<Kund> kundListaMedTotaltOrdervarde = new ArrayList<Kund>();
 
@@ -288,5 +276,28 @@ public class JDBC_Connection {
 		rs.close();
 		stm.close();
 		return kundListaMedTotaltOrdervarde;
+	}
+	
+	public void k\u00F6pAuktionNu(int auktionsID, String KundID, JLabel label) throws SQLException{
+		conn.setAutoCommit(false);
+		
+		PreparedStatement stm = conn.prepareStatement("UPDATE auktion SET avslutadAuktion = 1 WHERE AuktionsID = ?", 
+				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		stm.setInt(1, auktionsID);
+		stm.executeUpdate();
+		
+		PreparedStatement stm2 = conn.prepareStatement("INSERT INTO bud (Auktion, Kund, Pris) "
+				+ "VALUES (?, ?, (SELECT AcceptPris FROM Auktion WHERE auktionsID = ?))", 
+				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		stm2.setInt(1, auktionsID);
+		stm2.setString(2, KundID);
+		stm2.setInt(3, auktionsID);
+		
+		stm2.executeUpdate();
+		
+		label.setText("Du har k\u00F6pt auktion: " + auktionsID);
+
+		conn.commit();
+		stm.close();
 	}
 }
