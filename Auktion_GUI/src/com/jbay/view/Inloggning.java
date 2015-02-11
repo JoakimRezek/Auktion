@@ -25,7 +25,7 @@ public class Inloggning extends JFrame {
 	
 	private JDBC_Connection dBConnection;
 	private JButton btnNyKund;
-	private JButton btnNyLeverant\u00F6rr;
+	private JButton btnNyLeverant\u00F6r;
 
 	public static Inloggning getInloggning(){
 		if (inloggning == null) {
@@ -123,17 +123,17 @@ public class Inloggning extends JFrame {
 		});
 		contentPane.add(btnNyKund, gbc_btnNyKund);
 		
-		btnNyLeverant\u00F6rr = new JButton("Ny Leverant\u00F6r");
+		btnNyLeverant\u00F6r = new JButton("Ny Leverant\u00F6r");
 		GridBagConstraints gbc_btnNyLeverantr = new GridBagConstraints();
 		gbc_btnNyLeverantr.gridx = 7;
 		gbc_btnNyLeverantr.gridy = 4;
-		btnNyLeverantörr.addActionListener(new ActionListener() {
+		btnNyLeverant\u00F6r.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddLeverantor.getsingleton().setVisible(true);
 				dispose();
 			}
 		});
-		contentPane.add(btnNyLeverant\u00F6rr, gbc_btnNyLeverantr);
+		contentPane.add(btnNyLeverant\u00F6r, gbc_btnNyLeverantr);
 		
 		pack();		
 	}
