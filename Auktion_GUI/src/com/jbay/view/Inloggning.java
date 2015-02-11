@@ -26,6 +26,7 @@ public class Inloggning extends JFrame {
 	private JDBC_Connection dBConnection;
 	private JButton btnNyKund;
 	private JButton btnNyLeverant\u00F6r;
+	private JButton btnRapporter;
 
 	public static Inloggning getInloggning(){
 		if (inloggning == null) {
@@ -66,6 +67,19 @@ public class Inloggning extends JFrame {
 			comboBoxLoginID.addItem(element);
 		}
 		contentPane.add(comboBoxLoginID, gbc_comboBoxLoginID);
+		
+		btnRapporter = new JButton("Rapporter");
+		btnRapporter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Rapporter_GUI.getsingleton().setVisible(true);
+				setVisible(false);
+			}
+		});
+		GridBagConstraints gbc_btnRapporter = new GridBagConstraints();
+		gbc_btnRapporter.insets = new Insets(0, 0, 5, 5);
+		gbc_btnRapporter.gridx = 4;
+		gbc_btnRapporter.gridy = 0;
+		contentPane.add(btnRapporter, gbc_btnRapporter);
 		
 		comboBoxLeverant\u00F6rID = new JComboBox<String>();
 		GridBagConstraints gbc_comboBoxLeverant\u00F6rID = new GridBagConstraints();
