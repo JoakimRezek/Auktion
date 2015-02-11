@@ -19,6 +19,7 @@ import javax.swing.JTable;
 import com.jbay.controller.JDBC_Connection;
 import com.jbay.model.Auktion;
 import com.jbay.model.Kund;
+import com.jbay.model.Manad;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -36,6 +37,7 @@ public class Rapporter_GUI extends JFrame {
 	private Object[][] data = {};
 	private List<Auktion> auktionList;
 	private List<Kund> kundList;
+	private List<Manad> manadList;
 
 	public static Rapporter_GUI getsingleton(){
 		if (singleton == null) {
@@ -142,6 +144,24 @@ public class Rapporter_GUI extends JFrame {
 		JButton btnMnadsrapport = new JButton("M\u00E5nadsrapport");
 		btnMnadsrapport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				 
+				try {
+					manadList = JDBC_Connection.getSingleton().getAllaManaderMedProvision();
+					String[] columnNames = {"M\u00E5nad", "Provision"};				
+					data = new Object[manadList.size()][2];
+					
+					for (int i = 0; i < manadList.size(); i++) {
+						data[i][0] = manadList.get(i).getManad();
+						data[i][1] = manadList.get(i).getProvision();
+					}
+					
+					table.setModel(new DefaultTableModel(data, columnNames));
+					
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				
+				
 			}
 		});
 		panel.add(btnMnadsrapport);
