@@ -148,6 +148,22 @@ public class Rapporter_GUI extends JFrame {
 
 		JLabel label_2 = new JLabel("|");
 		panel.add(label_2);
+		
+		JPanel panel_1 = new JPanel();
+		contentPane.add(panel_1, BorderLayout.SOUTH);
+		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JButton btnMeny = new JButton("Meny");
+		btnMeny.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				Inloggning.getInloggning().setVisible(true);
+				singleton = null;
+				dispose();
+				
+			}
+		});
+		panel_1.add(btnMeny);
 
 	}
 
