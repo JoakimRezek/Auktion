@@ -29,7 +29,7 @@ public class Kund_GUI extends JFrame {
 	JLabel lblInloggadSom;
 	private static Kund_GUI singleton;
 	private List<Auktion> auktionList;
-	private String[] columnNames = {"Auktion", "Produktnamn", "Kategori", "Startdatum", "Slutdatum", "Utgångspris", "Budgivare", "Maxbud", "Acceptpris", "Företag"};
+	private String[] columnNames = {"Auktion", "Produktnamn", "Kategori", "Startdatum", "Slutdatum", "Utg\u00E5ngspris", "Budgivare", "Maxbud", "Acceptpris", "F\u00F6retag"};
 	private Object[][] data = {};
 
 	public static Kund_GUI getsingleton(String personNummer){
@@ -179,7 +179,7 @@ public class Kund_GUI extends JFrame {
 						}
 					}
 					else{
-						vidUppdatering.setText("Ditt bud måste vara högre än " + auktionList.get(table.getSelectedRow()).getMaxBud());
+						vidUppdatering.setText("Ditt bud m\u00E5ste vara h\u00F6gre \u00E4n " + auktionList.get(table.getSelectedRow()).getMaxBud());
 					}
 				}
 			}
