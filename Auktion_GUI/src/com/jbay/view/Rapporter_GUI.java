@@ -93,7 +93,7 @@ public class Rapporter_GUI extends JFrame {
 					data[i][5] = auktionList.get(i).getKund();
 					data[i][6] = auktionList.get(i).getMaxBud();
 					data[i][7] = auktionList.get(i).getForetag();
-					data[i][8] = auktionList.get(i).getMaxBud() * (auktionList.get(i).getProvision() / 100);
+					data[i][8] = auktionList.get(i).getMaxBud() * (auktionList.get(i).getProvision() * 0.1);
 				}
 				table.setModel(new DefaultTableModel(data, columnNames));
 			}

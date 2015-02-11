@@ -189,7 +189,16 @@ public class Kund_GUI extends JFrame {
 		JButton btnNewButton = new JButton("K\u00F6p nu");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			
+				if(auktionList.get(table.getSelectedRow()).getMaxBud() < auktionList.get(table.getSelectedRow()).getAcceptPris()){
+					try {
+						JDBC_Connection.getSingleton().kopAuktionNu(auktionList.get(table.getSelectedRow()).getAuktionsID(), Kund_GUI.this.personNummer, vidUppdatering);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				else if (auktionList.get(table.getSelectedRow()).getMaxBud() >= auktionList.get(table.getSelectedRow()).getAcceptPris()){
+					vidUppdatering.setText("Budgivningen har redan passerat acceptpriset.");
+				}
 			}
 		});
 		panel_2.add(btnNewButton);
