@@ -61,7 +61,7 @@ public class Kund_GUI extends JFrame {
 		table = new JTable(data, columnNames);
 		scrollPane.setViewportView(table);
 
-		JButton minaBudgivningar = new JButton("Budgivningar jag leder");
+		JButton minaBudgivningar = new JButton("Budgivningar jag delar i");
 		minaBudgivningar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
 				try {
