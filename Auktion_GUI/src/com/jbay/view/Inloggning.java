@@ -117,7 +117,7 @@ public class Inloggning extends JFrame {
 		gbc_btnNyKund.gridy = 4;
 		btnNyKund.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				AddLeverantor.getsingleton().setVisible(true);
+				AddKund.getsingleton().setVisible(true);
 				dispose();
 			}
 		});
@@ -129,7 +129,7 @@ public class Inloggning extends JFrame {
 		gbc_btnNyLeverantr.gridy = 4;
 		btnNyLeverantörr.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AddKund.getsingleton().setVisible(true);
+				AddLeverantor.getsingleton().setVisible(true);
 				dispose();
 			}
 		});
