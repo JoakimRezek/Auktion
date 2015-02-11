@@ -43,24 +43,14 @@ public class AddLeverantor extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AddLeverantor frame = new AddLeverantor();
-					frame.setVisible(true);
-					frame.pack();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 	
 	public static AddLeverantor getsingleton(){
 		if (frame == null) 
 			frame = new AddLeverantor();
 		
+		frame.setVisible(true);
+		frame.pack();
 		
 		return frame;
 		
@@ -70,7 +60,7 @@ public class AddLeverantor extends JFrame {
 	 * Create the frame.
 	 */
 	public AddLeverantor() {
-		setTitle("Registrera ny Leverantör");
+		setTitle("Registrera ny Leverant\u00F6r");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -100,7 +90,7 @@ public class AddLeverantor extends JFrame {
 		contentPane.add(orgNrField, gbc_orgNrField);
 		orgNrField.setColumns(10);
 		
-		JLabel lblforetag = new JLabel("Företagsnamn:");
+		JLabel lblforetag = new JLabel("F\u00F6retagsnamn:");
 		GridBagConstraints gbc_lblForetag = new GridBagConstraints();
 		gbc_lblForetag.insets = new Insets(10, 10, 10, 10);
 		gbc_lblForetag.gridx = 0;
@@ -210,10 +200,12 @@ public class AddLeverantor extends JFrame {
 		gbc_btnRegistrera.gridy = 7;
 		contentPane.add(btnRegistrera, gbc_btnRegistrera);
 		
-		JButton btnAvbryt = new JButton("Avbryt");
+		JButton btnAvbryt = new JButton("Meny");
 		GridBagConstraints gbc_btnAvbryt = new GridBagConstraints();
 		btnAvbryt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Inloggning.getInloggning().setVisible(true);
+				frame = null;
 				dispose();
 			}
 		});

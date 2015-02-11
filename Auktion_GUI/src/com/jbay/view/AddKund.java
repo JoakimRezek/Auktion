@@ -53,24 +53,13 @@ public class AddKund extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AddKund frame = new AddKund();
-					frame.setVisible(true);
-					frame.pack();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	
 	public static AddKund getsingleton(){
 		if (frame == null) 
 			frame = new AddKund();
 		
+		frame.setVisible(true);
+		frame.pack();
 		
 		return frame;
 		
@@ -259,9 +248,11 @@ public class AddKund extends JFrame {
 		gbc_btnRegister.gridy = 8;
 		contentPane.add(btnRegister, gbc_btnRegister);
 		
-		btnAvbryt = new JButton("Avbryt");
+		btnAvbryt = new JButton("Meny");
 		btnAvbryt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Inloggning.getInloggning().setVisible(true);
+				frame = null;
 				dispose();
 			}
 		});
