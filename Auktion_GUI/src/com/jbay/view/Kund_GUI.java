@@ -61,7 +61,7 @@ public class Kund_GUI extends JFrame {
 		table = new JTable(data, columnNames);
 		scrollPane.setViewportView(table);
 
-		JButton minaBudgivningar = new JButton("Budgivningar jag delar i");
+		JButton minaBudgivningar = new JButton("Budgivningar jag deltar i");
 		minaBudgivningar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
 				try {
@@ -192,6 +192,24 @@ public class Kund_GUI extends JFrame {
 				if(auktionList.get(table.getSelectedRow()).getMaxBud() < auktionList.get(table.getSelectedRow()).getAcceptPris()){
 					try {
 						JDBC_Connection.getSingleton().kopAuktionNu(auktionList.get(table.getSelectedRow()).getAuktionsID(), Kund_GUI.this.personNummer, vidUppdatering);
+						auktionList = JDBC_Connection.getSingleton().getAllaPagaendeAuktionerSomKundIDBudatPa(Kund_GUI.this.personNummer);
+						data = new Object[auktionList.size()][10];
+						
+						for (int i = 0; i < auktionList.size(); i++) {
+							data[i][0] = auktionList.get(i).getAuktionsID();
+							data[i][1] = auktionList.get(i).getProduktNamn();
+							data[i][2] = auktionList.get(i).getKategori();
+							data[i][3] = auktionList.get(i).getStartDatum();
+							data[i][4] = auktionList.get(i).getSlutDatum();
+							data[i][5] = auktionList.get(i).getUtgangsPris();
+							data[i][6] = auktionList.get(i).getKund();
+							data[i][7] = auktionList.get(i).getMaxBud();
+							data[i][8] = auktionList.get(i).getAcceptPris();
+							data[i][9] = auktionList.get(i).getForetag();
+						}
+						
+						table.setModel(new DefaultTableModel(data, columnNames));									
+
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
@@ -199,6 +217,7 @@ public class Kund_GUI extends JFrame {
 				else if (auktionList.get(table.getSelectedRow()).getMaxBud() >= auktionList.get(table.getSelectedRow()).getAcceptPris()){
 					vidUppdatering.setText("Budgivningen har redan passerat acceptpriset.");
 				}
+					
 			}
 		});
 		panel_2.add(btnNewButton);
