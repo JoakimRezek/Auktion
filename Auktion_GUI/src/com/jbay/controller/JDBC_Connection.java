@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import com.jbay.model.Auktion;
 import com.jbay.model.Bud;
 import com.jbay.model.Kund;
+import com.jbay.model.Manad;
+
 
 
 public class JDBC_Connection {
@@ -258,13 +260,12 @@ public class JDBC_Connection {
 	public ArrayList<Kund> getAllaKunderSomHarVunnit() throws SQLException{
 		ArrayList<Kund> kundListaMedTotaltOrdervarde = new ArrayList<Kund>();
 
-		PreparedStatement stm = conn.prepareStatement("SELECT PersonNummer, F\u00F6rnamn, Efternamn, Adress, Postnummer, Ort, Telefonnummer, Email, sum(hogstaBud.pris) as Total FROM Kund "
-													+ "inner join hogstaBud on hogstaBud.kund = PersonNummer "
-													+ "inner join Auktion on Auktion.AuktionsId = hogstaBud.auktion "
-													+ "where Auktion.AvslutadAuktion = 1 "
-													+ "group by PersonNummer;");
-		
-		ResultSet rs = stm.executeQuery();
+		Statement stm = conn.createStatement();
+		ResultSet rs = stm.executeQuery("SELECT PersonNummer, F\u00F6rnamn, Efternamn, Adress, Postnummer, Ort, Telefonnummer, Email, sum(hogstaBud.pris) as Total FROM Kund "
+				+ "inner join hogstaBud on hogstaBud.kund = PersonNummer "
+				+ "inner join Auktion on Auktion.AuktionsId = hogstaBud.auktion "
+				+ "where Auktion.AvslutadAuktion = 1 "
+				+ "group by PersonNummer;");
 		
 		while(rs.next()){
 			kundListaMedTotaltOrdervarde.add(new Kund(rs.getString("personNummer"),
@@ -338,5 +339,22 @@ public void skapaAuktion(String startdatum, double utgangspris, double acceptpri
 		rs.close();
 		stm.close();
 		return retur;
+	}
+	
+	public ArrayList<Manad> getAllaManaderMedProvision() throws SQLException{
+		ArrayList<Manad> totalProvisionPerManad = new ArrayList<Manad>();
+
+		Statement stm = conn.createStatement();
+		ResultSet rs = stm.executeQuery("SELECT MONTHNAME(SlutDatum) as Månad, Maxbud * (Provision * 0.01) AS Provision FROM pågåendeAuktioner "
+				+ "where Avslutad = 1;");
+		
+		while(rs.next()){
+			totalProvisionPerManad.add(new Manad(rs.getString("manad"),
+					rs.getDouble("provision")));
+		}
+		
+		rs.close();
+		stm.close();
+		return totalProvisionPerManad;
 	}
 }
