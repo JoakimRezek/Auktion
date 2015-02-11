@@ -10,11 +10,12 @@ public class Kund {
 	private String ort;
 	private String telefon;
 	private String email;
+	private double total;
 	
 	
 	public Kund(String personNummer, String forNamn, String efterNamn,
 			String adress, String postNummer, String ort, String telefon,
-			String email) {
+			String email, double total) {
 		super();
 		this.personNummer = personNummer;
 		this.forNamn = forNamn;
@@ -24,6 +25,7 @@ public class Kund {
 		this.ort = ort;
 		this.telefon = telefon;
 		this.email = email;
+		this.total = total;
 	}
 	
 	
@@ -75,6 +77,12 @@ public class Kund {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public double getTotal() {
+		return total;
+	}
+	public void setTotal(double total) {
+		this.total = total;
 	}
 
 }

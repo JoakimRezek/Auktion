@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 
 import com.jbay.model.Auktion;
 import com.jbay.model.Bud;
+import com.jbay.model.Kund;
 
 
 public class JDBC_Connection {
@@ -249,14 +250,43 @@ public class JDBC_Connection {
 		return arrBudFranAuktion;
 	}
 	
-	public void köpAuktionNu(int auktionsID) throws SQLException{
+	public void kï¿½pAuktionNu(int auktionsID) throws SQLException{
 		
 		PreparedStatement stm = conn.prepareStatement("UPDATE auktion SET avslutad = 1 WHERE AuktionsID = ?");
 		stm.setInt(1, auktionsID);
 		
 		stm.executeUpdate();
-		System.out.println("Du har köpt auktion: " + auktionsID);
+		System.out.println("Du har kï¿½pt auktion: " + auktionsID);
 		
 		stm.close();
+	}
+	
+	
+	public ArrayList<Kund> getAllaKunderSomHarVunnit(String kundID) throws SQLException{
+		ArrayList<Kund> kundListaMedTotaltOrdervarde = new ArrayList<Kund>();
+
+		PreparedStatement stm = conn.prepareStatement("SELECT PersonNummer, F\u00F6rnamn, Efternamn, Adress, Postnummer, Ort, Telefonnummer, Email, sum(hogstaBud.pris) as Total FROM Kund "
+													+ "inner join hogstaBud on hogstaBud.kund = PersonNummer "
+													+ "inner join Auktion on Auktion.AuktionsId = hogstaBud.auktion "
+													+ "where Auktion.AvslutadAuktion = 1 "
+													+ "group by PersonNummer;");
+		stm.setString(1, kundID);
+		ResultSet rs = stm.executeQuery();
+		
+		while(rs.next()){
+			kundListaMedTotaltOrdervarde.add(new Kund(rs.getString("personNummer"),
+					rs.getString("F\u00F6rnamn"),
+					rs.getString("Efternamn"),
+					rs.getString("Adress"),
+					rs.getString("Postnummer"),
+					rs.getString("Ort"),
+					rs.getString("Telefonnummer"),
+					rs.getString("Email"),
+					rs.getInt("Total")));
+		}
+		
+		rs.close();
+		stm.close();
+		return kundListaMedTotaltOrdervarde;
 	}
 }
