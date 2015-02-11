@@ -10,9 +10,11 @@ public class Auktion_Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-//					Kund_GUI frame = new Kund_GUI();
-//					frame.setVisible(true);
 					Inloggning.getInloggning().setVisible(true);
+					
+					//Test Area
+//					JDBC_Connection dBConnection = JDBC_Connection.getSingleton();
+//					dBConnection.läggTillNyttBud("1", "900209-2937", 234);
 
 				} catch (Exception e) {
 					e.printStackTrace();
