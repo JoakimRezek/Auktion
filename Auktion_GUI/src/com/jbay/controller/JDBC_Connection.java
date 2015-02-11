@@ -345,7 +345,7 @@ public void skapaAuktion(String startdatum, double utgangspris, double acceptpri
 		ArrayList<Manad> totalProvisionPerManad = new ArrayList<Manad>();
 
 		Statement stm = conn.createStatement();
-		ResultSet rs = stm.executeQuery("SELECT MONTHNAME(SlutDatum) as M\u00E5nad, Maxbud * (Provision * 0.01) AS Provision FROM p\u00E5g\u00E5endeAuktioner "
+		ResultSet rs = stm.executeQuery("SELECT MONTHNAME(SlutDatum) as M\u00E5nad, sum(Maxbud * (Provision * 0.01)) AS Provision FROM p\u00E5g\u00E5endeAuktioner "
 				+ "WHERE Avslutad = 1 "
 				+ "GROUP BY MONTH(SlutDatum);");
 		
