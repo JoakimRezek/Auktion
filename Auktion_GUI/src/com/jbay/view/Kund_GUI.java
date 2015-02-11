@@ -187,6 +187,11 @@ public class Kund_GUI extends JFrame {
 		panel_2.add(btnLggBud);
 		
 		JButton btnNewButton = new JButton("K\u00F6p nu");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			
+			}
+		});
 		panel_2.add(btnNewButton);
 		panel_2.add(vidUppdatering);
 
