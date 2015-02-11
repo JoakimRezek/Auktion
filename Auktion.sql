@@ -61,20 +61,6 @@ CREATE TABLE  Bud(
   CONSTRAINT Bud_Kund_fk FOREIGN KEY(Kund) REFERENCES Kund(PersonNummer) ON DELETE CASCADE);
 
 
-delimiter ¤¤
-create trigger auktionsSlut after insert on bud
-	for each row begin
-		if new.Pris >= (select Acceptpris from auktion where AuktionsID = new.Auktion) then
-			insert into avslutadeAuktioner(
-			auktionsID, startdatum, utgångspris, acceptpris, slutdatum, produktnamn, produktkategori, leverantör
-			)
-			select * from auktion where new.auktion = auktionsID;
-            update avslutadeAuktioner set slutpris = new.Pris, Kund = new.Kund, AcceptDatum = CURTIME() where AuktionsID = new.Auktion;
-			delete from auktion where new.auktion = auktionsID;
-		end if;
-end ¤¤
-delimiter ;
-
 create view hogstaBud as select b1.pris, b1.kund, b1.auktion from bud as b1
 left join bud as b2 on b1.auktion = b2.auktion and b1.pris < b2.pris
 where b2.pris is null;
