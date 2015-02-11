@@ -41,7 +41,7 @@ public class Kund_GUI extends JFrame {
 
 	private Kund_GUI(String personNummer) {
 		this.personNummer = personNummer;
-		setTitle("Kund_VY");
+		setTitle("Kund Vy");
 		setVisible(true);
 		setBounds(100, 100, 800, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
