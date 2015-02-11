@@ -1,5 +1,6 @@
 package com.jbay.controller;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -357,5 +358,37 @@ public void skapaAuktion(String startdatum, double utgangspris, double acceptpri
 		rs.close();
 		stm.close();
 		return totalProvisionPerManad;
+	}
+	
+	public ArrayList<Auktion> getAllaAuktionerSomAvslutasUnderIntervall(Date start, Date slut) throws SQLException{
+		ArrayList<Auktion> arrAllaPagaendeAuktioner = new ArrayList<Auktion>();
+
+		PreparedStatement stm = conn.prepareStatement("select * from p\u00E5g\u00E5endeAuktioner "
+													+ "where (SlutDatum BETWEEN ? and ?) "
+													+ "group by AuktionsID;");
+		stm.setDate(1, start);
+		stm.setDate(2, slut);
+		ResultSet rs = stm.executeQuery();
+
+		while(rs.next()){
+			arrAllaPagaendeAuktioner.add(new Auktion(rs.getInt("auktionsID"),
+					rs.getString("produktNamn"),
+					rs.getDate("startDatum"),
+					rs.getDate("slutDatum"),
+					rs.getInt("utg\u00E5ngsPris"),
+					rs.getInt("maxBud"),
+					rs.getInt("acceptPris"),
+					rs.getString("f\u00F6retagsnamn"),
+					rs.getInt("provision"),
+					rs.getString("kontaktperson"),
+					rs.getString("email"),
+					rs.getString("telefonnummer"),
+					rs.getString("kund"), 
+					rs.getString("kategori")));
+		}
+
+		rs.close();
+		stm.close();
+		return arrAllaPagaendeAuktioner;
 	}
 }
