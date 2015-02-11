@@ -82,11 +82,3 @@ from bud
 inner join Kund on Bud.Kund = Kund.Personnummer
 inner join Auktion on Bud.Auktion = Auktion.AuktionsID
 order by pris desc;
-
-create view kundbud as select auktionsid, produktnamn, kategorinamn, startdatum, 
-slutdatum, utgångspris, CONCAT(förnamn, ' ', efternamn) as person, bud.kund, pris, acceptpris, leverantör
-from auktion
-left join kategori on auktion.produktkategori = kategori.kategoriid
-join bud on auktion = auktionsid
-join kund on bud.kund = personnummer
-;

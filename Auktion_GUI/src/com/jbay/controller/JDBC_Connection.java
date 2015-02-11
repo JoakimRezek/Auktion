@@ -116,7 +116,12 @@ public class JDBC_Connection {
 	public ArrayList<Auktion> getAllaPagaendeAuktionerSomKundIDBudatPa(String kundID) throws SQLException{
 		ArrayList<Auktion> arrAllaPagaendeAuktionerSomKundIDBudatPa = new ArrayList<Auktion>();
 
-		PreparedStatement stm = conn.prepareStatement("SELECT * FROM p\u00E5g\u00E5endeauktioner WHERE kund =?");
+		PreparedStatement stm = conn.prepareStatement("SELECT auktionsID, p\u00E5g\u00E5endeauktioner.produktnamn, startdatum,"
+				+ " slutdatum, utg\u00E5ngsPris,"
+				+ "maxBud, acceptPris, f\u00F6retagsnamn, provision, kontaktperson, email, telefonnummer, "
+				+ "p\u00E5g\u00E5endeauktioner.kund,"
+				+ "kategori FROM p\u00E5g\u00E5endeauktioner JOIN budhistorik ON p\u00E5g\u00E5endeauktioner.AuktionsID "
+				+ "= auktion AND budhistorik.kund = ?");
 		stm.setString(1, kundID);
 		ResultSet rs = stm.executeQuery();
 		
