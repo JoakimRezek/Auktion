@@ -295,7 +295,7 @@ public class JDBC_Connection {
 		
 		stm2.executeUpdate();
 		
-		label.setText("Du har k\u00F6pt auktion: " + auktionsID);
+		label.setText("Produkten k\u00F6pt f\u00F6r acceptpriset");
 
 		conn.commit();
 		stm.close();
