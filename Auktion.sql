@@ -68,7 +68,7 @@ where b2.pris is null;
 create view PågåendeAuktioner
 as select AuktionsID, Produktnamn, kategorinamn as kategori, StartDatum, Slutdatum, Utgångspris, hogstabud.Pris as Maxbud, Acceptpris, 
 	      Företagsnamn, Provision, Kontaktperson, Leverantör.Email as Email, Leverantör.Telefonnummer as Telefonnummer, 
-          hogstabud.Kund, Leverantör.Organisationsnummer
+          hogstabud.Kund, Leverantör.Organisationsnummer, AvslutadAuktion as Avslutad
 from Auktion
 inner join Leverantör on Auktion.leverantör = Leverantör.Organisationsnummer
 left join hogstabud on hogstabud.auktion = auktion.auktionsid

@@ -185,6 +185,9 @@ public class Kund_GUI extends JFrame {
 			}
 		});
 		panel_2.add(btnLggBud);
+		
+		JButton btnNewButton = new JButton("K\u00F6p nu");
+		panel_2.add(btnNewButton);
 		panel_2.add(vidUppdatering);
 
 
