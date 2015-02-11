@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 
 import com.jbay.model.Auktion;
+import com.jbay.model.Bud;
 
 
 public class JDBC_Connection {
@@ -225,19 +226,26 @@ public class JDBC_Connection {
 		label.setText("Ditt bud har blivit godtaget.");
 	}
 	
-//	public ArrayList<String> getBudFranAuktion() throws SQLException{
-//
-//		ArrayList<String> arrBudFranAuktion = new ArrayList<>();
-//
-//		Statement stm = conn.createStatement();
-//		ResultSet rs = stm.executeQuery("SELECT * FROM Budhistorik");
-//
-//		while(rs.next()){
-//			arrAllaLeverantorIDs.add(rs.getString("Organisationsnummer"));
-//		}
-//
-//		stm.close();
-//		rs.close();
-//		return arrAllaLeverantorIDs;			
-//	}	
+	public ArrayList<Bud> getBudFranAuktion(String AuktionID) throws SQLException{
+		ArrayList<Bud> arrBudFranAuktion = new ArrayList<Bud>();
+
+
+		PreparedStatement stm = conn.prepareStatement("SELECT * FROM budhistorik WHERE auktion = ?");
+		stm.setString(1, AuktionID);
+		ResultSet rs = stm.executeQuery();
+		
+		while(rs.next()){
+			arrBudFranAuktion.add(new Bud(
+					rs.getInt("auktion"),
+					rs.getString("produktNamn"),
+					rs.getString("f\u00F6rnamn"),
+					rs.getString("efternamn"),
+					rs.getDouble("pris"),
+					rs.getString("kund")));
+		}
+		
+		rs.close();
+		stm.close();
+		return arrBudFranAuktion;
+	}
 }
