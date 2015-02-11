@@ -270,7 +270,7 @@ public class JDBC_Connection {
 					rs.getString("Ort"),
 					rs.getString("Telefonnummer"),
 					rs.getString("Email"),
-					rs.getInt("Total")));
+					rs.getDouble("Total")));
 		}
 		
 		rs.close();
