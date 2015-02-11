@@ -24,6 +24,10 @@ import com.jbay.model.Manad;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class Rapporter_GUI extends JFrame {
@@ -82,10 +86,25 @@ public class Rapporter_GUI extends JFrame {
 		panel.add(textField_1);
 		textField_1.setColumns(10);
 
+		
 		JButton btnAuktionsprovisioner = new JButton("Auktionsprovisioner");
 		btnAuktionsprovisioner.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-	
+			public void actionPerformed(ActionEvent arg0) {	
+				
+				try {
+					DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+					
+					java.util.Date date;
+					java.util.Date date2;
+					date = (java.util.Date)df.parse(textField.getText());
+					date2 = (java.util.Date)df.parse(textField_1.getText());
+					java.sql.Date sqlDate1 = new java.sql.Date(date.getTime());
+					java.sql.Date sqlDate2 = new java.sql.Date(date2.getTime());
+					auktionList = JDBC_Connection.getSingleton().getAllaAuktionerSomAvslutasUnderIntervall(sqlDate1, sqlDate2);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
 				data = new Object[auktionList.size()][9];
 				String[] columnNames = {"Auktion", "Produkt", "Kategori", "Startdatum", "Slutdatum", "Kund", "Maxbud", "Företag", "Provision"};
 
@@ -98,7 +117,7 @@ public class Rapporter_GUI extends JFrame {
 					data[i][5] = auktionList.get(i).getKund();
 					data[i][6] = auktionList.get(i).getMaxBud();
 					data[i][7] = auktionList.get(i).getForetag();
-					data[i][8] = auktionList.get(i).getMaxBud() * (auktionList.get(i).getProvision() * 0.1);
+					data[i][8] = Math.floor(auktionList.get(i).getMaxBud() * (auktionList.get(i).getProvision() * 0.01));
 				}
 				table.setModel(new DefaultTableModel(data, columnNames));
 			}
