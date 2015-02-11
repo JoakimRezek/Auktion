@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.GridLayout;
 
@@ -20,6 +21,7 @@ import javax.swing.JButton;
 
 import com.jbay.controller.JDBC_Connection;
 import com.jbay.model.Auktion;
+import com.jbay.model.Bud;
 
 import java.awt.Font;
 
@@ -47,15 +49,18 @@ public class Leverantor_GUI extends JFrame {
 	private JTextField utgangsprisField;
 	private JTextField acceptprisField;
 	private JTextField produktField;
-	private JTable table;
-	private JTable table_1;
+	private JTable budTable;
+	private JTable auktionTable;
+	private Object[][] budTableData;
+	private DefaultTableModel model;
+	private ArrayList<Bud> budList;
 	
 	private Leverantor_GUI(String leverantor) throws SQLException {
 		this.leverantor = leverantor;
 		this.setMinimumSize(new Dimension(600,400));
 		db = JDBC_Connection.getSingleton();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 600);
+		setBounds(100, 100, 682, 600);
 		mainPane = new JPanel();
 		mainPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(mainPane);
@@ -123,8 +128,8 @@ public class Leverantor_GUI extends JFrame {
 		});
 		nyAuktionPane.add(btnSkapaAuktion);
 		
-		JPanel tablePane = new JPanel();
-		mainPane.add(tablePane, BorderLayout.CENTER);
+		JPanel auktionPane = new JPanel();
+		mainPane.add(auktionPane, BorderLayout.WEST);
 		System.out.println(leverantor);
 		ArrayList<Auktion> auktionList = db.getAllaPagaendeAuktionerSomLeverantorIDBudatPa(leverantor);
 		Object[][] tableData = new Object[auktionList.size()][9];
@@ -141,30 +146,30 @@ public class Leverantor_GUI extends JFrame {
 			tableData[i][8] = auktionList.get(i).getKategori();
 		}
 		
-		table = new JTable(tableData,columnNames){
+		auktionTable = new JTable(tableData,columnNames){
 	        private static final long serialVersionUID = 1L;
 
 	        public boolean isCellEditable(int row, int column) {                
 	                return false;               
 	        };
 	    };
-		table.getColumnModel().getColumn(0).setMinWidth(20);
-		table.getColumnModel().getColumn(1).setMinWidth(80);
-		table.getColumnModel().getColumn(2).setMinWidth(50);
-		table.getColumnModel().getColumn(3).setMinWidth(70);
-		table.getColumnModel().getColumn(4).setMinWidth(70);
-		table.getColumnModel().getColumn(5).setMinWidth(50);
-		table.getColumnModel().getColumn(6).setMinWidth(50);
-		table.getColumnModel().getColumn(7).setMinWidth(60);
-		table.getColumnModel().getColumn(8).setMinWidth(60);
-		tablePane.setLayout(new BorderLayout(0, 0));
-		JScrollPane scrollPane = new JScrollPane(table);
-		tablePane.add(scrollPane);
+	    auktionTable.getColumnModel().getColumn(0).setMinWidth(20);
+	    auktionTable.getColumnModel().getColumn(1).setMinWidth(80);
+	    auktionTable.getColumnModel().getColumn(2).setMinWidth(50);
+	    auktionTable.getColumnModel().getColumn(3).setMinWidth(70);
+	    auktionTable.getColumnModel().getColumn(4).setMinWidth(70);
+	    auktionTable.getColumnModel().getColumn(5).setMinWidth(50);
+	    auktionTable.getColumnModel().getColumn(6).setMinWidth(50);
+	    auktionTable.getColumnModel().getColumn(7).setMinWidth(60);
+	    auktionTable.getColumnModel().getColumn(8).setMinWidth(60);
+		auktionPane.setLayout(new BorderLayout(0, 0));
+		JScrollPane scrollPane = new JScrollPane(auktionTable);
+		auktionPane.add(scrollPane);
 		
 		JLabel auktionsLbl = new JLabel("Dina Auktioner");
 		auktionsLbl.setFont(new Font("Tahoma", Font.BOLD, 15));
 		auktionsLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		tablePane.add(auktionsLbl, BorderLayout.NORTH);
+		auktionPane.add(auktionsLbl, BorderLayout.NORTH);
 		
 		JButton btnTillbaka = new JButton("Tillbaka");
 		btnTillbaka.addActionListener(e ->{
@@ -174,15 +179,59 @@ public class Leverantor_GUI extends JFrame {
 		});
 		mainPane.add(btnTillbaka, BorderLayout.SOUTH);
 		
-		JPanel panel = new JPanel();
-		mainPane.add(panel, BorderLayout.EAST);
+		JPanel budTablePane = new JPanel();
+		mainPane.add(budTablePane, BorderLayout.EAST);
+		String[] budColumnNames = {"F\u00F6rnamn", "Efternamn", "Pris"};
 		
-		table_1 = new JTable();
-		JScrollPane scrollPane_1 = new JScrollPane(table_1);
-		panel.add(scrollPane_1);
+		budList = new ArrayList<Bud>();
+		budTableData = new Object[budList.size()][3];
 		
+		for(int i = 0; i < budList.size(); i++){
+			budTableData[i][0] = budList.get(i).getFornamn();
+			budTableData[i][1] = budList.get(i).getEfternamn();
+			budTableData[i][2] = budList.get(i).getPris();
+		}
 		
+		model = new DefaultTableModel(budTableData, budColumnNames);
+		budTable = new JTable(model){
+	        private static final long serialVersionUID = 1L;
+
+	        public boolean isCellEditable(int row, int column) {                
+	                return false;               
+	        };
+	    };
+		budTable.getColumnModel().getColumn(0).setMinWidth(10);
+		budTable.getColumnModel().getColumn(1).setMinWidth(10);
+		budTable.getColumnModel().getColumn(2).setMinWidth(10);
+		budTablePane.setLayout(new BorderLayout(0, 0));
+		JScrollPane budScrollPane = new JScrollPane(budTable);
+		budScrollPane.setPreferredSize(new Dimension(200,100));
+		budTablePane.add(budScrollPane);
 		
+		JLabel budLbl = new JLabel("Bud");
+		budLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		budLbl.setFont(new Font("Tahoma", Font.BOLD, 15));
+		budTablePane.add(budLbl, BorderLayout.NORTH);
+		
+		auktionTable.getSelectionModel().addListSelectionListener(e -> {
+			
+			try {
+				budList = db.getBudFranAuktion(tableData[auktionTable.getSelectedRow()][0].toString());
+				budTableData = new Object[budList.size()][3];
+				model.setRowCount(0);
+				for(int i = 0; i < budList.size(); i++){
+					model.addRow(new Object[] {
+							budList.get(i).getFornamn(), 
+							budList.get(i).getEfternamn(), 
+							budList.get(i).getPris()});
+				}
+//			    model.fireTableDataChanged();
+				
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			
+		});
 		
 		
 	}

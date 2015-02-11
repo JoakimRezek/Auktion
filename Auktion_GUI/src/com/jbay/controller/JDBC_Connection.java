@@ -248,4 +248,15 @@ public class JDBC_Connection {
 		stm.close();
 		return arrBudFranAuktion;
 	}
+	
+	public void köpAuktionNu(int auktionsID) throws SQLException{
+		
+		PreparedStatement stm = conn.prepareStatement("UPDATE auktion SET avslutad = 1 WHERE AuktionsID = ?");
+		stm.setInt(1, auktionsID);
+		
+		stm.executeUpdate();
+		System.out.println("Du har köpt auktion: " + auktionsID);
+		
+		stm.close();
+	}
 }
