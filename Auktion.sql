@@ -4,6 +4,8 @@ CREATE DATABASE AUKTION;
 
 USE AUKTION;
 
+SET GLOBAL event_scheduler="ON";
+
 CREATE TABLE Leverantör(
   Organisationsnummer VARCHAR(15) NOT NULL,
   Företagsnamn VARCHAR(45) NULL,
