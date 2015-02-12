@@ -62,7 +62,7 @@ public class Leverantor_GUI extends JFrame {
 		this.setResizable(false);
 		db = JDBC_Connection.getSingleton();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 670, 600);
+		setBounds(100, 100, 980, 700);
 		mainPane = new JPanel();
 		mainPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(mainPane);
@@ -151,17 +151,18 @@ public class Leverantor_GUI extends JFrame {
 			};
 		};
 
-		auktionTable.getColumnModel().getColumn(0).setMinWidth(20);
-		auktionTable.getColumnModel().getColumn(1).setMinWidth(80);
-		auktionTable.getColumnModel().getColumn(2).setMinWidth(50);
-		auktionTable.getColumnModel().getColumn(3).setMinWidth(70);
-		auktionTable.getColumnModel().getColumn(4).setMinWidth(70);
-		auktionTable.getColumnModel().getColumn(5).setMinWidth(50);
-		auktionTable.getColumnModel().getColumn(6).setMinWidth(50);
-		auktionTable.getColumnModel().getColumn(7).setMinWidth(60);
-		auktionTable.getColumnModel().getColumn(8).setMinWidth(60);
+		auktionTable.getColumnModel().getColumn(0).setMinWidth(30);
+		auktionTable.getColumnModel().getColumn(1).setMinWidth(120);
+		auktionTable.getColumnModel().getColumn(2).setMinWidth(70);
+		auktionTable.getColumnModel().getColumn(3).setMinWidth(95);
+		auktionTable.getColumnModel().getColumn(4).setMinWidth(95);
+		auktionTable.getColumnModel().getColumn(5).setMinWidth(70);
+		auktionTable.getColumnModel().getColumn(6).setMinWidth(70);
+		auktionTable.getColumnModel().getColumn(7).setMinWidth(80);
+		auktionTable.getColumnModel().getColumn(8).setMinWidth(80);
 		auktionPane.setLayout(new BorderLayout(0, 0));
 		JScrollPane scrollPane = new JScrollPane(auktionTable);
+		scrollPane.setPreferredSize(new Dimension(700,100));
 		auktionPane.add(scrollPane);
 
 		JLabel auktionsLbl = new JLabel("Dina Auktioner");
@@ -197,7 +198,7 @@ public class Leverantor_GUI extends JFrame {
 		budTable.getColumnModel().getColumn(2).setMinWidth(10);
 		budTablePane.setLayout(new BorderLayout(0, 0));
 		JScrollPane budScrollPane = new JScrollPane(budTable);
-		budScrollPane.setPreferredSize(new Dimension(200,100));
+		budScrollPane.setPreferredSize(new Dimension(250,100));
 		budTablePane.add(budScrollPane);
 
 		JLabel budLbl = new JLabel("Bud");
