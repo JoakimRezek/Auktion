@@ -56,7 +56,7 @@ public class Rapporter_GUI extends JFrame {
 	private Rapporter_GUI() {
 		setTitle("Rapporter");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 861, 470);
+		setBounds(100, 100, 1100, 470);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

@@ -43,7 +43,7 @@ public class Kund_GUI extends JFrame {
 		this.personNummer = personNummer;
 		setTitle("Kund Vy");
 		setVisible(true);
-		setBounds(100, 100, 800, 600);
+		setBounds(100, 100, 1100, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 
