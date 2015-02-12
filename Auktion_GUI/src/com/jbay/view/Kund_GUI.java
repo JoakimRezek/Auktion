@@ -64,60 +64,15 @@ public class Kund_GUI extends JFrame {
 		JButton minaBudgivningar = new JButton("Budgivningar jag deltar i");
 		minaBudgivningar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
-				try {
-					auktionList = JDBC_Connection.getSingleton().getAllaPagaendeAuktionerSomKundIDBudatPa(Kund_GUI.this.personNummer);
-					data = new Object[auktionList.size()][10];
-
-					for (int i = 0; i < auktionList.size(); i++) {
-						data[i][0] = auktionList.get(i).getAuktionsID();
-						data[i][1] = auktionList.get(i).getProduktNamn();
-						data[i][2] = auktionList.get(i).getKategori();
-						data[i][3] = auktionList.get(i).getStartDatum();
-						data[i][4] = auktionList.get(i).getSlutDatum();
-						data[i][5] = auktionList.get(i).getUtgangsPris();
-						data[i][6] = auktionList.get(i).getKund();
-						data[i][7] = auktionList.get(i).getMaxBud();
-						data[i][8] = auktionList.get(i).getAcceptPris();
-						data[i][9] = auktionList.get(i).getForetag();
-					}
-					vidUppdatering.setText("");
-					table.setModel(new DefaultTableModel(data, columnNames));								
-
-
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-
+				getAllaAuktionerSomKundHarBudatPa();
 			}
 		});
 		panel_1.add(minaBudgivningar);
 
 		JButton allaAuktioner = new JButton("Alla auktioner");
 		allaAuktioner.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					auktionList = JDBC_Connection.getSingleton().getAllaPagaendeAuktioner();
-					data = new Object[auktionList.size()][10];
-
-					for (int i = 0; i < auktionList.size(); i++) {
-						data[i][0] = auktionList.get(i).getAuktionsID();
-						data[i][1] = auktionList.get(i).getProduktNamn();
-						data[i][2] = auktionList.get(i).getKategori();
-						data[i][3] = auktionList.get(i).getStartDatum();
-						data[i][4] = auktionList.get(i).getSlutDatum();
-						data[i][5] = auktionList.get(i).getUtgangsPris();
-						data[i][6] = auktionList.get(i).getKund();
-						data[i][7] = auktionList.get(i).getMaxBud();
-						data[i][8] = auktionList.get(i).getAcceptPris();
-						data[i][9] = auktionList.get(i).getForetag();
-					}
-					vidUppdatering.setText("");
-					table.setModel(new DefaultTableModel(data, columnNames));									
-
-
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+			public void actionPerformed(ActionEvent e) {	
+				getAllaAuktioner();
 			}
 		});
 		panel_1.add(allaAuktioner);
@@ -153,24 +108,7 @@ public class Kund_GUI extends JFrame {
 					if(Double.parseDouble(textField.getText()) > auktionList.get(table.getSelectedRow()).getMaxBud() && table.getSelectedRow() >= 0){			
 						try {
 							JDBC_Connection.getSingleton().laggTillNyttBud(auktionList.get(table.getSelectedRow()).getAuktionsID(),Kund_GUI.this.personNummer ,Double.parseDouble(textField.getText()), vidUppdatering);
-							auktionList = JDBC_Connection.getSingleton().getAllaPagaendeAuktionerSomKundIDBudatPa(Kund_GUI.this.personNummer);
-							data = new Object[auktionList.size()][10];
-
-							for (int i = 0; i < auktionList.size(); i++) {
-								data[i][0] = auktionList.get(i).getAuktionsID();
-								data[i][1] = auktionList.get(i).getProduktNamn();
-								data[i][2] = auktionList.get(i).getKategori();
-								data[i][3] = auktionList.get(i).getStartDatum();
-								data[i][4] = auktionList.get(i).getSlutDatum();
-								data[i][5] = auktionList.get(i).getUtgangsPris();
-								data[i][6] = auktionList.get(i).getKund();
-								data[i][7] = auktionList.get(i).getMaxBud();
-								data[i][8] = auktionList.get(i).getAcceptPris();
-								data[i][9] = auktionList.get(i).getForetag();
-							}
-
-							table.setModel(new DefaultTableModel(data, columnNames));	
-							textField.setText("");
+							getAllaAuktionerSomKundHarBudatPa();
 
 						} catch (NumberFormatException e1) {
 							vidUppdatering.setText("Felaktig inmatning");
@@ -192,27 +130,10 @@ public class Kund_GUI extends JFrame {
 				if(auktionList.get(table.getSelectedRow()).getMaxBud() < auktionList.get(table.getSelectedRow()).getAcceptPris()){
 					try {
 						JDBC_Connection.getSingleton().kopAuktionNu(auktionList.get(table.getSelectedRow()).getAuktionsID(), Kund_GUI.this.personNummer, vidUppdatering);
-						auktionList = JDBC_Connection.getSingleton().getAllaPagaendeAuktionerSomKundIDBudatPa(Kund_GUI.this.personNummer);
-						data = new Object[auktionList.size()][10];
-						
-						for (int i = 0; i < auktionList.size(); i++) {
-							data[i][0] = auktionList.get(i).getAuktionsID();
-							data[i][1] = auktionList.get(i).getProduktNamn();
-							data[i][2] = auktionList.get(i).getKategori();
-							data[i][3] = auktionList.get(i).getStartDatum();
-							data[i][4] = auktionList.get(i).getSlutDatum();
-							data[i][5] = auktionList.get(i).getUtgangsPris();
-							data[i][6] = auktionList.get(i).getKund();
-							data[i][7] = auktionList.get(i).getMaxBud();
-							data[i][8] = auktionList.get(i).getAcceptPris();
-							data[i][9] = auktionList.get(i).getForetag();
-						}
-						
-						table.setModel(new DefaultTableModel(data, columnNames));									
-
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
+					getAllaAuktionerSomKundHarBudatPa();
 				}
 				else if (auktionList.get(table.getSelectedRow()).getMaxBud() >= auktionList.get(table.getSelectedRow()).getAcceptPris()){
 					vidUppdatering.setText("Budgivningen har redan passerat acceptpriset.");
@@ -222,13 +143,57 @@ public class Kund_GUI extends JFrame {
 		});
 		panel_2.add(btnNewButton);
 		panel_2.add(vidUppdatering);
+	}
+	
+	public void getAllaAuktioner(){
+		try {
+			auktionList = JDBC_Connection.getSingleton().getAllaPagaendeAuktioner();
+			data = new Object[auktionList.size()][10];
+
+			for (int i = 0; i < auktionList.size(); i++) {
+				data[i][0] = auktionList.get(i).getAuktionsID();
+				data[i][1] = auktionList.get(i).getProduktNamn();
+				data[i][2] = auktionList.get(i).getKategori();
+				data[i][3] = auktionList.get(i).getStartDatum();
+				data[i][4] = auktionList.get(i).getSlutDatum();
+				data[i][5] = auktionList.get(i).getUtgangsPris();
+				data[i][6] = auktionList.get(i).getKund();
+				data[i][7] = auktionList.get(i).getMaxBud();
+				data[i][8] = auktionList.get(i).getAcceptPris();
+				data[i][9] = auktionList.get(i).getForetag();
+			}
+			vidUppdatering.setText("");
+			table.setModel(new DefaultTableModel(data, columnNames));									
 
 
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	public void getAllaAuktionerSomKundHarBudatPa(){
+		try {
+			auktionList = JDBC_Connection.getSingleton().getAllaPagaendeAuktionerSomKundIDBudatPa(Kund_GUI.this.personNummer);
+			data = new Object[auktionList.size()][10];
+			
+			for (int i = 0; i < auktionList.size(); i++) {
+				data[i][0] = auktionList.get(i).getAuktionsID();
+				data[i][1] = auktionList.get(i).getProduktNamn();
+				data[i][2] = auktionList.get(i).getKategori();
+				data[i][3] = auktionList.get(i).getStartDatum();
+				data[i][4] = auktionList.get(i).getSlutDatum();
+				data[i][5] = auktionList.get(i).getUtgangsPris();
+				data[i][6] = auktionList.get(i).getKund();
+				data[i][7] = auktionList.get(i).getMaxBud();
+				data[i][8] = auktionList.get(i).getAcceptPris();
+				data[i][9] = auktionList.get(i).getForetag();
+			}
+			
+			table.setModel(new DefaultTableModel(data, columnNames));									
 
-
-
-
-
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -76,6 +76,7 @@ public class Rapporter_GUI extends JFrame {
 		panel.add(lblStartdatum);
 
 		textField = new JTextField();
+		textField.setToolTipText("YYYY-MM-DD");
 		panel.add(textField);
 		textField.setColumns(10);
 
@@ -83,6 +84,7 @@ public class Rapporter_GUI extends JFrame {
 		panel.add(lblSlutdatum);
 
 		textField_1 = new JTextField();
+		textField_1.setToolTipText("YYYY-MM-DD");
 		panel.add(textField_1);
 		textField_1.setColumns(10);
 
@@ -146,8 +148,8 @@ public class Rapporter_GUI extends JFrame {
 						data[i][7] = kundList.get(i).getEmail();					
 						data[i][8] = kundList.get(i).getTotal();
 					}
-					
 					table.setModel(new DefaultTableModel(data, columnNames));
+					table.getColumnModel().getColumn(7).setMinWidth(200);
 					
 				} catch (SQLException e1) {
 					e1.printStackTrace();
