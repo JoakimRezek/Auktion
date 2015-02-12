@@ -10,9 +10,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import com.jbay.controller.JDBC_Connection;
+
+import de.javasoft.plaf.synthetica.SyntheticaBlackEyeLookAndFeel;
 
 
 @SuppressWarnings("serial")
@@ -42,6 +45,8 @@ public class Inloggning extends JFrame {
 	private Inloggning() throws SQLException {
 		
 		dBConnection = JDBC_Connection.getSingleton(); 
+		
+		initLookAndFeel();
 		
 		setTitle("Logga In");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -151,4 +156,15 @@ public class Inloggning extends JFrame {
 		
 		pack();		
 	}
+	
+    private static void initLookAndFeel() {
+
+        try {
+        	
+        	 UIManager.setLookAndFeel(new SyntheticaBlackEyeLookAndFeel());
+
+            } catch (Exception e){
+            	e.printStackTrace();
+            } 
+    }
 }
