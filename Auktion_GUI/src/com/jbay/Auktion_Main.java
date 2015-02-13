@@ -1,7 +1,11 @@
 package com.jbay;
 import java.awt.EventQueue;
 
+import javax.swing.UIManager;
+
 import com.jbay.view.Inloggning;
+
+import de.javasoft.plaf.synthetica.SyntheticaBlackEyeLookAndFeel;
 
 
 public class Auktion_Main {
@@ -10,6 +14,7 @@ public class Auktion_Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					UIManager.setLookAndFeel(new SyntheticaBlackEyeLookAndFeel());
 					Inloggning.getInloggning().setVisible(true);
 					
 					//Test Area
