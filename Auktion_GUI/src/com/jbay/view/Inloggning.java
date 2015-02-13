@@ -77,7 +77,9 @@ public class Inloggning extends JFrame {
 		btnRapporter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Rapporter_GUI.getsingleton().setVisible(true);
-				setVisible(false);
+				
+				dispose();
+				inloggning = null;
 			}
 		});
 		GridBagConstraints gbc_btnRapporter = new GridBagConstraints();
@@ -105,9 +107,10 @@ public class Inloggning extends JFrame {
 		contentPane.add(btnLoggaInSomKund, gbc_btnLoggaInSomKund);
 		btnLoggaInSomKund.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Kund_GUI.getsingleton(comboBoxLoginID.getSelectedItem().toString()).setVisible(true);
-				dispose();				
+				Kund_GUI.getsingleton(comboBoxLoginID.getSelectedItem().toString()).setVisible(true);							
 				System.out.println("Loggar in som kund: " + comboBoxLoginID.getSelectedItem().toString());
+				
+				dispose();
 				inloggning = null;
 			}
 		});
@@ -124,10 +127,11 @@ public class Inloggning extends JFrame {
 					Leverantor_GUI.getSingleton(comboBoxLeverant\u00F6rID.getSelectedItem().toString()).setVisible(true);
 				} catch (SQLException e) {
 					e.printStackTrace();
-				}
+				}				
+				System.out.println("Loggar in som Leverant\u00F6r: " + comboBoxLeverant\u00F6rID.getSelectedItem().toString());
+				
 				dispose();
 				inloggning = null;
-				System.out.println("Loggar in som Leverant\u00F6r: " + comboBoxLeverant\u00F6rID.getSelectedItem().toString());
 			}
 		});
 		
@@ -139,6 +143,7 @@ public class Inloggning extends JFrame {
 		btnNyKund.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				AddKund.getsingleton().setVisible(true);
+				
 				dispose();
 				inloggning = null;
 			}
@@ -152,6 +157,7 @@ public class Inloggning extends JFrame {
 		btnNyLeverant\u00F6r.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddLeverantor.getsingleton().setVisible(true);
+				
 				dispose();
 				inloggning = null;
 			}
