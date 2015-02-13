@@ -239,6 +239,11 @@ public class AddKund extends JFrame {
 					e1.printStackTrace();
 				}
 				
+				Kund_GUI.getsingleton(personNummer).setVisible(true);
+				frame = null;
+				dispose();
+				
+				
 			}
 		});
 		GridBagConstraints gbc_btnRegister = new GridBagConstraints();

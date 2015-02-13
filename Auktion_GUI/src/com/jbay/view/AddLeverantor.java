@@ -192,6 +192,10 @@ public class AddLeverantor extends JFrame {
 					e1.printStackTrace();
 				}
 				
+				Kund_GUI.getsingleton(orgNummer).setVisible(true);
+				frame = null;
+				dispose();
+				
 			}
 		});
 		GridBagConstraints gbc_btnRegistrera = new GridBagConstraints();
