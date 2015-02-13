@@ -99,7 +99,7 @@ public class AddKund extends JFrame {
 		contentPane.add(personNummerField, gbc_personNummerField);
 		personNummerField.setColumns(10);
 		
-		JLabel lblEfternamn = new JLabel("Fornamn:");
+		JLabel lblEfternamn = new JLabel("F\u00F6rnamn:");
 		GridBagConstraints gbc_lblEfternamn = new GridBagConstraints();
 		gbc_lblEfternamn.insets = new Insets(10, 10, 10, 10);
 		gbc_lblEfternamn.gridx = 0;
