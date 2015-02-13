@@ -108,7 +108,7 @@ public class Rapporter_GUI extends JFrame {
 				}
 				
 				data = new Object[auktionList.size()][9];
-				String[] columnNames = {"Auktion", "Produkt", "Kategori", "Startdatum", "Slutdatum", "Kund", "Maxbud", "Företag", "Provision"};
+				String[] columnNames = {"Auktion", "Produkt", "Kategori", "Startdatum", "Slutdatum", "Kund", "Maxbud", "F\u00F6retag", "Provision"};
 
 				for (int i = 0; i < auktionList.size(); i++) {
 					data[i][0] = auktionList.get(i).getAuktionsID();
@@ -133,7 +133,7 @@ public class Rapporter_GUI extends JFrame {
 		btnKund.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					String[] columnNames = {"Personnummer", "Förnamn", "Efternamn", "Adress", "Postnummer", "Ort", "Telefon", "Email", "Total"};
+					String[] columnNames = {"Personnummer", "F\u00F6rnamn", "Efternamn", "Adress", "Postnummer", "Ort", "Telefon", "Email", "Total"};
 					kundList = JDBC_Connection.getSingleton().getAllaKunderSomHarVunnit();				
 					data = new Object[kundList.size()][9];
 					
