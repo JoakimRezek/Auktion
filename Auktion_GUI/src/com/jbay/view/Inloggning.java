@@ -106,8 +106,9 @@ public class Inloggning extends JFrame {
 		btnLoggaInSomKund.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Kund_GUI.getsingleton(comboBoxLoginID.getSelectedItem().toString()).setVisible(true);
-				setVisible(false);
+				dispose();				
 				System.out.println("Loggar in som kund: " + comboBoxLoginID.getSelectedItem().toString());
+				inloggning = null;
 			}
 		});
 		
@@ -125,6 +126,7 @@ public class Inloggning extends JFrame {
 					e.printStackTrace();
 				}
 				dispose();
+				inloggning = null;
 				System.out.println("Loggar in som Leverant\u00F6r: " + comboBoxLeverant\u00F6rID.getSelectedItem().toString());
 			}
 		});
@@ -138,6 +140,7 @@ public class Inloggning extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				AddKund.getsingleton().setVisible(true);
 				dispose();
+				inloggning = null;
 			}
 		});
 		contentPane.add(btnNyKund, gbc_btnNyKund);
@@ -150,6 +153,7 @@ public class Inloggning extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				AddLeverantor.getsingleton().setVisible(true);
 				dispose();
+				inloggning = null;
 			}
 		});
 		contentPane.add(btnNyLeverant\u00F6r, gbc_btnNyLeverantr);
