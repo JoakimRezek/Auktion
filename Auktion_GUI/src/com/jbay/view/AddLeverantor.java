@@ -192,7 +192,12 @@ public class AddLeverantor extends JFrame {
 					e1.printStackTrace();
 				}
 				
-				Kund_GUI.getsingleton(orgNummer).setVisible(true);
+				try {
+					Leverantor_GUI.getSingleton(orgNummer).setVisible(true);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				
 				frame = null;
 				dispose();
 				
